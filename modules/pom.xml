@@ -10,6 +10,7 @@
     <modules>
         <module>ez-travel-web</module>
         <module>core-server</module>
+        <module>core-logic</module>
     </modules>
     <packaging>pom</packaging>
 
