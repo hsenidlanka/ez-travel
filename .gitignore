@@ -1,6 +1,5 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-/modules/parent/.idea
-
+modules/.idea
 .idea
 *.iml
