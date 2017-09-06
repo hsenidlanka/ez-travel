@@ -4,6 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * Created by hsenid on 9/6/17.
  */
@@ -16,9 +19,15 @@ public class CustomerImpl implements CustomerRepository{
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public String isCustomerAuthenticated(String username, String password) {
-        int result = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM customer", Integer.class);
+    public boolean isCustomerAuthenticated(String email, String password) {
 
-        return String.valueOf(result);
+        String sql = "SELECT COUNT(*)FROM customer WHERE email = ? AND password = ?";
+
+        int count = jdbcTemplate.queryForObject(sql, new Object[] { email, password }, Integer.class);
+        if (count > 0){
+            return true;
+        }
+
+        return false;
     }
 }

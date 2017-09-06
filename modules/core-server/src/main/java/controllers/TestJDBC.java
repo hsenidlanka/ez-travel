@@ -20,12 +20,12 @@ public class TestJDBC {
     CustomerImpl customer;
 
     @GetMapping("/test")
-    public String test(){
+    public boolean test(){
 
 //        CustomerImpl test = new CustomerImpl();
         System.out.println("/ is called");
-        String tttt = customer.isCustomerAuthenticated("tets", "edd");
-        return tttt;
+//        String tttt = customer.isCustomerAuthenticated("tets", "edd");
+        return customer.isCustomerAuthenticated("test@email.com", "test123");
     }
 
    /* private static final String template = "Hello, %s!";
