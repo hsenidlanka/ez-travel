@@ -17,7 +17,7 @@ public class CustomerController {
     @Autowired
     CustomerImpl customer;
 
-    @PostMapping("/eztravel/customer")
+    @PostMapping("/customer")
     @ResponseBody
     public IsAuthenticatedUser isUserCustomerOrNot(HttpServletRequest request){
         IsAuthenticatedUser isAuthenticatedUser = new IsAuthenticatedUser();
