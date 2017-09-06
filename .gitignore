@@ -3,3 +3,7 @@
 modules/.idea
 .idea
 *.iml
+
+modules/core-logic/target
+modules/ez-travel-web/target
+modules/core-server/target
