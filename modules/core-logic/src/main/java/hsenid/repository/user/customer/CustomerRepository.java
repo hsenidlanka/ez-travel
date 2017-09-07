@@ -5,4 +5,6 @@ package hsenid.repository.user.customer;
  */
 public interface CustomerRepository {
     boolean isCustomerAuthenticated(String email, String password);
+
+    boolean registerCustomer(String email, String password, String first_name, String last_name);
 }
