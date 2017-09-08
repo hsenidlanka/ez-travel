@@ -1,5 +1,3 @@
-package controllers.user.customer.Driver;
-
 import hsenid.domain.user.customer.IsAuthenticatedUser;
 import hsenid.repository.user.driver.DriverImpl;
 import org.springframework.beans.factory.annotation.Autowired;
