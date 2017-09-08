@@ -10,4 +10,6 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_registration);
     }
+
+
 }
