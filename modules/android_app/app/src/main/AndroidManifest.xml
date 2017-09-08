@@ -23,10 +23,17 @@
         </activity>
         <activity
             android:name=".PassengerActivity"
-            android:label="@string/title_activity_passenger"></activity>
+            android:label="@string/title_activity_passenger" />
         <activity
             android:name=".DriverActivity"
-            android:label="@string/title_activity_driver"></activity>
+            android:label="@string/title_activity_driver" />
+        <activity android:name=".RegistrationPassengerActivity" />
+        <activity
+            android:name=".RegistrationDriverActivity"
+            android:label="@string/title_activity_registration_driver"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DriverRegistrationActivity" />
+        <activity android:name=".PassengerPlacehireActivity"></activity>
     </application>
 
 </manifest>
