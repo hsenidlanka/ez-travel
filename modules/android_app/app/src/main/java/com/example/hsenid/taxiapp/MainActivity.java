@@ -1,8 +1,8 @@
 package com.example.hsenid.taxiapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,13 +14,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void gotoDriverPage(View view){
-        Intent driverPage= new Intent(MainActivity.this,DriverActivity.class);
+    public void gotoDriverPage(View view) {
+        Intent driverPage = new Intent(MainActivity.this, DriverActivity.class);
         startActivity(driverPage);
     }
 
-    public void gotoPassengerPage(View view){
-        Intent passengerPage= new Intent(MainActivity.this,PassengerActivity.class);
+    public void gotoPassengerPage(View view) {
+        Intent passengerPage = new Intent(MainActivity.this, PassengerActivity.class);
         startActivity(passengerPage);
     }
 }
