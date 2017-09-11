@@ -37,17 +37,17 @@ public class CustomerController {
     public RequestStatus customerRegistration(HttpServletRequest request) {
 
         String email = request.getParameter("email");
-        ;
+
         String password = request.getParameter("password");
-        ;
+
         String first_name = request.getParameter("first_name");
-        ;
+
         String last_name = request.getParameter("last_name");
-        ;
+
         String contact_number = request.getParameter("contact_number");
-        ;
+
         String nic = request.getParameter("nic");
-        ;
+        
         String gender = request.getParameter("gender");
         String birthdayString = request.getParameter("birthday"); //Should be like "2015-03-31"
 
