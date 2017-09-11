@@ -1,16 +1,16 @@
 package hsenid.domain.user.customer;
 
 /**
- * Created by hsenid on 9/6/17.
+ * Created by hsenid on 9/8/17.
  */
-public class IsAuthenticatedUser {
+public class RequestStatus {
     private boolean requestStatus;
 
-    public boolean isUser() {
+    public boolean isRequestStatus() {
         return requestStatus;
     }
 
-    public void setUser(boolean requestStatus) {
+    public void setRequestStatus(boolean requestStatus) {
         this.requestStatus = requestStatus;
     }
 }

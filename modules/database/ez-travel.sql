@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `customer`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer` (
-  `customer_id` int(11) NOT NULL,
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE `customer` (
   `gender` varchar(20) DEFAULT NULL,
   `user_status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,13 +47,11 @@ DROP TABLE IF EXISTS `customer_current_location`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `customer_current_location` (
-  `customer_id` int(11) NOT NULL,
+  `customer_id` int(10) unsigned NOT NULL DEFAULT '0',
   `longitude` float(10,6) DEFAULT NULL,
   `latitude` float(10,6) DEFAULT NULL,
-  `update_time` date DEFAULT NULL,
-  `customer_current_locationcol` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`customer_id`),
-  CONSTRAINT `customer_id` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -72,10 +70,11 @@ CREATE TABLE `driver` (
   `last_name` varchar(50) DEFAULT NULL,
   `license_number` varchar(20) DEFAULT NULL,
   `contact_number` varchar(20) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
+  `birthday` date DEFAULT NULL,
   `gender` varchar(20) DEFAULT NULL,
   `driver_status` tinyint(1) DEFAULT NULL,
   `confirmed_by` int(11) DEFAULT NULL,
+  `nic` varchar(10) NOT NULL,
   PRIMARY KEY (`driver_id`),
   KEY `confirmed_by_idx` (`confirmed_by`),
   CONSTRAINT `confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `employee` (`employee_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -153,7 +152,6 @@ CREATE TABLE `feedback` (
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
   KEY `hire_id_idx` (`hire_id`),
-  CONSTRAINT `customer_idy` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `driver_idy` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `hire_idy` FOREIGN KEY (`hire_id`) REFERENCES `hire` (`hire_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -179,7 +177,6 @@ CREATE TABLE `hire` (
   PRIMARY KEY (`hire_id`),
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
-  CONSTRAINT `customer_idx` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `driver_idx` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -193,4 +190,4 @@ CREATE TABLE `hire` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-06  8:57:59
+-- Dump completed on 2017-09-11  8:25:09
