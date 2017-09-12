@@ -1,4 +1,4 @@
-package controllers.user.customer;
+package hsenid.controllers.user.customer;
 
 import hsenid.domain.user.customer.IsAuthenticatedUser;
 import hsenid.repository.user.customer.CustomerImpl;

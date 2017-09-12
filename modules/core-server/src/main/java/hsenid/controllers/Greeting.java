@@ -1,4 +1,4 @@
-package controllers;
+package hsenid.controllers;
 
 /**
  * Created by hsenid on 9/6/17.

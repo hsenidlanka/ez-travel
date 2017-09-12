@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
  */
 
 @SpringBootApplication
-@ComponentScan({"controllers", "hsenid.repository", "hsenid.domain", "hsenid.config"})
+@ComponentScan({"hsenid.controllers", "hsenid.repository", "hsenid.domain", "hsenid.config"})
 public class CoreServerRunner {
     public static void main(String[] args) {
         SpringApplication.run(CoreServerRunner.class, args);
