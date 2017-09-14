@@ -11,6 +11,7 @@
         <dex dex="/home/hsenid/AndroidStudioProjects/TaxiApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_817fb2edc7d217482e59c7113c7949784517e134/classes.dex"/>
     </item>
     <item
+<<<<<<< Updated upstream
             is-multidex="true"
             jar="/home/hsenid/.android/build-cache/e8e13958d227705bcb8266598b551a29b7cc77ea/output/jars/classes.jar"
             jumboMode="true"
@@ -18,6 +19,24 @@
             revision="26.0.0"
             sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
         <dex dex="/home/hsenid/AndroidStudioProjects/TaxiApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6e1fef11e37c1e8490320880cd1ab8af1e93ade2/classes.dex"/>
+=======
+        is-multidex="true"
+        jar="/home/hsenid/Documents/ACADAMIC/ez-travel-master/modules/android_app/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="/home/hsenid/Documents/ACADAMIC/ez-travel-master/modules/android_app/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_14b8899562843000bd1aedd4dd38e5f4a0c31be7/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/hsenid/.android/build-cache/e8e13958d227705bcb8266598b551a29b7cc77ea/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="38789e20ace9ab7dbd00554bd2673ab424478d3b">
+        <dex dex="/home/hsenid/AndroidStudioProjects/TaxiApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6e1fef11e37c1e8490320880cd1ab8af1e93ade2/classes.dex" />
+>>>>>>> Stashed changes
     </item>
     <item
             is-multidex="true"
@@ -29,6 +48,7 @@
         <dex dex="/home/hsenid/AndroidStudioProjects/TaxiApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1da5d2a3c24cd8b17b59590ee289de7db9f4d9a3/classes.dex"/>
     </item>
     <item
+<<<<<<< Updated upstream
             is-multidex="true"
             jar="/home/hsenid/.android/build-cache/f09b6f9985491ea93202609d8b87a7d23f747486/output/jars/classes.jar"
             jumboMode="true"
@@ -36,6 +56,24 @@
             revision="26.0.0"
             sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
         <dex dex="/home/hsenid/AndroidStudioProjects/TaxiApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_279d2fd0b2431780f5d815a98b623066d20622a7/classes.dex"/>
+=======
+        is-multidex="true"
+        jar="/home/hsenid/Documents/ACADAMIC/ez-travel-master/modules/android_app/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1fd676668b5b2fe784bef659263eb64e3989dc8d">
+        <dex dex="/home/hsenid/Documents/ACADAMIC/ez-travel-master/modules/android_app/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_926706b098db67c1b31038975e028b03d4029c52/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/hsenid/.android/build-cache/f09b6f9985491ea93202609d8b87a7d23f747486/output/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="052f5f840f21174a3ecf6544130194e2652cbb73">
+        <dex dex="/home/hsenid/AndroidStudioProjects/TaxiApp/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_279d2fd0b2431780f5d815a98b623066d20622a7/classes.dex" />
+>>>>>>> Stashed changes
     </item>
     <item
             is-multidex="true"

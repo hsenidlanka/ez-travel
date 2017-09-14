@@ -1,7 +1,7 @@
 package com.example.hsenid.taxiapp;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
 public class RegistrationPassengerActivity extends AppCompatActivity {
 
@@ -10,6 +10,4 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_passenger_registration);
     }
-
-
 }
