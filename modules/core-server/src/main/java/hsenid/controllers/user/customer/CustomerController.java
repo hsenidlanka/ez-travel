@@ -3,6 +3,7 @@ package hsenid.controllers.user.customer;
 import hsenid.enums.HttpStatusCodes;
 import hsenid.model.ReplyFromServer;
 import hsenid.model.customer.LoginModel;
+import hsenid.model.reply.LoginReplyModel;
 import hsenid.repository.user.customer.implementation.CustomerImpl;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 
 /**
- * Created by hsenid on 9/6/17.
+ * Created by Menuka on 9/6/17.
  */
 @RestController
 @RequestMapping("/customer")
@@ -24,34 +25,26 @@ public class CustomerController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ReplyFromServer isUserCustomerOrNot(@RequestBody LoginModel loginModel) {
+    public ResponseEntity<LoginReplyModel> isUserCustomerOrNot(@RequestBody LoginModel loginModel) {
 
-//        String email = request.getParameter("email");
-//        String password = request.getParameter("password");
         System.out.println("email =>" + loginModel.getEmail());
-        ReplyFromServer replyFromServer = new ReplyFromServer();
+        LoginReplyModel loginReplyModel = new LoginReplyModel();
 
         boolean loginStatus = customer.isCustomerAuthenticated(loginModel.getEmail(), loginModel.getPassword());
 
         if (loginStatus) {
-            replyFromServer.setMessage("Valid credentials");
-            replyFromServer.setHttpStatusCode(HttpStatusCodes.OK.getValue());
-            replyFromServer.setRequestStatus("Successful");
-            JSONObject data = new JSONObject();
-            data.put("requestStatus", true);
-            replyFromServer.addData(data);
-            return replyFromServer;
+            loginReplyModel.setMessage("Valid credentials");
+            loginReplyModel.setHttpStatusCode(HttpStatusCodes.OK.getValue());
+            loginReplyModel.setRequestStatus("Successful");
+            loginReplyModel.setAuthenticated(true);
+            return ResponseEntity.ok(loginReplyModel);
         }
 
-        replyFromServer.setMessage("Invalid credentials");
-        replyFromServer.setHttpStatusCode(HttpStatusCodes.UNAUTHORIZED.getValue());
-        replyFromServer.setRequestStatus("Failed");
-        JSONObject data = new JSONObject();
-        data.put("requestStatus", false);
-        replyFromServer.addData(data);
-
-        return replyFromServer;
-//        return isAuthenticatedUser;
+        loginReplyModel.setMessage("Invalid credentials");
+        loginReplyModel.setHttpStatusCode(HttpStatusCodes.UNAUTHORIZED.getValue());
+        loginReplyModel.setRequestStatus("Failed");
+        loginReplyModel.setAuthenticated(false);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginReplyModel);
     }
 
     @PostMapping("/register")
