@@ -9,6 +9,7 @@ import java.util.List;
  * Created by hsenid on 9/11/17.
  */
 public class ReplyFromServer {
+
     private int httpStatusCode;
     private String Message;
     private String requestStatus;

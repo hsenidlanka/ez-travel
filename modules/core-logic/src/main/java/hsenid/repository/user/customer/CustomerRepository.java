@@ -10,5 +10,5 @@ public interface CustomerRepository {
 
     boolean registerCustomer(String email, String password, String first_name, String last_name, Date birthday, String contact_number, String nic, String gender);
 
-    void sendCustomerDetails();
+    void sendCustomerDetails(String emai);
 }

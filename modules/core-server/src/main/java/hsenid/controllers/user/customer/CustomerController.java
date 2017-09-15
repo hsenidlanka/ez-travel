@@ -1,6 +1,5 @@
 package hsenid.controllers.user.customer;
 
-import hsenid.domain.user.customer.IsAuthenticatedUser;
 import hsenid.enums.HttpStatusCodes;
 import hsenid.model.ReplyFromServer;
 import hsenid.repository.user.customer.CustomerImpl;
@@ -24,11 +23,9 @@ public class CustomerController {
     @PostMapping("/customer/login")
     @ResponseBody
     public ReplyFromServer isUserCustomerOrNot(HttpServletRequest request) {
-        IsAuthenticatedUser isAuthenticatedUser = new IsAuthenticatedUser();
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        isAuthenticatedUser.setUser(customer.isCustomerAuthenticated(email, password));
 
         ReplyFromServer replyFromServer = new ReplyFromServer();
 
@@ -93,8 +90,14 @@ public class CustomerController {
 
         return reply;
 
-
     }
 
+    @PostMapping("/customer/info")
+    @ResponseBody
+    public void sendCustomerData(HttpServletRequest request) {
+        String email = request.getParameter("email");
+
+
+    }
 
 }

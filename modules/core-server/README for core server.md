@@ -1,4 +1,4 @@
-##Core Server for EZ-travel
+## Core Server for EZ-travel
 
 [![N|Solid](http://i.imgur.com/onfjH4w.jpg)](https://nodesource.com/products/nsolid)
 
@@ -19,7 +19,7 @@ The project created using following sdk's and tools.
   - apache-tomcat-8.0.32 
   
 ### Configuration and building
-Core server uses abtract database layer from **core logic** module. There for you need to build whole project first. 
+Core server uses abstract database layer from **core logic** module. There for you need to build whole project first. 
 
 First clone the Project from github
 ```sh
