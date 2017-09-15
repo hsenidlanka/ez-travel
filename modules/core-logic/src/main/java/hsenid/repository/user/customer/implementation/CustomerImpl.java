@@ -1,6 +1,6 @@
-package hsenid.repository.user.customer;
+package hsenid.repository.user.customer.implementation;
 
-import hsenid.domain.user.customer.Customer;
+import hsenid.repository.user.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -11,8 +11,6 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  * Created by hsenid on 9/6/17.
@@ -33,13 +31,10 @@ public class CustomerImpl implements CustomerRepository {
         String sql = "SELECT COUNT(*)FROM customer WHERE email = ? AND password = ?";
 
         int count = jdbcTemplate.queryForObject(sql, new Object[]{email, password}, Integer.class);
-        if (count > 0) {
-            return true;
-        }
-
-        return false;
+        return count > 0;
     }
 
+    //    Add object
     public boolean registerCustomer(String email, String password, String first_name, String last_name, Date birthday, String contact_number, String nic, String gender) {
 
         TransactionDefinition def = new DefaultTransactionDefinition();

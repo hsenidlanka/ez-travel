@@ -2,12 +2,13 @@ package hsenid.controllers.user.customer;
 
 import hsenid.enums.HttpStatusCodes;
 import hsenid.model.ReplyFromServer;
-import hsenid.repository.user.customer.CustomerImpl;
+import hsenid.model.customer.LoginModel;
+import hsenid.repository.user.customer.implementation.CustomerImpl;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
@@ -16,20 +17,21 @@ import java.sql.Date;
  * Created by hsenid on 9/6/17.
  */
 @RestController
+@RequestMapping("/customer")
 public class CustomerController {
     @Autowired
     CustomerImpl customer;
 
-    @PostMapping("/customer/login")
+    @PostMapping("/login")
     @ResponseBody
-    public ReplyFromServer isUserCustomerOrNot(HttpServletRequest request) {
+    public ReplyFromServer isUserCustomerOrNot(@RequestBody LoginModel loginModel) {
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-
+//        String email = request.getParameter("email");
+//        String password = request.getParameter("password");
+        System.out.println("email =>" + loginModel.getEmail());
         ReplyFromServer replyFromServer = new ReplyFromServer();
 
-        boolean loginStatus = customer.isCustomerAuthenticated(email, password);
+        boolean loginStatus = customer.isCustomerAuthenticated(loginModel.getEmail(), loginModel.getPassword());
 
         if (loginStatus) {
             replyFromServer.setMessage("Valid credentials");
@@ -52,9 +54,9 @@ public class CustomerController {
 //        return isAuthenticatedUser;
     }
 
-    @PostMapping("/customer/register")
+    @PostMapping("/register")
     @ResponseBody
-    public ReplyFromServer customerRegistration(HttpServletRequest request) {
+    public ResponseEntity<ReplyFromServer> customerRegistration(HttpServletRequest request) {
 
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -76,7 +78,7 @@ public class CustomerController {
             JSONObject userCreated = new JSONObject();
             userCreated.put("isUserCreated", true);
             reply.addData(userCreated);
-            return reply;
+            return ResponseEntity.ok(reply);
         }
 //        RequestStatus requestStatus = new RequestStatus();
 //        requestStatus.setRequestStatus(registrationStatus);
@@ -88,7 +90,7 @@ public class CustomerController {
         userCreated.put("isUserCreated", false);
         reply.addData(userCreated);
 
-        return reply;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reply);
 
     }
 
