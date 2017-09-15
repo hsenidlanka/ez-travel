@@ -30,7 +30,6 @@ git clone https://github.com/hsenidlanka/ez-travel.git
 Then go to build main pom.xml
 
 ```sh
-git clone https://github.com/hsenidlanka/ez-travel.git
 mvn clean install
 ```
 then go to core server pom and run it as spring boot project
