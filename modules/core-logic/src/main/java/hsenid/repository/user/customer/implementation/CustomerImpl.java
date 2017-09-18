@@ -39,7 +39,7 @@ public class CustomerImpl implements CustomerRepository {
 
         TransactionDefinition def = new DefaultTransactionDefinition();
         TransactionStatus status = transactionManager.getTransaction(def);
-
+        System.out.println("value => " + email);
         try {
             String sql = "INSERT INTO customer (email, password, first_name, last_name, birthday, contact_number, nic, gender, user_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1);";
             jdbcTemplate.update(sql, email, password, first_name, last_name, birthday, contact_number, nic, gender);

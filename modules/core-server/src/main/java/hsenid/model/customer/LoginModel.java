@@ -1,7 +1,7 @@
 package hsenid.model.customer;
 
 /**
- * Created by hsenid on 9/15/17.
+ * Created by Menuka on 9/15/17.
  */
 public class LoginModel {
     private String email;

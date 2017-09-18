@@ -1,11 +1,10 @@
 package hsenid.controllers.user.customer;
 
-import hsenid.enums.HttpStatusCodes;
-import hsenid.model.ReplyFromServer;
+import hsenid.model.customer.CustomerRegistrationModel;
 import hsenid.model.customer.LoginModel;
+import hsenid.model.reply.CustomerRegistrationReplyModel;
 import hsenid.model.reply.LoginReplyModel;
 import hsenid.repository.user.customer.implementation.CustomerImpl;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +20,7 @@ import java.sql.Date;
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
-    CustomerImpl customer;
+    CustomerImpl customerImpl;
 
     @PostMapping("/login")
     @ResponseBody
@@ -30,18 +29,18 @@ public class CustomerController {
         System.out.println("email =>" + loginModel.getEmail());
         LoginReplyModel loginReplyModel = new LoginReplyModel();
 
-        boolean loginStatus = customer.isCustomerAuthenticated(loginModel.getEmail(), loginModel.getPassword());
+        boolean loginStatus = customerImpl.isCustomerAuthenticated(loginModel.getEmail(), loginModel.getPassword());
 
         if (loginStatus) {
             loginReplyModel.setMessage("Valid credentials");
-            loginReplyModel.setHttpStatusCode(HttpStatusCodes.OK.getValue());
+            loginReplyModel.setHttpStatusCode(HttpStatus.OK.value());
             loginReplyModel.setRequestStatus("Successful");
             loginReplyModel.setAuthenticated(true);
             return ResponseEntity.ok(loginReplyModel);
         }
 
         loginReplyModel.setMessage("Invalid credentials");
-        loginReplyModel.setHttpStatusCode(HttpStatusCodes.UNAUTHORIZED.getValue());
+        loginReplyModel.setHttpStatusCode(HttpStatus.UNAUTHORIZED.value());
         loginReplyModel.setRequestStatus("Failed");
         loginReplyModel.setAuthenticated(false);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginReplyModel);
@@ -49,41 +48,42 @@ public class CustomerController {
 
     @PostMapping("/register")
     @ResponseBody
-    public ResponseEntity<ReplyFromServer> customerRegistration(HttpServletRequest request) {
+    public ResponseEntity<CustomerRegistrationReplyModel> customerRegistration(@RequestBody CustomerRegistrationModel customer) {
 
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        String first_name = request.getParameter("first_name");
-        String last_name = request.getParameter("last_name");
-        String contact_number = request.getParameter("contact_number");
-        String nic = request.getParameter("nic");
-        String gender = request.getParameter("gender");
-        String birthdayString = request.getParameter("birthday"); //Should be like "2015-03-31"
+        CustomerRegistrationReplyModel reply = new CustomerRegistrationReplyModel();
 
-        ReplyFromServer reply = new ReplyFromServer();
+        String email = customer.getEmail();
+        String password = customer.getPassword();
+        String first_name = customer.getFirst_name();
+        String last_name = customer.getLast_name();
+        String contact_number = customer.getContact_number();
+        String nic = customer.getNic();
+        String gender = customer.getGender();
+        Date birthday = Date.valueOf(customer.getBirthday());
 
-        Date birthday = Date.valueOf(birthdayString);//converting string into sql date
-        boolean registrationStatus = customer.registerCustomer(email, password, first_name, last_name, birthday, contact_number, nic, gender);
+        boolean registrationStatus = customerImpl.registerCustomer(email,
+                password,
+                first_name,
+                last_name,
+                birthday,
+                contact_number,
+                nic,
+                gender);
+
         if (registrationStatus) {
-            reply.setHttpStatusCode(HttpStatusCodes.CREATED.getValue());
+            reply.setHttpStatusCode(HttpStatus.CREATED.value());
             reply.setMessage("User creation successful");
             reply.setRequestStatus("success");
-            JSONObject userCreated = new JSONObject();
-            userCreated.put("isUserCreated", true);
-            reply.addData(userCreated);
-            return ResponseEntity.ok(reply);
+            reply.setUserCreation(registrationStatus);
+            return ResponseEntity.status(HttpStatus.CREATED).body(reply);
         }
-//        RequestStatus requestStatus = new RequestStatus();
-//        requestStatus.setRequestStatus(registrationStatus);
 
-        reply.setHttpStatusCode(HttpStatusCodes.INTERNAL_SERVER_ERROR.getValue());
+        reply.setHttpStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         reply.setRequestStatus("failed");
         reply.setMessage("User creation failed");
-        JSONObject userCreated = new JSONObject();
-        userCreated.put("isUserCreated", false);
-        reply.addData(userCreated);
+        reply.setUserCreation(false);
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reply);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(reply);
 
     }
 
