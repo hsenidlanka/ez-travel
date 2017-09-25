@@ -1,14 +1,16 @@
 package hsenid.controllers.user.driver;
 
-import hsenid.domain.user.driver.DriverRequestStatus;
 import hsenid.domain.user.driver.IsAuthenticatedDriver;
 import hsenid.enums.HttpStatusCodes;
 import hsenid.model.ReplyFromServer;
 import hsenid.repository.user.driver.DriverImpl;
 
+import hsenid.repository.user.driver.domain.Driver;
 import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -64,7 +66,7 @@ public class DriverController {
 
     @PostMapping("/driver/register")
     @ResponseBody
-    public ReplyFromServer driverRegistration(HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ReplyFromServer> driverRegistration(HttpServletRequest httpServletRequest) {
         String email = httpServletRequest.getParameter("email");
         String password = httpServletRequest.getParameter("password");
         String first_name = httpServletRequest.getParameter("first_name");
@@ -77,7 +79,7 @@ public class DriverController {
         Integer confirmed_by = Integer.valueOf(httpServletRequest.getParameter("confirmed_by"));
         String nic = httpServletRequest.getParameter("nic");
         ReplyFromServer replyFromServer=new ReplyFromServer();
-        boolean registrationStatus=driver.registerDriver(email,password,first_name,last_name,license_number,contact_number, (java.sql.Date) birthday,gender,driver_status,confirmed_by,nic);
+        boolean registrationStatus=driver.registerDriver(new Driver(email, password, first_name, last_name, license_number, contact_number, (java.sql.Date) birthday, gender, driver_status, confirmed_by, nic));
         if (registrationStatus)
         {
             replyFromServer.setHttpStatusCode(HttpStatusCodes.CREATED.getValue());
@@ -86,7 +88,7 @@ public class DriverController {
             JSONObject jsonObjectDriverCreated=new JSONObject();
             jsonObjectDriverCreated.put("isDriverCreated",true);
             replyFromServer.addData(jsonObjectDriverCreated);
-            return replyFromServer;
+            return ResponseEntity.ok(replyFromServer);
         }
         replyFromServer.setHttpStatusCode(HttpStatusCodes.INTERNAL_SERVER_ERROR.getValue());
         replyFromServer.setRequestStatus("Failed");
@@ -94,7 +96,7 @@ public class DriverController {
         JSONObject jsonObjectDriverCreated=new JSONObject();
         jsonObjectDriverCreated.put("isDriverCreated",false);
         replyFromServer.addData(jsonObjectDriverCreated);
-        return replyFromServer;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyFromServer);
 
     }
 
