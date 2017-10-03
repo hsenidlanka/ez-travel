@@ -5,6 +5,8 @@ import hsenid.model.customer.LoginModel;
 import hsenid.model.reply.CustomerRegistrationReplyModel;
 import hsenid.model.reply.LoginReplyModel;
 import hsenid.repository.user.customer.implementation.CustomerImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +21,25 @@ import java.sql.Date;
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
+
+    final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+
+
     @Autowired
     CustomerImpl customerImpl;
 
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<LoginReplyModel> isUserCustomerOrNot(@RequestBody LoginModel loginModel) {
-
-        System.out.println("email =>" + loginModel.getEmail());
+        logger.error("Logger test ======+++++");
+//        System.out.println("email =>" + loginModel.getEmail());
         LoginReplyModel loginReplyModel = new LoginReplyModel();
 
         boolean loginStatus = customerImpl.isCustomerAuthenticated(loginModel.getEmail(), loginModel.getPassword());
 
         if (loginStatus) {
+            logger.info("Test info");
+
             loginReplyModel.setMessage("Valid credentials");
             loginReplyModel.setHttpStatusCode(HttpStatus.OK.value());
             loginReplyModel.setRequestStatus("Successful");
@@ -91,8 +99,6 @@ public class CustomerController {
     @ResponseBody
     public void sendCustomerData(HttpServletRequest request) {
         String email = request.getParameter("email");
-
-
     }
 
 }
