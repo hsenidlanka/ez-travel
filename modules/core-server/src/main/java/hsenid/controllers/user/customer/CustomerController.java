@@ -1,5 +1,7 @@
 package hsenid.controllers.user.customer;
 
+import hsenid.domain.user.customer.Customer;
+import hsenid.model.customer.CustomerDetailRequestModel;
 import hsenid.model.customer.CustomerRegistrationModel;
 import hsenid.model.customer.LoginModel;
 import hsenid.model.reply.CustomerRegistrationReplyModel;
@@ -15,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 
-/**
- * Created by Menuka on 9/6/17.
- */
+
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
@@ -95,10 +95,13 @@ public class CustomerController {
 
     }
 
-    @PostMapping("/customer/info")
+    @PostMapping("/info")
     @ResponseBody
-    public void sendCustomerData(HttpServletRequest request) {
-        String email = request.getParameter("email");
+    public Customer sendCustomerData(@RequestBody CustomerDetailRequestModel model) {
+//        String email = request.getParameter("email");
+        return customerImpl.sendCustomerDetails(model.getEmail());
+
     }
 
 }
+

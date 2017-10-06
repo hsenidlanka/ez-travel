@@ -72,7 +72,7 @@ public class User {
         this.gender = gender;
     }
 
-    public int isUser_status() {
+    public int getUser_status() {
         return user_status;
     }
 
