@@ -1,3 +1,15 @@
-## EZ-travel
+# **EZ-travel**
 
-[![N|Solid](http://i.imgur.com/onfjH4w.jpg)](https://nodesource.com/products/nsolid)
+Ez-travel is a technology platform. The Ez-travel android app connects driver-partners and riders. As a driver-partner, you use your own vehicle or a fleet partner's vehicle to pick up riders and drive them to preferred destinations in your city. You're paid a fare for each completed trip.
+
+### **Table of Content**
+
+## **Prerequisite**
+
+## **Configuration and building**
+
+## **Credits**
+- @Menuka5
+- @hsenidVidushka
+- @difnajayashani
+- @DamithaWijesuriya
