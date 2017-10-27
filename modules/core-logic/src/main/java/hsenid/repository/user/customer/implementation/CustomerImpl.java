@@ -1,9 +1,11 @@
 package hsenid.repository.user.customer.implementation;
 
+import hsenid.domain.user.customer.Customer;
 import hsenid.repository.user.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -11,9 +13,12 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 
 /**
- * Created by hsenid on 9/6/17.
+ * Created by Menuka on 9/6/17.
  */
 @Repository
 public class CustomerImpl implements CustomerRepository {
@@ -60,26 +65,32 @@ public class CustomerImpl implements CustomerRepository {
         return false;
     }
 
-    public void sendCustomerDetails(String emai) {
+    /**
+     * @param emai
+     * @return
+     */
 
-    }
-/*
+    public Customer sendCustomerDetails(String emai) {
 
-    public void sendCustomerDetails(String email) {
-        Customer customer = jdbcTemplate.queryForObject(
-                "select first_name, last_name from t_actor where id = ?",
-                new Object[]{1212L},
-                new RowMapper<Actor>() {
-                    public Customer mapRow(ResultSet rs, int rowNum) {
-                        Customer customer = new Customer();
-//                        actor.setFirstName(rs.getString("first_name"));
-//                        actor.setLastName(rs.getString("last_name"));
-                        return actor;
-                    }
+        Customer customer = this.jdbcTemplate.queryForObject(
+                "SELECT customer_id, email, first_name, last_name, birthday, contact_number, nic, gender, user_status FROM customer Limit 1",
+
+                (rs, rowNum) -> {
+                    Customer customerRowMapper = new Customer();
+                    customerRowMapper.setCustomer_id(Integer.parseInt(rs.getString("customer_id")));
+                    customerRowMapper.setEmail(rs.getString("email"));
+                    customerRowMapper.setFirst_name(rs.getString("first_name"));
+                    customerRowMapper.setLast_name(rs.getString("last_name"));
+                    customerRowMapper.setBirthday(rs.getDate("birthday"));
+                    customerRowMapper.setContact_number(rs.getString("contact_number"));
+                    customerRowMapper.setNic(rs.getString("nic"));
+                    customerRowMapper.setGender(rs.getString("gender"));
+                    customerRowMapper.setUser_status(rs.getInt("user_status"));
+
+                    return customerRowMapper;
                 });
 
+        return customer;
     }
-*/
-
 
 }
