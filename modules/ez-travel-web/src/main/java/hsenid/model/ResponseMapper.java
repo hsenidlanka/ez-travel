@@ -3,7 +3,7 @@ package hsenid.model;
 /**
  * Created by Vidushka on 13/09/17.
  */
-public class LoginMapper {
+public class ResponseMapper {
     private String httpStatusCode;
     private String requestStatus;
     private String authenticated;

@@ -12,11 +12,7 @@
 <html>
 <head>
     <title>ez-travel</title>
-
-    <link href="../css/formStyle.css" rel="stylesheet">
-    <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="../css/style.css" rel="stylesheet">
+    <%@include file="commonCss.jsp"%>
     <script src="../js/util.js"></script>
     <script src="../js/validation/registration-validation.js"></script>
 </head>
@@ -31,6 +27,9 @@
         <div class="form_lable">
             <h4>Register</h4>
         </div>
+        <c:if test="${not empty signup_error}">
+            <div id="loginError" class="alert-warning">${signup_error}</div>
+        </c:if>
         <form:form action="" method="post" modelAttribute="signUp" onsubmit="return validateForm()">
             <div id="form-element">
                 <form:label path="firstName"> First Name </form:label>
