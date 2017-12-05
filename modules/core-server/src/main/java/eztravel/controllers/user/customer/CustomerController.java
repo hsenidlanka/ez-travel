@@ -5,9 +5,11 @@ package eztravel.controllers.user.customer;
 import corelogic.domain.user.customer.Customer;
 import corelogic.repository.user.customer.implementation.CustomerImpl;
 import eztravel.model.customer.CustomerDetailRequestModel;
+import eztravel.model.customer.CustomerPasswordUpdateModel;
 import eztravel.model.customer.CustomerRegistrationModel;
 import eztravel.model.customer.LoginModel;
 import eztravel.model.reply.CustomerDeleteReplyModel;
+import eztravel.model.reply.CustomerPasswordUpdateReplyModel;
 import eztravel.model.reply.CustomerRegistrationReplyModel;
 import eztravel.model.reply.LoginReplyModel;
 import org.slf4j.Logger;
@@ -106,6 +108,29 @@ public class CustomerController {
     public Customer sendCustomerData(@RequestBody CustomerDetailRequestModel model) {
 
         return customerImpl.sendCustomerDetails(model.getEmail());
+
+    }
+
+    @PostMapping("/updatepassword")
+    @ResponseBody
+    public CustomerPasswordUpdateReplyModel updateCustomerPassword(@RequestBody CustomerPasswordUpdateModel model) {
+
+        boolean isPasswordUpdated = customerImpl.updatePassword(model.getEmail(), model.getCurrentPassword(), model.getNewPassword());
+        CustomerPasswordUpdateReplyModel passwordUpdateReplyModel = new CustomerPasswordUpdateReplyModel();
+        if (isPasswordUpdated) {
+            passwordUpdateReplyModel.setHttpStatusCode(204);
+            passwordUpdateReplyModel.setRequestStatus("updated");
+            passwordUpdateReplyModel.setMessage("Password update successful!");
+            passwordUpdateReplyModel.setIsPasswordUpdated(true);
+
+            return passwordUpdateReplyModel;
+        }
+
+        passwordUpdateReplyModel.setHttpStatusCode(500);
+        passwordUpdateReplyModel.setRequestStatus("failed");
+        passwordUpdateReplyModel.setMessage("Password update failed!");
+        passwordUpdateReplyModel.setIsPasswordUpdated(false);
+        return passwordUpdateReplyModel;
 
     }
 

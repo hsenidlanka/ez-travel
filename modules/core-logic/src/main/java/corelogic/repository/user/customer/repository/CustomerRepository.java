@@ -24,5 +24,7 @@ public interface CustomerRepository {
 
     boolean isCustomerDeleted(String email);
 
+    boolean updatePassword(String email, String currentPassword, String newPassword);
+
 
 }

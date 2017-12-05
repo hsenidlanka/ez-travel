@@ -45,7 +45,8 @@ public class CustomerImpl implements CustomerRepository {
         System.out.println("value => " + email);
         try {
             String sql = "INSERT INTO customer (email, password, first_name, last_name, birthday, contact_number, nic, gender, user_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1);";
-            jdbcTemplate.update(sql, email, password, first_name, last_name, birthday, contact_number, nic, gender);
+            Object[] args = new Object[]{email, password, first_name, last_name, birthday, contact_number, nic, gender};
+            jdbcTemplate.update(sql, args);
 
             String getCustomerId = "SELECT customer_id FROM customer WHERE email = ? LIMIT 1";
             String customerId = jdbcTemplate.queryForObject(getCustomerId, new Object[]{email}, String.class);
@@ -85,31 +86,36 @@ public class CustomerImpl implements CustomerRepository {
                 });
     }
 
+    /**
+     * This method is resposible for deleting customer account record from database.
+     *
+     * @param email - this is the unique data we use to identify customer
+     * @return - boolean
+     */
     @Override
     public boolean isCustomerDeleted(String email) {
-        /*
-        * String sql = "SELECT COUNT(*)FROM customer WHERE email = ? AND password = ?";
 
-        int count = jdbcTemplate.queryForObject(sql, new Object[]{email, password}, Integer.class);
-        return count > 0;
-
-        String sql = "DELETE FROM organization WHERE id = ?";
-    Object[] args = new Object[] {id};
-
-    return jdbcTemplate.update(sql, args) == 1;
-
-        */
-
-//        DELETE FROM tutorials_tbl WHERE tutorial_id=3;
-
+//        sql String for customer account deletion
         String sqlForDeleteCustomer = "DELETE FROM customer WHERE email=?;";
+//        set email in the sql string
         Object[] args = new Object[]{email};
-
+//      Assign success or failure as boolean value
         boolean isDeleted = (jdbcTemplate.update(sqlForDeleteCustomer, args) == 1);
-
-        System.out.println("delete true? x ==> " + isDeleted);
 
         return isDeleted;
     }
+
+
+    @Override
+    public boolean updatePassword(String email, String currentPassword, String newPassword) {
+
+        String sqlForUpdateCustomer = "UPDATE customer set password = ? where email = ? AND password = ?;";
+        Object[] args = new Object[]{newPassword, email, currentPassword};
+
+        boolean isPasswordUpdated = (jdbcTemplate.update(sqlForUpdateCustomer, args) == 1);
+
+        return isPasswordUpdated;
+    }
+
 
 }
