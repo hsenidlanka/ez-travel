@@ -8,7 +8,12 @@
     <title>ez-travel</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/scripts.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places"
             async defer></script>
 
@@ -40,7 +45,10 @@
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                            <a href="viewLogin">Login</a>
+                            <a href="customer/login">Login</a>
+                        </li>
+                        <li class="btn-custom">
+                            <a href="customer/signup">Signup</a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +65,7 @@
                 </ol>
                 <div class="carousel-inner" id="img_slider">
                     <div class="item active">
-                        <img alt="Carousel Bootstrap First" src="images/img_1.jpg">
+                        <img alt="Carousel Bootstrap First" src="images/img_01.jpg" class="slider-image">
                         <!--<div class="carousel-caption">
                             <h4>
                                 First Thumbnail label
@@ -68,10 +76,10 @@
                         </div> -->
                     </div>
                     <div class="item">
-                        <img alt="Carousel Bootstrap Second" src="images/img_2.jpg">
+                        <img alt="Carousel Bootstrap Second" src="images/img_02.jpg" class="slider-image">
                     </div>
                     <div class="item">
-                        <img alt="Carousel Bootstrap Third" src="images/img_3.jpg">
+                        <img alt="Carousel Bootstrap Third" src="images/img_03.jpg" class="slider-image">
                     </div>
                 </div>
                 <a class="left carousel-control" href="#carousel-235482" data-slide="prev"><span
@@ -137,17 +145,6 @@
                 </form>
             </div>
             <div class="jumbotron col-md-6" id="map">
-                <!--<iframe width="600" height="450" frameborder="0" style="border:0"
-                        src="https://www.google.com/maps/embed/v1/undefined?
-                        origin=...
-                        &q=...
-                        &destination=...
-                        &center=...
-                        &zoom=...
-                        &key=AIzaSyAvzIwL1PW3q3_TyKOCREHMV0sxGtmFpQQ"
-                        allowfullscreen>
-                </iframe>-->
-                <!--<iframe width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/directions?origin=place_id:ChIJn2ahSXRZ4joR7JgeiGTdHGM&destination=place_id:ChIJje7imY5R4joR7nNiyNu_7sM&key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg" allowfullscreen></iframe>-->
 
             </div>
         </div>
@@ -193,8 +190,5 @@
     </div>
 </div>
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/scripts.js"></script>
 </body>
 </html>
