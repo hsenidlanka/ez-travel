@@ -1,17 +1,27 @@
-package hsenid.model.customer;
+package corelogic.domain;
+
+import java.util.Date;
 
 /**
- * Created by Menuka on 9/15/17.
+ * This is the base class for all users.
+ * It contains most generic variables so we could inherit from it.
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
-public class CustomerRegistrationModel {
+public class User {
+
+    /**
+     * Below is the variables which common for all users.
+     */
     private String email;
-    private String password;
     private String first_name;
     private String last_name;
-    private String birthday;
+    private Date birthday;
     private String contact_number;
     private String nic;
     private String gender;
+    private int user_status;
 
     public String getEmail() {
         return email;
@@ -19,14 +29,6 @@ public class CustomerRegistrationModel {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {
@@ -45,11 +47,11 @@ public class CustomerRegistrationModel {
         this.last_name = last_name;
     }
 
-    public String getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(String birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
@@ -75,5 +77,13 @@ public class CustomerRegistrationModel {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public int getUser_status() {
+        return user_status;
+    }
+
+    public void setUser_status(int user_status) {
+        this.user_status = user_status;
     }
 }

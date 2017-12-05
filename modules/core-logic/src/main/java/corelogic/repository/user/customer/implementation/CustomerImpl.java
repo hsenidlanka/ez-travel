@@ -1,11 +1,10 @@
-package hsenid.repository.user.customer.implementation;
+package corelogic.repository.user.customer.implementation;
 
-import hsenid.domain.user.customer.Customer;
-import hsenid.repository.user.customer.repository.CustomerRepository;
+import corelogic.domain.user.customer.Customer;
+import corelogic.repository.user.customer.repository.CustomerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -13,18 +12,17 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 
 /**
- * Created by Menuka on 9/6/17.
+ * @version 1.0
+ * @auther Vidushka
  */
 @Repository
 public class CustomerImpl implements CustomerRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
     @Autowired
     private PlatformTransactionManager transactionManager;
 
@@ -47,7 +45,8 @@ public class CustomerImpl implements CustomerRepository {
         System.out.println("value => " + email);
         try {
             String sql = "INSERT INTO customer (email, password, first_name, last_name, birthday, contact_number, nic, gender, user_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1);";
-            jdbcTemplate.update(sql, email, password, first_name, last_name, birthday, contact_number, nic, gender);
+            Object[] args = new Object[]{email, password, first_name, last_name, birthday, contact_number, nic, gender};
+            jdbcTemplate.update(sql, args);
 
             String getCustomerId = "SELECT customer_id FROM customer WHERE email = ? LIMIT 1";
             String customerId = jdbcTemplate.queryForObject(getCustomerId, new Object[]{email}, String.class);
@@ -65,14 +64,10 @@ public class CustomerImpl implements CustomerRepository {
         return false;
     }
 
-    /**
-     * @param emai
-     * @return
-     */
 
     public Customer sendCustomerDetails(String emai) {
 
-        Customer customer = this.jdbcTemplate.queryForObject(
+        return this.jdbcTemplate.queryForObject(
                 "SELECT customer_id, email, first_name, last_name, birthday, contact_number, nic, gender, user_status FROM customer Limit 1",
 
                 (rs, rowNum) -> {
@@ -89,8 +84,38 @@ public class CustomerImpl implements CustomerRepository {
 
                     return customerRowMapper;
                 });
-
-        return customer;
     }
+
+    /**
+     * This method is resposible for deleting customer account record from database.
+     *
+     * @param email - this is the unique data we use to identify customer
+     * @return - boolean
+     */
+    @Override
+    public boolean isCustomerDeleted(String email) {
+
+//        sql String for customer account deletion
+        String sqlForDeleteCustomer = "DELETE FROM customer WHERE email=?;";
+//        set email in the sql string
+        Object[] args = new Object[]{email};
+//      Assign success or failure as boolean value
+        boolean isDeleted = (jdbcTemplate.update(sqlForDeleteCustomer, args) == 1);
+
+        return isDeleted;
+    }
+
+
+    @Override
+    public boolean updatePassword(String email, String currentPassword, String newPassword) {
+
+        String sqlForUpdateCustomer = "UPDATE customer set password = ? where email = ? AND password = ?;";
+        Object[] args = new Object[]{newPassword, email, currentPassword};
+
+        boolean isPasswordUpdated = (jdbcTemplate.update(sqlForUpdateCustomer, args) == 1);
+
+        return isPasswordUpdated;
+    }
+
 
 }

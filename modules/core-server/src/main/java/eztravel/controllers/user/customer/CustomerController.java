@@ -1,12 +1,17 @@
-package hsenid.controllers.user.customer;
+package eztravel.controllers.user.customer;
 
-import hsenid.domain.user.customer.Customer;
-import hsenid.model.customer.CustomerDetailRequestModel;
-import hsenid.model.customer.CustomerRegistrationModel;
-import hsenid.model.customer.LoginModel;
-import hsenid.model.reply.CustomerRegistrationReplyModel;
-import hsenid.model.reply.LoginReplyModel;
-import hsenid.repository.user.customer.implementation.CustomerImpl;
+//import corelogic.domain.user.customer.Customer;
+
+import corelogic.domain.user.customer.Customer;
+import corelogic.repository.user.customer.implementation.CustomerImpl;
+import eztravel.model.customer.CustomerDetailRequestModel;
+import eztravel.model.customer.CustomerPasswordUpdateModel;
+import eztravel.model.customer.CustomerRegistrationModel;
+import eztravel.model.customer.LoginModel;
+import eztravel.model.reply.CustomerDeleteReplyModel;
+import eztravel.model.reply.CustomerPasswordUpdateReplyModel;
+import eztravel.model.reply.CustomerRegistrationReplyModel;
+import eztravel.model.reply.LoginReplyModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +19,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 
+//import hsenid.domain.user.customer.Customer;
+
+/**
+ * @version 1.0O
+ * @auther Vidushka
+ */
 
 @RestController
 @RequestMapping("/customer")
@@ -24,15 +34,13 @@ public class CustomerController {
 
     final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
-
     @Autowired
     CustomerImpl customerImpl;
 
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<LoginReplyModel> isUserCustomerOrNot(@RequestBody LoginModel loginModel) {
-        logger.error("Logger test ======+++++");
-//        System.out.println("email =>" + loginModel.getEmail());
+
         LoginReplyModel loginReplyModel = new LoginReplyModel();
 
         boolean loginStatus = customerImpl.isCustomerAuthenticated(loginModel.getEmail(), loginModel.getPassword());
@@ -98,10 +106,58 @@ public class CustomerController {
     @PostMapping("/info")
     @ResponseBody
     public Customer sendCustomerData(@RequestBody CustomerDetailRequestModel model) {
-//        String email = request.getParameter("email");
+
         return customerImpl.sendCustomerDetails(model.getEmail());
 
     }
+
+    @PostMapping("/updatepassword")
+    @ResponseBody
+    public CustomerPasswordUpdateReplyModel updateCustomerPassword(@RequestBody CustomerPasswordUpdateModel model) {
+
+        boolean isPasswordUpdated = customerImpl.updatePassword(model.getEmail(), model.getCurrentPassword(), model.getNewPassword());
+        CustomerPasswordUpdateReplyModel passwordUpdateReplyModel = new CustomerPasswordUpdateReplyModel();
+        if (isPasswordUpdated) {
+            passwordUpdateReplyModel.setHttpStatusCode(204);
+            passwordUpdateReplyModel.setRequestStatus("updated");
+            passwordUpdateReplyModel.setMessage("Password update successful!");
+            passwordUpdateReplyModel.setIsPasswordUpdated(true);
+
+            return passwordUpdateReplyModel;
+        }
+
+        passwordUpdateReplyModel.setHttpStatusCode(500);
+        passwordUpdateReplyModel.setRequestStatus("failed");
+        passwordUpdateReplyModel.setMessage("Password update failed!");
+        passwordUpdateReplyModel.setIsPasswordUpdated(false);
+        return passwordUpdateReplyModel;
+
+    }
+
+    @PostMapping("/deleteaccount")
+    @ResponseBody
+    public CustomerDeleteReplyModel deleteCustomerAccount(@RequestBody CustomerDetailRequestModel model) {
+
+        CustomerDeleteReplyModel deleteReplyModel = new CustomerDeleteReplyModel();
+
+
+        if (customerImpl.isCustomerDeleted(model.getEmail())) {
+            deleteReplyModel.setHttpStatusCode(204);
+            deleteReplyModel.setRequestStatus("success");
+            deleteReplyModel.setMessage("Customer deletion success!");
+            deleteReplyModel.setUserDeletion(true);
+
+            return deleteReplyModel;
+        }
+
+        deleteReplyModel.setHttpStatusCode(500);
+        deleteReplyModel.setRequestStatus("failed");
+        deleteReplyModel.setMessage("Customer deletion failed!");
+        deleteReplyModel.setUserDeletion(false);
+
+        return deleteReplyModel;
+    }
+
 
 }
 

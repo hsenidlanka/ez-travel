@@ -1,13 +1,16 @@
-package hsenid.model.reply;
+package eztravel.model.reply;
 
 /**
- * Created by Menuka on 9/15/17.
+ * Model class to send result of deletion of customer
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
-public class LoginReplyModel {
+public class CustomerDeleteReplyModel {
     private int httpStatusCode;
     private String Message;
     private String requestStatus;
-    private boolean authenticated;
+    private boolean userDeletion;
 
     public int getHttpStatusCode() {
         return httpStatusCode;
@@ -33,11 +36,11 @@ public class LoginReplyModel {
         this.requestStatus = requestStatus;
     }
 
-    public boolean isAuthenticated() {
-        return authenticated;
+    public boolean getUserDeletion() {
+        return userDeletion;
     }
 
-    public void setAuthenticated(boolean authenticated) {
-        this.authenticated = authenticated;
+    public void setUserDeletion(boolean userDeletion) {
+        this.userDeletion = userDeletion;
     }
 }

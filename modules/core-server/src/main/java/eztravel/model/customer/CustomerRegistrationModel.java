@@ -1,20 +1,18 @@
-package hsenid.domain;
-
-import java.util.Date;
+package eztravel.model.customer;
 
 /**
- * Created by hsenid on 8/31/17.
+ * @version 1.0
+ * @auther Vidushka
  */
-public class User {
-
+public class CustomerRegistrationModel {
     private String email;
+    private String password;
     private String first_name;
     private String last_name;
-    private Date birthday;
+    private String birthday;
     private String contact_number;
     private String nic;
     private String gender;
-    private int user_status;
 
     public String getEmail() {
         return email;
@@ -22,6 +20,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getFirst_name() {
@@ -40,11 +46,11 @@ public class User {
         this.last_name = last_name;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Date birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
@@ -70,13 +76,5 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender;
-    }
-
-    public int getUser_status() {
-        return user_status;
-    }
-
-    public void setUser_status(int user_status) {
-        this.user_status = user_status;
     }
 }

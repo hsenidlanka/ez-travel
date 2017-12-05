@@ -1,11 +1,13 @@
-package hsenid.repository.user.customer.repository;
+package corelogic.repository.user.customer.repository;
 
-import hsenid.domain.user.customer.Customer;
+import corelogic.domain.user.customer.Customer;
 
 import java.sql.Date;
 
+
 /**
- * Created by Menuka on 9/6/17.
+ * @version 1.0
+ * @auther Vidushka
  */
 public interface CustomerRepository {
     /**
@@ -19,4 +21,10 @@ public interface CustomerRepository {
                              String contact_number, String nic, String gender);
 
     Customer sendCustomerDetails(String emai);
+
+    boolean isCustomerDeleted(String email);
+
+    boolean updatePassword(String email, String currentPassword, String newPassword);
+
+
 }

@@ -1,7 +1,8 @@
-package hsenid.model.customer;
+package eztravel.model.customer;
 
 /**
- * Created by Menuka on 9/15/17.
+ * @version 1.0
+ * @auther Vidushka
  */
 public class LoginModel {
     private String email;

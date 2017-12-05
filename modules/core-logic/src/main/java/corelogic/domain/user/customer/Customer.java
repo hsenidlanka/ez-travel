@@ -1,11 +1,15 @@
-package hsenid.domain.user.customer;
+package corelogic.domain.user.customer;
 
-import hsenid.domain.User;
+import corelogic.domain.User;
 
 import java.sql.Date;
 
 /**
- * Created by hsenid on 9/14/17.
+ * This is the domain class for Customer extends from User.
+ * This is used for json object serialize.
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
 public class Customer extends User {
     private int customer_id;
