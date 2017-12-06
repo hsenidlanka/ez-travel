@@ -25,7 +25,7 @@
                     <!-- user image section-->
                     <div class="user-section">
                         <div class="user-section-inner">
-                            <img src="../images/user.jpg" alt="">
+                            <img src="assets/img/user.jpg" alt="">
                         </div>
                         <div class="user-info">
                             <div>Chathuranga <strong>Silva</strong></div>
@@ -142,6 +142,6 @@
 </div>
 <!-- end wrapper -->
 
-<%@include file="commonJs.jsp"%>
+
 </body>
 </html>

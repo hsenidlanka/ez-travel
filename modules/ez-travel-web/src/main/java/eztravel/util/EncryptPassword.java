@@ -1,4 +1,4 @@
-package hsenid.util;
+package eztravel.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -10,7 +10,7 @@ public class EncryptPassword {
 
     private String password;
 
-    public String encryptPassword(String password){
+    public String encryptPassword(String password) {
         this.password = password;
 
         StringBuffer sb = null;

@@ -1,11 +1,10 @@
-package hsenid.model.customer;
+package eztravel.model.customer;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.Date;
 
 /**
  * Created by Vidushka on 02/10/17.

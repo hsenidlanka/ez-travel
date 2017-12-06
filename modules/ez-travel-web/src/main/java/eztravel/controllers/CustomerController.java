@@ -1,10 +1,10 @@
-package hsenid.controllers;
+package eztravel.controllers;
 
-import hsenid.model.customer.Customer;
-import hsenid.model.ResponseMapper;
-import hsenid.model.customer.SignUp;
-import hsenid.util.EncryptPassword;
-import hsenid.util.ServerResponseErrorHandler;
+import eztravel.model.ResponseMapper;
+import eztravel.model.customer.Customer;
+import eztravel.model.customer.SignUp;
+import eztravel.util.EncryptPassword;
+import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +18,9 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Vidushka on 08/09/17.

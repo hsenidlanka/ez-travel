@@ -1,4 +1,4 @@
-package hsenid.model.customer;
+package eztravel.model.customer;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -16,7 +16,7 @@ public class Customer {
     @Email(message = "Incorrect email.")
     private String email;
 
-    @Size(min = 8,message = "Incorrect password(should be 8 characters or more).")
+    @Size(min = 8, message = "Incorrect password(should be 8 characters or more).")
     private String password;
 
     public String getEmail() {

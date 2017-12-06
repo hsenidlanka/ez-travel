@@ -1,4 +1,4 @@
-package hsenid.model;
+package eztravel.model;
 
 /**
  * Created by Vidushka on 13/09/17.
