@@ -31,5 +31,8 @@
     <string name="view_image">app_logo</string>
     <string name="google_maps_key">eeeeeeeeeeeeeeee</string>
 
+    <!-- Strings related to passenger placehire -->
+    <string name="hire_origin">Hire Place</string>
+    <string name="hire_destination">Destination Place</string>
 
 </resources>
