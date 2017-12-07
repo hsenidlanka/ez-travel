@@ -16,7 +16,11 @@ public interface DriverRepository {
 
 
     Driver sendDriverDetails(String email);
-    boolean isDriverDeleted(String email);
+
+
+    boolean isDriverDeleted(String email, String password);
 
     boolean updatePassword(String email, String currentPassword, String newPassword);
+
+    boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber);
 }

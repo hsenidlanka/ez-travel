@@ -95,11 +95,11 @@ public class DriverImpl implements DriverRepository {
     }
 
     @Override
-    public boolean isDriverDeleted(String email) {
+    public boolean isDriverDeleted(String email, String password) {
 
-        String sqlForDeleteDriver = "DELETE FROM driver WHERE email=?;";
+        String sqlForDeleteDriver = "DELETE FROM driver WHERE email=? AND password=?;";
 
-        Object[] args = new Object[]{email};
+        Object[] args = new Object[]{email,password};
         boolean isDeleted = (jdbcTemplate.update(sqlForDeleteDriver, args) == 1);
 
         return isDeleted;
@@ -114,5 +114,16 @@ public class DriverImpl implements DriverRepository {
         boolean isPasswordUpdated = (jdbcTemplate.update(sqlForUpdateDriver, args) == 1);
 
         return isPasswordUpdated;
+    }
+
+
+    @Override
+    public boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber) {
+
+        String sqlForUpdateDriverContacts = "UPDATE customer set first_name = ?, last_name=? , contact_number=? where email = ?";
+        Object[] args = new Object[]{firstName, lastName, contactNumber, email};
+        boolean isContactsUpdated = (jdbcTemplate.update(sqlForUpdateDriverContacts, args) == 1);
+
+        return isContactsUpdated;
     }
 }

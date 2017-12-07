@@ -3,11 +3,9 @@ package eztravel.controllers.user.driver;
 
 import corelogic.domain.user.driver.Driver;
 import corelogic.repository.user.driver.Implementation.DriverImpl;
-import eztravel.model.driver.DriverDetailRequestModel;
-import eztravel.model.driver.DriverPasswordUpdateModel;
-import eztravel.model.driver.DriverRegistrationModel;
-import eztravel.model.driver.LoginModel;
+import eztravel.model.driver.*;
 
+import eztravel.model.reply.DriverContactUpdateReplyModel;
 import eztravel.model.reply.DriverDeleteReplyModel;
 import eztravel.model.reply.DriverPasswordUpdateReplyModel;
 import eztravel.model.reply.DriverRegistrationReplyModel;
@@ -136,7 +134,7 @@ public class DriverController {
         DriverDeleteReplyModel driverDeleteReplyModel = new DriverDeleteReplyModel();
 
 
-        if (driverImpl.isDriverDeleted(model.getEmail())) {
+        if (driverImpl.isDriverDeleted(model.getEmail(),model.getPassword())) {
             driverDeleteReplyModel.setHttpStatusCode(204);
             driverDeleteReplyModel.setRequestStatus("success");
             driverDeleteReplyModel.setMessage("Driver deletion success!");
@@ -151,6 +149,28 @@ public class DriverController {
         driverDeleteReplyModel.setUserDeletion(false);
 
         return driverDeleteReplyModel;
+    }
+
+    @PostMapping("updatecontacts")
+    public DriverContactUpdateReplyModel updateDriverContacts(@RequestBody DriverContactsUpdateRequestModel model)
+    {
+        boolean isContactsUpdated=driverImpl.updateContactDetails(model.getEmail(),model.getFirstName(),model.getLastName(),model.getContactNumber());
+        DriverContactUpdateReplyModel contactUpdateReplyModel=new DriverContactUpdateReplyModel();
+        if(isContactsUpdated)
+        {
+            contactUpdateReplyModel.setHttpStatusCode(204);
+            contactUpdateReplyModel.setRequestStatus("Updated");
+            contactUpdateReplyModel.setMessage("Driver Contact Details Updated successfully");
+            contactUpdateReplyModel.setContactUpdated(true);
+            return contactUpdateReplyModel;
+        }
+        contactUpdateReplyModel.setHttpStatusCode(500);
+        contactUpdateReplyModel.setRequestStatus("Faild");
+        contactUpdateReplyModel.setMessage("Driver Contact Details Update Faild");
+        contactUpdateReplyModel.setContactUpdated(false);
+        return contactUpdateReplyModel;
+
+
     }
 
 }
