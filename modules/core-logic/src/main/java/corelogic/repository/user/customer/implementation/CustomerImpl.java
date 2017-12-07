@@ -31,7 +31,8 @@ public class CustomerImpl implements CustomerRepository {
     }
 
     /**
-     * this method is used for authentica
+     * this method is used for authentication
+     * It will check whether user is in the database and not banned.
      *
      * @param email
      * @param password
@@ -39,7 +40,7 @@ public class CustomerImpl implements CustomerRepository {
      */
     public boolean isCustomerAuthenticated(String email, String password) {
 
-        String sql = "SELECT COUNT(*)FROM customer WHERE email = ? AND password = ?";
+        String sql = "SELECT COUNT(*)FROM customer WHERE email = ? AND password = ? AND user_status = 1";
 
         int count = jdbcTemplate.queryForObject(sql, new Object[]{email, password}, Integer.class);
         return count > 0;
@@ -115,22 +116,6 @@ public class CustomerImpl implements CustomerRepository {
     }
 
     /**
-     * This method is resposible for deleting customer account record from database.
-     *
-     * @param email - this is the unique data we use to identify customer
-     * @return - boolean
-     */
-    @Override
-    public boolean isCustomerDeleted(String email, String password) {
-
-        String sqlForDeleteCustomer = "DELETE FROM customer WHERE email=? AND password = ?";
-        Object[] args = new Object[]{email, password};
-        boolean isDeleted = (jdbcTemplate.update(sqlForDeleteCustomer, args) == 1);
-
-        return isDeleted;
-    }
-
-    /**
      * This methode is responsible for upating the customer's password
      *
      * @param email - customer's password
@@ -168,5 +153,37 @@ public class CustomerImpl implements CustomerRepository {
         return isContactsUpdated;
     }
 
+    /**
+     * This method is resposible for banning the customers.
+     *
+     * @param email - email of customer who is going to be banned
+     * @return
+     */
+    @Override
+    public boolean banCustomer(String email) {
+        String sqlForBanningCustomer = "UPDATE customer set user_status = 0 where email = ?";
+        ;
+        Object[] args = new Object[]{email};
+        boolean isBansucces = (jdbcTemplate.update(sqlForBanningCustomer, args) == 1);
+
+        return isBansucces;
+    }
+
+
+    /**
+     * This method is resposible for deleting customer account record from database.
+     *
+     * @param email - this is the unique data we use to identify customer
+     * @return - boolean
+     */
+    @Override
+    public boolean isCustomerDeleted(String email, String password) {
+
+        String sqlForDeleteCustomer = "DELETE FROM customer WHERE email=? AND password = ?";
+        Object[] args = new Object[]{email, password};
+        boolean isDeleted = (jdbcTemplate.update(sqlForDeleteCustomer, args) == 1);
+
+        return isDeleted;
+    }
 
 }
