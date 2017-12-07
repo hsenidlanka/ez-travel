@@ -5,10 +5,7 @@ import corelogic.domain.user.driver.Driver;
 import corelogic.repository.user.driver.Implementation.DriverImpl;
 import eztravel.model.driver.*;
 
-import eztravel.model.reply.DriverContactUpdateReplyModel;
-import eztravel.model.reply.DriverDeleteReplyModel;
-import eztravel.model.reply.DriverPasswordUpdateReplyModel;
-import eztravel.model.reply.DriverRegistrationReplyModel;
+import eztravel.model.reply.*;
 import hsenid.model.reply.LoginReplyModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -172,5 +169,27 @@ public class DriverController {
 
 
     }
+
+    @PostMapping("bandrivers")
+    @ResponseBody
+    public DriverBanReplyModel driverBanReplyModel(@RequestBody DriverBanRequestModel model)
+    {
+        DriverBanReplyModel driverBanReplyModel=new DriverBanReplyModel();
+        if(driverImpl.banDriver(model.getEmail()))
+        {
+            driverBanReplyModel.setHttpStatusCode(204);
+            driverBanReplyModel.setRequestStatus("Success");
+            driverBanReplyModel.setDriverBanned(true);
+            driverBanReplyModel.setMessage("Driver Ban Success");
+            return driverBanReplyModel;
+        }
+
+        driverBanReplyModel.setHttpStatusCode(500);
+        driverBanReplyModel.setRequestStatus("Faild");
+        driverBanReplyModel.setDriverBanned(false);
+        driverBanReplyModel.setMessage("Driver Ban Faild");
+        return driverBanReplyModel;
+    }
+
 
 }

@@ -94,6 +94,19 @@ public class DriverImpl implements DriverRepository {
 
     }
 
+    /**
+     * This method is resposible for banning the drivers.
+     * @param email-email of driver who is going to be banned
+     * @return
+     */
+    @Override
+    public boolean banDriver(String email) {
+        String sqlForBanningDriver="UPDATE driver set driver_status=0 WHERE email=? ";
+        Object[] args =new Object[]{email};
+        boolean isDriverBanSuccess=(jdbcTemplate.update(sqlForBanningDriver, args)==1);
+        return isDriverBanSuccess;
+    }
+
     @Override
     public boolean isDriverDeleted(String email, String password) {
 

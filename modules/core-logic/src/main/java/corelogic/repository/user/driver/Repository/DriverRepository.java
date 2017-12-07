@@ -17,6 +17,7 @@ public interface DriverRepository {
 
     Driver sendDriverDetails(String email);
 
+    boolean banDriver(String email);
 
     boolean isDriverDeleted(String email, String password);
 
