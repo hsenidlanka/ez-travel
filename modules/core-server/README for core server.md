@@ -16,7 +16,7 @@ The project created using following sdk's and tools.
   - json-simple 1.1
   
 **_and deployed and tested on_**
-  - apache-tomcat-8.0.32 
+  - apache-tomcat-8.0.32
   
 ### Configuration and building
 Core server uses abstract database layer from **core logic** module. There for you need to build whole project first. 
@@ -27,13 +27,23 @@ git clone https://github.com/hsenidlanka/ez-travel.git
 
 ```
 
-Then go to build main pom.xml
+After that you need to build core-logic to run core-server.
+It can easily build by main parent pom. 
 
 ```sh
+cd ez-travel/modules
 mvn clean install
 ```
-then go to core server pom and run it as spring boot project
+If it ran succesfully now you are ready to run core-server.
+Go to core server pom and run it as spring boot project
 ```sh
+cd core-server
 mvn spring-boot:run
 ```
+
+### Configuration and building
+
+For API doc refernce use below link
+
+*
 

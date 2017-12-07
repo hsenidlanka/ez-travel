@@ -9,7 +9,6 @@ Ez-travel is a technology platform. The Ez-travel android app connects driver-pa
 ## **Configuration and building**
 
 ## **Credits**
-- @Menuka5
+
 - @hsenidVidushka
-- @difnajayashani
-- @DamithaWijesuriya
+

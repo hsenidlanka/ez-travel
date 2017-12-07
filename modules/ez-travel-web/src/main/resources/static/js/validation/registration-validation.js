@@ -59,7 +59,7 @@ function validateYear() {
     var date = new Date();
     var currentYear = date.getFullYear();
 
-    if (!(year.value<currentYear-100 && year.value>currentYear)){
+    if (!(year.value>currentYear-100 && year.value<currentYear)){
         indicateError("year-error", "year", "Invalid year.");
         return false;
     } else {
@@ -83,7 +83,7 @@ function validateMonth() {
 function validateDay() {
     var day = document.getElementById("day");
 
-    if (!(day.value<1 && day.value>31)){
+    if (!(day.value>1 && day.value<31)){
         indicateError("day-error", "day", "Invalid day.");
         return false;
     } else {
@@ -97,7 +97,7 @@ function validateNIC() {
     var newIdPattern = /^[0-9]{12}$/;
     var nic = document.getElementById("nic");
 
-    if ((!nic.value.match(oldIdPattern)) || (!nic.value.match(newIdPattern))){
+    if ((!nic.value.match(oldIdPattern)) && (!nic.value.match(newIdPattern))){
         indicateError("nic-error", "nic", "Incorrect NIC.");
         return false;
     } else {
