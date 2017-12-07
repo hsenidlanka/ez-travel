@@ -20,11 +20,12 @@ public interface CustomerRepository {
     boolean registerCustomer(String email, String password, String first_name, String last_name, Date birthday,
                              String contact_number, String nic, String gender);
 
-    Customer sendCustomerDetails(String emai);
+    Customer sendCustomerDetails(String email);
 
-    boolean isCustomerDeleted(String email);
+    boolean isCustomerDeleted(String email, String password);
 
     boolean updatePassword(String email, String currentPassword, String newPassword);
 
+    boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber);
 
 }
