@@ -41,3 +41,9 @@ cd core-server
 mvn spring-boot:run
 ```
 
+### Configuration and building
+
+For API doc refernce use below link
+
+*
+
