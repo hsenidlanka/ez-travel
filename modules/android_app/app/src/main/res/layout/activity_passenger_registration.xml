@@ -66,14 +66,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_phone"
-            android:inputType="number" />
+            android:inputType="phone" />
 
         <EditText
             android:id="@+id/nic_register_passenger"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/prompt_nic"
-            android:inputType="phone" />
+            android:inputType="number" />
 
         <EditText
             android:id="@+id/dob_register_passenger"
