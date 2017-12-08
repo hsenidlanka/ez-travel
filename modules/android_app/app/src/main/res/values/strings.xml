@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TaxiApp</string>
+    <string name="title_activity_passenger">Passenger Sign in</string>
+    <string name="title_activity_driver">Driver Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in </string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="txtCredits"><a href="http://www.google.com">Forgot your Password or Email</a></string>
+    <string name="title_activity_registration_driver">RegistrationDriverActivity</string>
+
+
+    <!-- Strings related to passenger register -->
+    <string name="action_sign_up1_passenger">Continue </string>
+    <string name="action_sign_up2_passenger">Sign Up </string>
+    <string name="prompt_fname">First Name</string>
+    <string name="prompt_lname">Last Name</string>
+    <string name="prompt_phone">Mobile</string>
+    <string name="prompt_nic">NIC</string>
+    <string name="prompt_cpassword">Confirm Password</string>
+    <string name="prompt_sign_up_driver">Driver Registration</string>
+    <string name="view_image">app_logo</string>
+    <string name="google_maps_key">eeeeeeeeeeeeeeee</string>
+
+
+</resources>
