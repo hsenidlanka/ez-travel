@@ -18,6 +18,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -73,6 +74,7 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
     private View mProgressView;
     private View mLoginFormView;
     Button mEmailSignInButton;
+    Button passengerRegisterAccessButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +96,7 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             }
         });
 
+        //on the click of Signin button
         mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_passenger);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -101,6 +104,18 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
                 attemptLogin();
             }
         });
+
+        //on the click of the register button
+        passengerRegisterAccessButton = (Button) findViewById(R.id.register_button_passenger);
+        passengerRegisterAccessButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent registrationIntent = new Intent(PassengerActivity.this, RegistrationPassengerActivity.class);
+                PassengerActivity.this.startActivity(registrationIntent);
+            }
+        });
+
 
         mLoginFormView = findViewById(R.id.login_form_passenger);
         mProgressView = findViewById(R.id.login_progress_passenger);
@@ -273,7 +288,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addEmailsToAutoComplete(emails);
     }
 
@@ -330,6 +344,7 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
 
                     HttpHeaders headers= new HttpHeaders();
                     headers.setContentType(MediaType.APPLICATION_JSON);
+                    headers.add("Authorization",getB64Auth(mEmail,mPassword));
 
 
                     JSONObject json = new JSONObject();
@@ -338,6 +353,9 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
                     String requestBody = json.toString();
 
                     HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
+                    Log.e(TAG,"entity"+ entity.getBody());
+                    Log.e(TAG,"entity2"+ entity.getHeaders());
+
 
                     RestTemplate loginTemplate = new RestTemplate();
                     HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
@@ -379,15 +397,17 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
                 //finish();
 
             //if the login validation fails
-            } if (!success) {
+            } else {
 
              /*   Context context = getApplicationContext();
                 CharSequence text = "Hello toast!";
                 int duration = Toast.LENGTH_SHORT;*/
 
-                Intent intent = getIntent();
+                Intent play22Intent = new Intent(PassengerActivity.this, MainActivity.class);
+                PassengerActivity.this.startActivity(play22Intent);
+             /*   Intent intent = getIntent();
                 finish();
-                startActivity(intent);
+                startActivity(intent);*/
 
               /*  Toast toast = Toast.makeText(getApplicationContext(),"bbbbbb", Toast.LENGTH_LONG);
                 toast.setGravity(Gravity.CENTER, 0, 0);
@@ -398,6 +418,12 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
                 /*mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();*/
             }
+        }
+
+        private String getB64Auth (String login, String pass) {
+            String source=login+":"+pass;
+            String ret="Basic "+ Base64.encodeToString(source.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
+            return ret;
         }
 
         @Override

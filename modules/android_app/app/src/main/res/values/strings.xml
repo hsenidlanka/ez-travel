@@ -6,7 +6,7 @@
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in">Sign in </string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -15,23 +15,26 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="txtCredits">
-        <a href="http://www.google.com">Forgot your Password or Email</a>
-    </string>
+    <string name="txtCredits"><a href="http://www.google.com">Forgot your Password or Email</a></string>
     <string name="title_activity_registration_driver">RegistrationDriverActivity</string>
 
 
     <!-- Strings related to passenger register -->
-    <string name="action_sign_up1_passenger">Continue</string>
-    <string name="action_sign_up2_passenger">Sign Up</string>
+    <string name="action_sign_up1_passenger">Register </string>
+    <string name="action_sign_up2_passenger">Sign Up </string>
     <string name="prompt_fname">First Name</string>
     <string name="prompt_lname">Last Name</string>
     <string name="prompt_phone">Mobile</string>
     <string name="prompt_nic">NIC</string>
+    <string name="prompt_dob">DOB</string>
     <string name="prompt_cpassword">Confirm Password</string>
     <string name="prompt_sign_up_driver">Driver Registration</string>
     <string name="view_image">app_logo</string>
     <string name="google_maps_key">eeeeeeeeeeeeeeee</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+
+
 
     <!-- Strings related to passenger placehire -->
     <string name="hire_origin">Hire Place</string>

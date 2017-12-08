@@ -88,8 +88,8 @@
     </ul>
     <!-- end navbar-top-links -->
     <!-- form to holdusername for getUserInfo-->
-    <form id="customerInfo" action="http://localhost:8085/ez-travel/customer/settings" method="POST">
-        <input type="hidden" value="<%= session.getAttribute("username")%>">
+    <form id="customerInfo" action="http://localhost:8085/ez-travel/customer/settings" method="get">
+
     </form>
 </nav>
 <!-- end navbar top -->

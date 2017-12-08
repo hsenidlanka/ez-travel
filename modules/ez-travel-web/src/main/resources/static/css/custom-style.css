@@ -143,3 +143,12 @@ h4 {
 .error{
     color: #dd4b39;
 }
+
+.form-modal {
+    padding: 0 20px;
+}
+
+btn.btn-primary.fnt {
+    font-family: fontawesome;
+    font-size: 10px;
+}

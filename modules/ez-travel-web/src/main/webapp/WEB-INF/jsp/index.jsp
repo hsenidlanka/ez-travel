@@ -88,6 +88,10 @@
                                                                                 data-slide="next"><span
                     class="glyphicon glyphicon-chevron-right"></span></a>
             </div>
+
+            <C:if test="${not empty delete_account_status}">
+                <div class="alert-success"><h2>${delete_account_status}</h2></div>
+            </C:if>
             <!--<ul class="nav nav-tabs">
                 <li class="active">
                     <a href="#">ez-traval</a>
