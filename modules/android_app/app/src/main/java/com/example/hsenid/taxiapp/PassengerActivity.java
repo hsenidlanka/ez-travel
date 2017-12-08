@@ -23,11 +23,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -295,6 +291,10 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
         mEmailView.setAdapter(adapter);
     }
 
+    public void gotoPassengerRegistrationPage(View view) {
+        Intent driverPage = new Intent(PassengerActivity.this, RegistrationPassengerActivity.class);
+        startActivity(driverPage);
+    }
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -405,11 +405,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             mAuthTask = null;
             showProgress(false);
         }
-    }
-
-    public void gotoPassengerRegistrationPage(View view){
-        Intent driverPage= new Intent(PassengerActivity.this,RegistrationPassengerActivity.class);
-        startActivity(driverPage);
     }
 
 }
