@@ -13,7 +13,7 @@ public class DriverRegistrationModel {
   private String contact_number;
   private String birthday;
   private String gender;
-  private String confirmed_by;
+//  private String confirmed_by;
   private String  nic;
 
     public String getEmail() {
@@ -80,13 +80,13 @@ public class DriverRegistrationModel {
         this.gender = gender;
     }
 
-    public String getConfirmed_by() {
-        return confirmed_by;
-    }
-
-    public void setConfirmed_by(String confirmed_by) {
-        this.confirmed_by = confirmed_by;
-    }
+//    public String getConfirmed_by() {
+//        return confirmed_by;
+//    }
+//
+//    public void setConfirmed_by(String confirmed_by) {
+//        this.confirmed_by = confirmed_by;
+//    }
 
     public String getNic() {
         return nic;

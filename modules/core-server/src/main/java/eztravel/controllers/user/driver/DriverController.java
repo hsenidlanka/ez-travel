@@ -60,7 +60,7 @@ public class DriverController {
         String gender = driver.getGender();
         Date birthday = Date.valueOf(driver.getBirthday());
         String license_number = driver.getLicense_number();
-        String confirmed_by = driver.getConfirmed_by();
+//        String confirmed_by = driver.getConfirmed_by();
 
 
         boolean registrationStatus = driverImpl.registerDriver(
@@ -72,7 +72,6 @@ public class DriverController {
                 contact_number,
                 birthday,
                 gender,
-                confirmed_by,
                 nic );
 
         if (registrationStatus) {
