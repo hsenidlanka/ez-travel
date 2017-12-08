@@ -23,9 +23,8 @@ public class DriverController {
     @Autowired
     DriverImpl driverImpl;
 
-    @PostMapping("login")
+    @PostMapping("/login")
     @ResponseBody
-
     public ResponseEntity<LoginReplyModel> isUserDriverOrNot(@RequestBody LoginModel loginModel) {
         LoginReplyModel loginReplyModel = new LoginReplyModel();
         boolean loginStatus = driverImpl.isDriverAuthenticated(loginModel.getEmail(), loginModel.getPassword());
@@ -75,12 +74,15 @@ public class DriverController {
                 gender,
                 confirmed_by,
                 nic );
+
         if (registrationStatus) {
+
             reply.setHttpStatusCode(HttpStatus.CREATED.value());
             reply.setMessage("Driver creation successful");
             reply.setRequestStatus("success");
             reply.setUserCreation(registrationStatus);
             return ResponseEntity.status(HttpStatus.CREATED).body(reply);
+
         }
 
         reply.setHttpStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
@@ -93,13 +95,13 @@ public class DriverController {
 
     }
 
-    @PostMapping("info")
+    @PostMapping("/info")
     @ResponseBody
     public Driver sendDriverDate(@RequestBody DriverDetailRequestModel model) {
         return driverImpl.sendDriverDetails(model.getEmail());
     }
 
-    @PostMapping("updatepassword")
+    @PostMapping("/updatepassword")
     @ResponseBody
     public DriverPasswordUpdateReplyModel passwordUpdateModel(@RequestBody DriverPasswordUpdateModel model)
     {
@@ -122,7 +124,7 @@ public class DriverController {
 
         return driverPasswordUpdateReplyModel;
     }
-    @PostMapping("deleteaccount")
+    @PostMapping("/deleteaccount")
     @ResponseBody
     public DriverDeleteReplyModel deleteDriverAccount(@RequestBody DriverDetailRequestModel model) {
 
@@ -146,7 +148,7 @@ public class DriverController {
         return driverDeleteReplyModel;
     }
 
-    @PostMapping("updatecontacts")
+    @PostMapping("/updatecontacts")
     public DriverContactUpdateReplyModel updateDriverContacts(@RequestBody DriverContactsUpdateRequestModel model)
     {
         boolean isContactsUpdated=driverImpl.updateContactDetails(model.getEmail(),model.getFirstName(),model.getLastName(),model.getContactNumber());
@@ -168,7 +170,7 @@ public class DriverController {
 
     }
 
-    @PostMapping("bandrivers")
+    @PostMapping("/bandriver")
     @ResponseBody
     public DriverBanReplyModel driverBanReplyModel(@RequestBody DriverBanRequestModel model)
     {
