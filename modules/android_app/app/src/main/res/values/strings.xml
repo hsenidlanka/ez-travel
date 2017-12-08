@@ -20,16 +20,21 @@
 
 
     <!-- Strings related to passenger register -->
-    <string name="action_sign_up1_passenger">Continue </string>
+    <string name="action_sign_up1_passenger">Register </string>
     <string name="action_sign_up2_passenger">Sign Up </string>
     <string name="prompt_fname">First Name</string>
     <string name="prompt_lname">Last Name</string>
     <string name="prompt_phone">Mobile</string>
     <string name="prompt_nic">NIC</string>
+    <string name="prompt_dob">DOB</string>
     <string name="prompt_cpassword">Confirm Password</string>
     <string name="prompt_sign_up_driver">Driver Registration</string>
     <string name="view_image">app_logo</string>
     <string name="google_maps_key">eeeeeeeeeeeeeeee</string>
+    <string name="radio_male">Male</string>
+    <string name="radio_female">Female</string>
+
+
 
     <!-- Strings related to passenger placehire -->
     <string name="hire_origin">Hire Place</string>
