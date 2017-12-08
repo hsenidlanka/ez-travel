@@ -46,7 +46,6 @@
 
         </RadioGroup>
 
-
         <EditText
             android:id="@+id/fname_register_passenger"
             android:layout_width="match_parent"

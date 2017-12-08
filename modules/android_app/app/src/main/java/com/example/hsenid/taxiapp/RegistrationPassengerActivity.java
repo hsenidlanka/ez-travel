@@ -160,6 +160,7 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
             focusView = passengerPassword;
             cancel = true;
         }
+
         else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             passengerPassword.setError(getString(R.string.error_invalid_password));
             focusView = passengerPassword;
