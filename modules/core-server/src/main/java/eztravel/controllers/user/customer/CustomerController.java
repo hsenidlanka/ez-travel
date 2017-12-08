@@ -1,15 +1,12 @@
 package eztravel.controllers.user.customer;
 
-//import corelogic.domain.user.customer.Customer;
 
 import corelogic.domain.user.customer.Customer;
 import corelogic.repository.user.customer.implementation.CustomerImpl;
-import eztravel.model.customer.CustomerDetailRequestModel;
-import eztravel.model.customer.CustomerRegistrationModel;
-import eztravel.model.customer.LoginModel;
-import eztravel.model.reply.CustomerDeleteReplyModel;
-import eztravel.model.reply.CustomerRegistrationReplyModel;
-import eztravel.model.reply.LoginReplyModel;
+
+import eztravel.model.customer.*;
+import eztravel.model.reply.customer.*;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 
-//import hsenid.domain.user.customer.Customer;
 
 /**
  * @version 1.0O
@@ -109,14 +105,87 @@ public class CustomerController {
 
     }
 
+    @PostMapping("/updatecontacts")
+    @ResponseBody
+    public CustomerContactUpdateReplyModel updateCustomerContacts(@RequestBody CustomerContactsUpdateRequestModel model) {
+
+        boolean isContactsUpdated = customerImpl.updateContactDetails(model.getEmail(), model.getFirstName(), model.getLastName(), model.getContactNumber());
+
+        CustomerContactUpdateReplyModel contactUpdateReplyModel = new CustomerContactUpdateReplyModel();
+
+        if (isContactsUpdated) {
+            contactUpdateReplyModel.setHttpStatusCode(204);
+            contactUpdateReplyModel.setRequestStatus("updated");
+            contactUpdateReplyModel.setMessage("Customer contact details successfully updated");
+            contactUpdateReplyModel.setContactUpdated(true);
+
+            return contactUpdateReplyModel;
+        }
+
+        contactUpdateReplyModel.setHttpStatusCode(500);
+        contactUpdateReplyModel.setRequestStatus("failed");
+        contactUpdateReplyModel.setMessage("Customer contact details updation failed!");
+        contactUpdateReplyModel.setContactUpdated(false);
+
+        return contactUpdateReplyModel;
+
+    }
+
+    @PostMapping("/updatepassword")
+    @ResponseBody
+    public CustomerPasswordUpdateReplyModel updateCustomerPassword(@RequestBody CustomerPasswordUpdateModel model) {
+
+        boolean isPasswordUpdated = customerImpl.updatePassword(model.getEmail(), model.getCurrentPassword(), model.getNewPassword());
+        CustomerPasswordUpdateReplyModel passwordUpdateReplyModel = new CustomerPasswordUpdateReplyModel();
+        if (isPasswordUpdated) {
+            passwordUpdateReplyModel.setHttpStatusCode(204);
+            passwordUpdateReplyModel.setRequestStatus("updated");
+            passwordUpdateReplyModel.setMessage("Password update successful!");
+            passwordUpdateReplyModel.setIsPasswordUpdated(true);
+
+            return passwordUpdateReplyModel;
+        }
+
+        passwordUpdateReplyModel.setHttpStatusCode(500);
+        passwordUpdateReplyModel.setRequestStatus("failed");
+        passwordUpdateReplyModel.setMessage("Password update failed!");
+        passwordUpdateReplyModel.setIsPasswordUpdated(false);
+        return passwordUpdateReplyModel;
+
+    }
+
+
+    @PostMapping("/bancustomer")
+    @ResponseBody
+    public CustomerBanReplyModel banCustomer(@RequestBody CustomerBanRequestModel model) {
+        CustomerBanReplyModel banReplyModel = new CustomerBanReplyModel();
+
+        if (customerImpl.banCustomer(model.getEmail())) {
+            banReplyModel.setHttpStatusCode(204);
+            banReplyModel.setRequestStatus("success");
+            banReplyModel.setCustomerBanned(true);
+            banReplyModel.setMessage("Customer banned successful!");
+
+            return banReplyModel;
+        }
+
+        banReplyModel.setHttpStatusCode(500);
+        banReplyModel.setRequestStatus("failed");
+        banReplyModel.setMessage("Customer banning failed!");
+        banReplyModel.setCustomerBanned(false);
+
+        return banReplyModel;
+
+    }
+
     @PostMapping("/deleteaccount")
     @ResponseBody
-    public CustomerDeleteReplyModel deleteCustomerAccount(@RequestBody CustomerDetailRequestModel model) {
+    public CustomerDeleteReplyModel deleteCustomerAccount(@RequestBody CustomerDeleteRequestModel model) {
 
         CustomerDeleteReplyModel deleteReplyModel = new CustomerDeleteReplyModel();
 
 
-        if (customerImpl.isCustomerDeleted(model.getEmail())) {
+        if (customerImpl.isCustomerDeleted(model.getEmail(), model.getPassword())) {
             deleteReplyModel.setHttpStatusCode(204);
             deleteReplyModel.setRequestStatus("success");
             deleteReplyModel.setMessage("Customer deletion success!");

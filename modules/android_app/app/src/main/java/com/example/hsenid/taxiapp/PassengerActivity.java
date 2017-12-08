@@ -3,32 +3,41 @@ package com.example.hsenid.taxiapp;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
-
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +58,8 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
+    private static final String TAG = "MyActivity";
+
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -62,6 +73,8 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    Button mEmailSignInButton;
+    Button passengerRegisterAccessButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,13 +96,26 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_passenger);
+        //on the click of Signin button
+        mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_passenger);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
+
+        //on the click of the register button
+        passengerRegisterAccessButton = (Button) findViewById(R.id.register_button_passenger);
+        passengerRegisterAccessButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent registrationIntent = new Intent(PassengerActivity.this, RegistrationPassengerActivity.class);
+                PassengerActivity.this.startActivity(registrationIntent);
+            }
+        });
+
 
         mLoginFormView = findViewById(R.id.login_form_passenger);
         mProgressView = findViewById(R.id.login_progress_passenger);
@@ -262,7 +288,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addEmailsToAutoComplete(emails);
     }
 
@@ -280,6 +305,10 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
         mEmailView.setAdapter(adapter);
     }
 
+    public void gotoPassengerRegistrationPage(View view) {
+        Intent driverPage = new Intent(PassengerActivity.this, RegistrationPassengerActivity.class);
+        startActivity(driverPage);
+    }
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -308,24 +337,52 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
-
+            Boolean result=false;
             try {
                 // Simulate network access.
-                Thread.sleep(2000);
+                    String url = "http://192.168.100.106:50000/api/customer/login";
+
+                    HttpHeaders headers= new HttpHeaders();
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                    headers.add("Authorization",getB64Auth(mEmail,mPassword));
+
+
+                    JSONObject json = new JSONObject();
+                    json.put("email", mEmail);
+                    json.put("password", mPassword);
+                    String requestBody = json.toString();
+
+                    HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
+                    Log.e(TAG,"entity"+ entity.getBody());
+                    Log.e(TAG,"entity2"+ entity.getHeaders());
+
+
+                    RestTemplate loginTemplate = new RestTemplate();
+                    HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
+                    HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
+
+                    loginTemplate.getMessageConverters().add(formHttpMessageConverter);
+                    loginTemplate.getMessageConverters().add(stringHttpMessageConverternew);
+
+                    ResponseEntity<String> response=loginTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+                    Log.e(TAG,"result"+ response.getBody());
+                    Log.e(TAG,"result"+  response.getStatusCode());
+
+                    if (response.getStatusCode() == HttpStatus.OK ) {
+                        result= true;
+                    }
+                    else  {
+                        result=false;
+                    }
+                    // result=response.toString();
+                    Thread.sleep(2000);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
             } catch (InterruptedException e) {
-                return false;
+                e.printStackTrace();
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
+            return result;
         }
 
         @Override
@@ -333,12 +390,40 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             mAuthTask = null;
             showProgress(false);
 
+            //if the login validation is a success
             if (success) {
-                finish();
+                Intent playIntent = new Intent(PassengerActivity.this, PassengerPlacehireActivity.class);
+                PassengerActivity.this.startActivity(playIntent);
+                //finish();
+
+            //if the login validation fails
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();
+
+             /*   Context context = getApplicationContext();
+                CharSequence text = "Hello toast!";
+                int duration = Toast.LENGTH_SHORT;*/
+
+                Intent play22Intent = new Intent(PassengerActivity.this, MainActivity.class);
+                PassengerActivity.this.startActivity(play22Intent);
+             /*   Intent intent = getIntent();
+                finish();
+                startActivity(intent);*/
+
+              /*  Toast toast = Toast.makeText(getApplicationContext(),"bbbbbb", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+                toast.show();*/
+               /* Toast toast = Toast.makeText(context, text, duration);
+                toast.show();*/
+
+                /*mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();*/
             }
+        }
+
+        private String getB64Auth (String login, String pass) {
+            String source=login+":"+pass;
+            String ret="Basic "+ Base64.encodeToString(source.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
+            return ret;
         }
 
         @Override
@@ -346,11 +431,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             mAuthTask = null;
             showProgress(false);
         }
-    }
-
-    public void gotoPassengerRegistrationPage(View view){
-        Intent driverPage= new Intent(PassengerActivity.this,RegistrationPassengerActivity.class);
-        startActivity(driverPage);
     }
 
 }

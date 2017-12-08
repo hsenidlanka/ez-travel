@@ -1,7 +1,7 @@
 package com.example.hsenid.taxiapp;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 public class PassengerPlacehireActivity extends AppCompatActivity {
 

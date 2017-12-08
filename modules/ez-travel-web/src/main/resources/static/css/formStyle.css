@@ -10,8 +10,8 @@
 }
 
 .customer-signup-form{
-    background-color: #575958;
-    opacity: 0.8;
+    background: rgb(91, 162, 163);
+    opacity: 0.84;
     filter: alpha(opacity=80);
     width: 333px;
     /*height: 586px;*/
@@ -28,7 +28,7 @@
 
 .btn.btn-primary.btn-md.button-long{
     width: 88%;
-    margin: 0% 0% 0% 6%;
+    margin: 0% 0% 6% 6%;
     color: #fff;
     background-color: #28a745;
     background-image: linear-gradient(-180deg, #34d058 0%, #28a745 90%);
@@ -61,4 +61,24 @@
 
 #removeFloat{
     clear: left;
+}
+
+.booking-form-background{
+	z-index: 1000;
+    position: relative;
+    margin: 12% 0 0 5%;
+    width: 30%;
+    /*height: 30%;*/
+    background: rgb(91, 162, 163);
+	opacity: 0.84;
+    border-radius: 23px;
+}
+
+.booking-form{
+	    padding-left: 14px;
+    padding-top: 5px;
+}
+
+.form-lable.booking-form{
+	text-align: inherit;
 }

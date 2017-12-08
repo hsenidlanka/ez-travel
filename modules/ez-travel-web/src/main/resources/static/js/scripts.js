@@ -1,5 +1,5 @@
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('div_map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
         mapTypeControl: false,
         center: {lat: 6.9271, lng: 79.8612},
         zoom: 13
@@ -16,8 +16,8 @@ function AutocompleteDirectionsHandler(map) {
     this.originPlaceId = null;
     this.destinationPlaceId = null;
     this.travelMode = 'WALKING';
-    var start = document.getElementById('txt_from');
-    var end = document.getElementById('txt_to');
+    var start = document.getElementById('pickup');
+    var end = document.getElementById('drop');
     this.directionsService = new google.maps.DirectionsService;
     this.directionsDisplay = new google.maps.DirectionsRenderer;
     this.directionsDisplay.setMap(map);
