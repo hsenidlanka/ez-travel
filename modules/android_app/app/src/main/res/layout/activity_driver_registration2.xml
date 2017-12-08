@@ -1,145 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.hsenid.taxiapp.DriverRegistrationActivity">
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             tools:context="com.example.eztravel.taxiapp.DriverRegistrationActivity">
 
     <TextView
-        android:id="@+id/label_driver_register2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/prompt_sign_up_driver"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="16dp" />
+            android:id="@+id/label_driver_register2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/prompt_sign_up_driver"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            tools:layout_editor_absoluteX="66dp"
+            tools:layout_editor_absoluteY="16dp"/>
 
     <LinearLayout
-        android:id="@+id/registration_form_driver"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingTop="20dp"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="78dp">
+            android:id="@+id/registration_form_driver"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="30dp"
+            android:paddingTop="20dp"
+            tools:layout_editor_absoluteX="17dp"
+            tools:layout_editor_absoluteY="78dp">
 
 
         <TextView
-            android:id="@+id/label_license_no"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enter License Number"
-            android:textSize="20sp" />
+                android:id="@+id/label_license_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter License Number"
+                android:textSize="20sp"/>
 
         <EditText
-            android:id="@+id/editText2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="number" />
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="number"/>
 
         <LinearLayout
-            android:id="@+id/registration_form_driver2"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:id="@+id/registration_form_driver2"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/label_driver_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="90dp"
-                android:text="Driver Image"
-                android:textSize="20sp" />
+                    android:id="@+id/label_driver_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="90dp"
+                    android:text="Driver Image"
+                    android:textSize="20sp"/>
 
             <Button
-                android:id="@+id/button_driver_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Upload" />
+                    android:id="@+id/button_driver_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Upload"/>
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/registration_form_driver3"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+                android:id="@+id/registration_form_driver3"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
             <TextView
-                android:id="@+id/label_license_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="73dp"
-                android:text="License Image"
-                android:textSize="20sp" />
+                    android:id="@+id/label_license_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="73dp"
+                    android:text="License Image"
+                    android:textSize="20sp"/>
             <Button
-                android:id="@+id/button_license_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Upload" />
+                    android:id="@+id/button_license_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Upload"/>
 
         </LinearLayout>
         <LinearLayout
-            android:id="@+id/registration_form_driver4"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
+                android:id="@+id/registration_form_driver4"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/label_insuarence_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="35dp"
-                android:text="Vehicle Insuarence"
-                android:textSize="20sp" />
+                    android:id="@+id/label_insuarence_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="35dp"
+                    android:text="Vehicle Insuarence"
+                    android:textSize="20sp"/>
             <Button
-                android:id="@+id/button_insuarence_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Upload" />
+                    android:id="@+id/button_insuarence_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="Upload"/>
         </LinearLayout>
 
         <EditText
-            android:id="@+id/password_register_driver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:hint="@string/prompt_password"
-            android:imeActionId="@+id/registration_form_driver"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true" />
+                android:id="@+id/password_register_driver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:hint="@string/prompt_password"
+                android:imeActionId="@+id/registration_form_driver"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
         <EditText
-            android:id="@+id/cpassword_register_driver"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:hint="@string/prompt_cpassword"
-            android:imeActionId="@+id/registration_form_driver"
-            android:imeOptions="actionUnspecified"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:singleLine="true" />
+                android:id="@+id/cpassword_register_driver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:hint="@string/prompt_cpassword"
+                android:imeActionId="@+id/registration_form_driver"
+                android:imeOptions="actionUnspecified"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"/>
 
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/signup_register_driver"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        tools:layout_editor_absoluteX="129dp"
-        tools:layout_editor_absoluteY="435dp" />
+            android:id="@+id/signup_register_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Up"
+            tools:layout_editor_absoluteX="129dp"
+            tools:layout_editor_absoluteY="435dp"/>
 
 </android.support.constraint.ConstraintLayout>
