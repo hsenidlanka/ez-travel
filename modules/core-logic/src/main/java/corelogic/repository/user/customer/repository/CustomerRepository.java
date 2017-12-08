@@ -22,10 +22,12 @@ public interface CustomerRepository {
 
     Customer sendCustomerDetails(String email);
 
-    boolean isCustomerDeleted(String email, String password);
-
     boolean updatePassword(String email, String currentPassword, String newPassword);
 
     boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber);
+
+    boolean banCustomer(String email);
+
+    boolean isCustomerDeleted(String email, String password);
 
 }

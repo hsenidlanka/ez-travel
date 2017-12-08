@@ -106,7 +106,7 @@ public class CustomerController {
     }
 
     @PostMapping("/updatecontacts")
-
+    @ResponseBody
     public CustomerContactUpdateReplyModel updateCustomerContacts(@RequestBody CustomerContactsUpdateRequestModel model) {
 
         boolean isContactsUpdated = customerImpl.updateContactDetails(model.getEmail(), model.getFirstName(), model.getLastName(), model.getContactNumber());
@@ -151,6 +151,30 @@ public class CustomerController {
         passwordUpdateReplyModel.setMessage("Password update failed!");
         passwordUpdateReplyModel.setIsPasswordUpdated(false);
         return passwordUpdateReplyModel;
+
+    }
+
+
+    @PostMapping("/bancustomer")
+    @ResponseBody
+    public CustomerBanReplyModel banCustomer(@RequestBody CustomerBanRequestModel model) {
+        CustomerBanReplyModel banReplyModel = new CustomerBanReplyModel();
+
+        if (customerImpl.banCustomer(model.getEmail())) {
+            banReplyModel.setHttpStatusCode(204);
+            banReplyModel.setRequestStatus("success");
+            banReplyModel.setCustomerBanned(true);
+            banReplyModel.setMessage("Customer banned successful!");
+
+            return banReplyModel;
+        }
+
+        banReplyModel.setHttpStatusCode(500);
+        banReplyModel.setRequestStatus("failed");
+        banReplyModel.setMessage("Customer banning failed!");
+        banReplyModel.setCustomerBanned(false);
+
+        return banReplyModel;
 
     }
 

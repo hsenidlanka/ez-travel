@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>ez-travel</title>
@@ -13,7 +14,7 @@
             <div class="form_lable booking-form">
                 <h4>Reserve a vehicle</h4>
             </div>
-            <form:form action="" method="post" modelAttribute="signUp" >
+            <form:form action="" method="post" modelAttribute="hire">
                 <div id="form-element">
                     <form:label path="pickup"> Pickup </form:label>
                     <form:input type="text" path="pickup" class="form-control input-sm chat-input"
@@ -29,25 +30,25 @@
                     <span id="drop-error"></span>
                 </div>
                 <div class="inline-input" id="form-element">
-                    <form:label path="pickup-date">Pickup Date</form:label>
-                    <form:input type="text" path="pickup-date" class="form-control input-sm chat-input"
-                                placeholder="Pickup Date"  id="pickup-date" ><span class="fa fa-calendar  fa-2x"></span></form:input>
-                    <form:errors path="pickup-date" cssClass="error" />
+                    <form:label path="pickupDate">Pickup Date</form:label>
+                    <form:input type="text" path="pickupDate" class="form-control input-sm chat-input"
+                                placeholder="`Pickup Date" id="pickupDate"></form:input>
+                    <form:errors path="pickupDate" cssClass="error"/>
                     <span id="pickup-date-error"></span>
                 </div>
                 <div class="inline-input" id="form-element">
                     <form:label path="time">Time</form:label>
                     <form:input type="text" path="time" class="form-control input-sm chat-input"
-                                placeholder="Time"  id="time" />
+                                placeholder="Time" id="time"/>
                     <form:errors path="time" cssClass="error" />
                     <span id="time-error"></span>
                 </div>
                 <div id="removeFloat"></div>
                 <div id="form-element">
-                    <form:label path="vehicle-type">Vehicle Type</form:label>
-                    <form:input type="text" path="vehicle-type" class="form-control input-sm chat-input"
+                    <form:label path="vehicleType">Vehicle Type</form:label>
+                    <form:input type="text" path="vehicleType" class="form-control input-sm chat-input"
                                 placeholder="Vehicle Type"  id="vehicle-type" />
-                    <form:errors path="vehicle-type" cssClass="error" />
+                    <form:errors path="vehicleType" cssClass="error"/>
                     <span id="vehicle-type-error"></span>
                 </div>
                 <input type="submit" class="btn btn-primary btn-md button-long" value="Book">
