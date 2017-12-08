@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -157,20 +158,20 @@
         <div class="container_12">
             <div class="grid_5">
                 <h3>Need a Taxi?</h3>
-                <%--<form:form method="POST" id="bookingForm" action="hire" modelAttribute="hire">
+                <form:form method="POST" id="bookingForm" action="hire" modelAttribute="hire">
                     <div class="fl1">
                         <div class="tmInput">
-                            <form:input path="from" name="from" id="from" placeHolder="From:" type="text" />
+                            <form:input path="pickup" name="pickup" id="pickup" placeHolder="From:" type="text" />
                         </div>
                     </div>
                     <div class="fl1">
                         <div class="tmInput mr0">
-                            <form:input path="to" name="to" id="to" placeHolder="To:" type="text" />
+                            <form:input path="drop" name="drop" id="drop" placeHolder="To:" type="text" />
                         </div>
                     </div>
                     <div class="clear"></div>
                     <a href="#" class="btn" data-type="submit">Book Now!</a>
-                </form:form>--%>
+                </form:form>
             </div>
             <div class="grid_6 prefix_1" id="div_map" style="margin-top: 2em; width: 40em; height: 30em;"></div>
             <div class="clear"></div>
@@ -206,5 +207,3 @@
         $('#bookingForm input, #bookingForm textarea').placeholder();
     });
 </script>
-</body>
-</html>
