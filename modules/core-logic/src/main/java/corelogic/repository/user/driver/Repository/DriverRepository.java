@@ -12,7 +12,7 @@ import java.sql.Date;
 public interface DriverRepository {
     boolean isDriverAuthenticated(String email, String password);
     boolean registerDriver(String email, String password, String first_name, String last_name, String license_number,
-                           String contact_number, Date birthday, String gender, String confirmed_by, String nic);
+                           String contact_number, Date birthday, String gender, String nic);
 
 
     Driver sendDriverDetails(String email);
@@ -24,4 +24,6 @@ public interface DriverRepository {
     boolean updatePassword(String email, String currentPassword, String newPassword);
 
     boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber);
+
+    boolean isDriverInDatabase(String email);
 }

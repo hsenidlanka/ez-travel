@@ -9,7 +9,7 @@ import java.sql.Date;
 
     public class UserDriver {
         private String email;
-        private String password;
+
         private String first_name;
         private String last_name;
         private String license_number;
@@ -26,14 +26,6 @@ import java.sql.Date;
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {
