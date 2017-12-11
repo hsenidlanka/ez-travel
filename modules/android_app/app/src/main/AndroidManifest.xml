@@ -53,7 +53,6 @@
             android:name=".RegistrationDriverActivity"
             android:label="@string/title_activity_registration_driver"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DriverRegistrationActivity" />
         <activity android:name=".PassengerPlacehireActivity">
 
         </activity>
