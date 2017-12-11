@@ -1,5 +1,7 @@
 package eztravel.model.reply.driver;
 
+import eztravel.model.reply.ReplyModel;
+
 /**
  * Created by Vidushika on 12/7/17.
  */

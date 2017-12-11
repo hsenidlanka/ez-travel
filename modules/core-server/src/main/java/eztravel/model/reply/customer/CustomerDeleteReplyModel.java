@@ -1,5 +1,7 @@
 package eztravel.model.reply.customer;
 
+import eztravel.model.reply.ReplyModel;
+
 /**
  * Model class to send result of deletion of customer
  *

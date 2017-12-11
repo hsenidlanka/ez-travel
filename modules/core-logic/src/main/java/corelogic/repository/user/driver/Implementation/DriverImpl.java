@@ -16,7 +16,8 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 import java.sql.Date;
 
 /**
- * Created by Vidushika on 12/5/17.
+ * @version 1.0
+ * @auther Vidushka
  */
 @Repository
 public class DriverImpl implements DriverRepository {
@@ -76,7 +77,7 @@ public class DriverImpl implements DriverRepository {
         TransactionDefinition transactionDefinition = new DefaultTransactionDefinition();
         TransactionStatus transactionStatus = platformTransactionManager.getTransaction(transactionDefinition);
         try {
-            String sql = "INSERT INTO driver(email,password,first_name,last_name,license_number,contact_number, birthday,gender,driver_status,confirmed_by,nic) VALUES (?,?,?,?,?,?,?,?,2, NULL,?);";
+            String sql = "INSERT INTO driver(email, password, first_name, last_name, license_number, contact_number, birthday, gender, driver_status, confirmed_by, nic) VALUES (?,?,?,?,?,?,?,?,2, NULL,?)";
 
             Object[] args = new Object[]{email, password, first_name, last_name, license_number, contact_number, birthday, gender, nic};
             jdbcTemplate.update(sql, args);
@@ -107,7 +108,7 @@ public class DriverImpl implements DriverRepository {
     @Override
     public Driver sendDriverDetails(String email) {
 
-        String sqlForDriverDetailsSend = "SELECT driver_id, email, password, first_name, last_name, license_number, contact_number, birthday, gender, driver_status, confirmed_by, nic FROM WHERE email = ?";
+        String sqlForDriverDetailsSend = "SELECT driver_id, email, password, first_name, last_name, license_number, contact_number, birthday, gender, driver_status, confirmed_by, nic FROM driver WHERE email = ?";
         Object[] args = new Object[]{email};
 
         Driver driverDetails = this.jdbcTemplate.queryForObject( sqlForDriverDetailsSend, args,

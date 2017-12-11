@@ -14,15 +14,25 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 
 /**
- * Created by Vidushika on 9/8/17.
+ * This Controller class is responsible for actions which affects to Driver.
+ * Here I have used ResponseEntity to create Custom server-side responses so we could controll the Http Response
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
-@RequestMapping("/driver/")
+@RequestMapping("/driver")
 @RestController
 public class DriverController {
 
     @Autowired
     DriverImpl driverImpl;
 
+    /**
+     * This controller method is responsible for driver authorizations
+     *
+     * @param loginModel - LoginModel model that contains driver's authorization details (Email and Sha256 hashed password)
+     * @return - LoginReplyModel wrapped in ResponseEntity
+     */
     @PostMapping("/login")
     @ResponseBody
     public ResponseEntity<LoginReplyModel> isUserDriverOrNot(@RequestBody LoginModel loginModel) {
@@ -36,15 +46,23 @@ public class DriverController {
             loginReplyModel.setAuthenticated(true);
             return ResponseEntity.ok(loginReplyModel);
         }
+
         loginReplyModel.setMessage("Invalid credentials");
         loginReplyModel.setHttpStatusCode(HttpStatus.UNAUTHORIZED.value());
         loginReplyModel.setRequestStatus("Failed");
         loginReplyModel.setAuthenticated(false);
+
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(loginReplyModel);
 
     }
 
 
+    /**
+     * This controller method is responsible for add Drivers to database
+     *
+     * @param driver - DriverRegistrationModel Model that contains Driver's details which need to add into database.
+     * @return - DriverRegistrationReplyModel wrapped in ResponseEntity
+     */
     @PostMapping("/register")
     @ResponseBody
     public ResponseEntity<DriverRegistrationReplyModel> driverRegistration(@RequestBody DriverRegistrationModel driver) {
@@ -60,7 +78,6 @@ public class DriverController {
         String gender = driver.getGender();
         Date birthday = Date.valueOf(driver.getBirthday());
         String license_number = driver.getLicense_number();
-//        String confirmed_by = driver.getConfirmed_by();
 
 
         boolean registrationStatus = driverImpl.registerDriver(
@@ -84,59 +101,86 @@ public class DriverController {
 
         }
 
-        reply.setHttpStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        reply.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
         reply.setRequestStatus("failed");
         reply.setMessage("Driver creation failed");
         reply.setUserCreation(false);
 
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(reply);
-
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(reply);
 
     }
 
+    /**
+     * This controller method is responsible for sending Driver's Information.
+     *
+     * @param model - DriverDetailRequestModel which have email of driver that you need information
+     * @return - Driver object wrapped in ResponseEntity
+     */
     @PostMapping("/info")
-    @ResponseBody
-    public Driver sendDriverDate(@RequestBody DriverDetailRequestModel model) {
-        return driverImpl.sendDriverDetails(model.getEmail());
+    public ResponseEntity<Driver> sendDriverDate(@RequestBody DriverDetailRequestModel model) {
+        if (driverImpl.isDriverInDatabase(model.getEmail())){
+
+            return ResponseEntity.status(HttpStatus.OK).body(driverImpl.sendDriverDetails(model.getEmail()));
+
+        }
+
+        Driver noDriverInThatEmail = new Driver();
+        noDriverInThatEmail.setDriver_id(0);
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(noDriverInThatEmail);
     }
 
+    /**
+     * This controller method is responsible for updating driver's password
+     *
+     * @param model - DriverPasswordUpdateModel model which have current password, New password and email.
+     * @return - DriverPasswordUpdateReplyModel model wrapped in ResponseEntity
+     */
     @PostMapping("/updatepassword")
-    @ResponseBody
-    public DriverPasswordUpdateReplyModel passwordUpdateModel(@RequestBody DriverPasswordUpdateModel model)
+    public ResponseEntity<DriverPasswordUpdateReplyModel> passwordUpdateModel(@RequestBody DriverPasswordUpdateModel model)
     {
         boolean isPasswordUpdated=driverImpl.updatePassword(model.getEmail(),model.getCurrentPassword(),model.getNewPassword());
         DriverPasswordUpdateReplyModel driverPasswordUpdateReplyModel=new DriverPasswordUpdateReplyModel();
 
         if(isPasswordUpdated)
         {
-            driverPasswordUpdateReplyModel.setHttpStatusCode(204);
+            driverPasswordUpdateReplyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
             driverPasswordUpdateReplyModel.setRequestStatus("Updated");
             driverPasswordUpdateReplyModel.setMessage("Password Update Success");
             driverPasswordUpdateReplyModel.setPasswordUpdated(true);
-            return driverPasswordUpdateReplyModel;
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driverPasswordUpdateReplyModel);
 
         }
-        driverPasswordUpdateReplyModel.setHttpStatusCode(500);
+        driverPasswordUpdateReplyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
         driverPasswordUpdateReplyModel.setRequestStatus("Failed");
         driverPasswordUpdateReplyModel.setMessage("Password Update Failed");
         driverPasswordUpdateReplyModel.setPasswordUpdated(false);
 
-        return driverPasswordUpdateReplyModel;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(driverPasswordUpdateReplyModel);
     }
+
+
+    /**
+     * This controller method is responsible for self deletion of driver account.
+     *
+     * @param model DriverDetailRequestModel model which contains email and password (sha256 hashed) of the driver who need to be banned
+     * @return DriverDeleteReplyModel model wrapped in ResponseEntity
+     *
+     */
     @PostMapping("/deleteaccount")
-    @ResponseBody
-    public DriverDeleteReplyModel deleteDriverAccount(@RequestBody DriverDetailRequestModel model) {
+    public ResponseEntity<DriverDeleteReplyModel> deleteDriverAccount(@RequestBody DriverDetailRequestModel model) {
 
         DriverDeleteReplyModel driverDeleteReplyModel = new DriverDeleteReplyModel();
 
 
         if (driverImpl.isDriverDeleted(model.getEmail(),model.getPassword())) {
-            driverDeleteReplyModel.setHttpStatusCode(204);
+            driverDeleteReplyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
             driverDeleteReplyModel.setRequestStatus("success");
             driverDeleteReplyModel.setMessage("Driver deletion success!");
             driverDeleteReplyModel.setUserDeletion(true);
 
-            return driverDeleteReplyModel;
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driverDeleteReplyModel);
         }
 
         driverDeleteReplyModel.setHttpStatusCode(500);
@@ -144,50 +188,69 @@ public class DriverController {
         driverDeleteReplyModel.setMessage("Driver deletion failed!");
         driverDeleteReplyModel.setUserDeletion(false);
 
-        return driverDeleteReplyModel;
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(driverDeleteReplyModel);
     }
 
+    /**
+     * This controller method is responsible for updating contact details (First Name, Last Name, Contact Number)
+     *
+     * @param model - DriverContactsUpdateRequestModel model which have new contact details (email, firstName, lastName, contactNumber)
+     * @return - DriverContactUpdateReplyModel model wrapped in ResponseEntity
+     */
     @PostMapping("/updatecontacts")
-    public DriverContactUpdateReplyModel updateDriverContacts(@RequestBody DriverContactsUpdateRequestModel model)
+    public ResponseEntity<DriverContactUpdateReplyModel> updateDriverContacts(@RequestBody DriverContactsUpdateRequestModel model)
     {
         boolean isContactsUpdated=driverImpl.updateContactDetails(model.getEmail(),model.getFirstName(),model.getLastName(),model.getContactNumber());
         DriverContactUpdateReplyModel contactUpdateReplyModel=new DriverContactUpdateReplyModel();
+
         if(isContactsUpdated)
         {
-            contactUpdateReplyModel.setHttpStatusCode(204);
+            contactUpdateReplyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
             contactUpdateReplyModel.setRequestStatus("Updated");
             contactUpdateReplyModel.setMessage("Driver Contact Details Updated successfully");
             contactUpdateReplyModel.setContactUpdated(true);
-            return contactUpdateReplyModel;
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(contactUpdateReplyModel);
         }
-        contactUpdateReplyModel.setHttpStatusCode(500);
+
+        contactUpdateReplyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
         contactUpdateReplyModel.setRequestStatus("Faild");
         contactUpdateReplyModel.setMessage("Driver Contact Details Update Faild");
         contactUpdateReplyModel.setContactUpdated(false);
-        return contactUpdateReplyModel;
 
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(contactUpdateReplyModel);
 
     }
 
+    /**
+     * This controller method is responsible for banning customers.
+     *
+     * @param model DriverBanRequestModel model which contains email of driver who need to be banned
+     * @return - DriverBanReplyModel model wrapped in ResponseEntity
+     *
+     */
     @PostMapping("/bandriver")
-    @ResponseBody
-    public DriverBanReplyModel driverBanReplyModel(@RequestBody DriverBanRequestModel model)
+    public ResponseEntity<DriverBanReplyModel> driverBanReplyModel(@RequestBody DriverBanRequestModel model)
     {
         DriverBanReplyModel driverBanReplyModel=new DriverBanReplyModel();
         if(driverImpl.banDriver(model.getEmail()))
         {
-            driverBanReplyModel.setHttpStatusCode(204);
+            driverBanReplyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
             driverBanReplyModel.setRequestStatus("Success");
             driverBanReplyModel.setDriverBanned(true);
             driverBanReplyModel.setMessage("Driver Ban Success");
-            return driverBanReplyModel;
+
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driverBanReplyModel);
+
         }
 
-        driverBanReplyModel.setHttpStatusCode(500);
+        driverBanReplyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
         driverBanReplyModel.setRequestStatus("Faild");
         driverBanReplyModel.setDriverBanned(false);
         driverBanReplyModel.setMessage("Driver Ban Faild");
-        return driverBanReplyModel;
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(driverBanReplyModel);
+
     }
 
 

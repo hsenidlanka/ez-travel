@@ -1,5 +1,7 @@
 package eztravel.model.reply.customer;
 
+import eztravel.model.reply.ReplyModel;
+
 /**
  * @version 1.0
  * @auther Vidushka

@@ -1,23 +1,18 @@
 package eztravel.model.reply;
 
 /**
- * This model is to create json reply for login.
- * Purpose is to inform fron-end if login was successful or not.
+ * This is the base modal for all reply models
  *
  * @version 1.0
  * @auther Vidushka
+ *
  */
 
+public class ReplyModel {
 
-public class LoginReplyModel {
-
-
-    //    Http code which relate to login attempt
     private int httpStatusCode;
-    //    Message regard to login attempt
     private String Message;
     private String requestStatus;
-    private boolean authenticated;
 
     public int getHttpStatusCode() {
         return httpStatusCode;
@@ -41,13 +36,5 @@ public class LoginReplyModel {
 
     public void setRequestStatus(String requestStatus) {
         this.requestStatus = requestStatus;
-    }
-
-    public boolean isAuthenticated() {
-        return authenticated;
-    }
-
-    public void setAuthenticated(boolean authenticated) {
-        this.authenticated = authenticated;
     }
 }
