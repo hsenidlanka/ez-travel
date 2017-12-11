@@ -1,17 +1,10 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: eztravel
-  Date: 04/09/17
-  Time: 08:32
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Login</title>
-    <%@include file="commonCss.jsp" %>
+    <title>Driver Login</title>
+    <%@include file="../commonCss.jsp" %>
     <script src="../js/validation/login-validation.js"></script>
     <script src="../js/util.js"></script>
 </head>
@@ -26,12 +19,12 @@
                     <c:if test="${not empty login_error}">
                         <div id="loginError" class="alert-warning">${login_error}</div>
                     </c:if>
-                    <form:form action="login" method="post" modelAttribute="customer" name="customer-login">
+                    <form:form action="" method="post" modelAttribute="login" name="customer-login">
                         <div>
                             <form:input type="text" path="email" class="form-control input-sm chat-input "
                                         placeholder="username" id="email" onchange="emailValidate()"/>
                             <span id="email-error"></span>
-                            <form:errors path="email" element="div" cssClass="error" />
+                            <form:errors path="email" element="div" cssClass="error"/>
                         </div>
                         </br>
                         <div>

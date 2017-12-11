@@ -34,9 +34,9 @@ public class CustomerImpl implements CustomerRepository {
      * this method is used for authentication
      * It will check whether user is in the database and not banned.
      *
-     * @param email
-     * @param password
-     * @return
+     * @param email - customer's email
+     * @param password - customer's password
+     * @return - boolean
      */
     public boolean isCustomerAuthenticated(String email, String password) {
 
@@ -171,7 +171,7 @@ public class CustomerImpl implements CustomerRepository {
 
 
     /**
-     * This method is resposible for deleting customer account record from database.
+     * This method is responsible for deleting customer account record from database.
      *
      * @param email - this is the unique data we use to identify customer
      * @return - boolean
@@ -184,6 +184,16 @@ public class CustomerImpl implements CustomerRepository {
         boolean isDeleted = (jdbcTemplate.update(sqlForDeleteCustomer, args) == 1);
 
         return isDeleted;
+    }
+
+    @Override
+    public boolean isCustomerInDatabase(String email) {
+
+        String sqlForCustomerAvailability = "SELECT COUNT(*) FROM customer WHERE email = ?";
+        Object[] args = new Object[]{email};
+        int count = jdbcTemplate.queryForObject(sqlForCustomerAvailability, args, Integer.class);
+        return count > 0;
+
     }
 
 }

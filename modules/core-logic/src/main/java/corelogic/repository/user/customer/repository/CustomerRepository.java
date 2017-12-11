@@ -30,4 +30,6 @@ public interface CustomerRepository {
 
     boolean isCustomerDeleted(String email, String password);
 
+    boolean isCustomerInDatabase(String email);
+
 }
