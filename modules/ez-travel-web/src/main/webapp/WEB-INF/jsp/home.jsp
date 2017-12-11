@@ -62,7 +62,7 @@
 </div>
 <!-- end wrapper -->
 <%@include file="commonJs.jsp"%>
-<script src="../js/util.js"></script>
+<script src="../js/urlMapper.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places" async defer></script>
 </body>
 </html>

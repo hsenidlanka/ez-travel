@@ -20,10 +20,9 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 /**
- * Created by Vidushka on 08/09/17.
+ * Created by Vidushka
  */
 
 @Controller
@@ -31,7 +30,6 @@ import java.util.Date;
 public class CustomerController {
     private JSONObject json;
     private RestTemplate template;
-    private Date birthday;
     private EncryptPassword encryptedPassword = new EncryptPassword();
     private String baseUrl = "http://localhost:50000/api/";
     private ResponseMapper responseMapper = null;
@@ -47,11 +45,11 @@ public class CustomerController {
 
     @PostMapping("login")
     public String login(@ModelAttribute("customer") @Valid Customer customer, BindingResult result, HttpSession session, Model model) {
-        if (result.hasErrors()){
-            return "login";
+        if (result.hasErrors()) {
+            model.addAttribute("login_error", "Invalid username or password!!");
+            return "redirect:login";
         }
 
-        session.setAttribute("username", customer.getEmail());
         json = new JSONObject();
         template = new RestTemplate();
         template.setErrorHandler(new ServerResponseErrorHandler());
@@ -63,25 +61,29 @@ public class CustomerController {
         try {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
-            model.addAttribute("login_error", "Invalid username or password!!");
-            return "login";
+            model.addAttribute("login_error", "Can't login right now!");
+            return "redirect:login";
         }
-        model.addAttribute("name", responseMapper.getMessage());
-        session.setAttribute("username", customer.getEmail());
 
-        model.addAttribute(new Hire());
-        return "home";
+        if (responseMapper.getRequestStatus().equals("Successful")) {
+            model.addAttribute("name", responseMapper.getMessage());
+            session.setAttribute("username", customer.getEmail());
+            model.addAttribute(new Hire());
+            return "home";
+        } else {
+            model.addAttribute("login_error", "Invalid username or password!!");
+            return "redirect:login";
+        }
     }
 
     @GetMapping("signup")
-    public String viewSignUp(SignUp signUp){
+    public String viewSignUp(SignUp signUp, HttpSession session) {
         return "customerSignup";
     }
 
     @PostMapping("signup")
-    public String createCustomer(@ModelAttribute("signUp") @Valid SignUp signUp, BindingResult result, HttpSession session, Model model){
-        System.out.println("1");
-        if (result.hasErrors()){
+    public String createCustomer(@ModelAttribute("signUp") @Valid SignUp signUp, BindingResult result, HttpSession session, Model model) {
+        if (result.hasErrors()) {
             return "customerSignup";
         }
         json = new JSONObject();
@@ -110,15 +112,16 @@ public class CustomerController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("signup_error", "Can not create the account right now. Please try again.");
-            return "login";
+            return "redirect:login";
         }
         model.addAttribute("name", responseMapper.getMessage());
         if (responseMapper.getRequestStatus().equals("true")) {
             model.addAttribute("signup_success", "You are signed up successfully!");
-            return "home";
+            session.setAttribute("username", signUp.getEmail());
+            return "redirect:login";
         } else {
             model.addAttribute("signup_error", "User already exist.");
-            return "customerSignup";
+            return "redirect:signup";
         }
     }
 
@@ -126,32 +129,42 @@ public class CustomerController {
     public String viewInfo(@ModelAttribute("updatePassword") PasswordUpdate updatePassword,
                            @ModelAttribute("deleteAccount") DeleteCustomer deleteCustomer,
                            @ModelAttribute("personalInfo") CustomerInfo customer, HttpSession session, Model model) {
-        json = new JSONObject();
-        template = new RestTemplate();
-        template.setErrorHandler(new ServerResponseErrorHandler());
+        if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
+            return "redirect:login";
+        } else {
+            json = new JSONObject();
+            template = new RestTemplate();
+            template.setErrorHandler(new ServerResponseErrorHandler());
 
-        String url = baseUrl + "customer/info";
-        json.put("email", session.getAttribute("username"));
-        //CustomerInfo customer = null;
-        try {
-            customer = template.postForObject(url, json, CustomerInfo.class);
-            model.addAttribute("email", customer.getEmail());
-            model.addAttribute("first_name", customer.getFirst_name());
-            model.addAttribute("last_name", customer.getLast_name());
-            model.addAttribute("birthday", customer.getBirthday());
-            model.addAttribute("contact_number", customer.getContact_number());
-            model.addAttribute("nic", customer.getNic());
-            model.addAttribute("gender", customer.getGender());
-            //model.addAttribute("userImage", customer.getUserImage());
-        } catch (RestClientException e) {
-            model.addAttribute("getInfo_error","Error loading user info!");
-            return "home";
+            String url = baseUrl + "customer/info";
+            json.put("email", session.getAttribute("username"));
+            //CustomerInfo customer = null;
+            try {
+                customer = template.postForObject(url, json, CustomerInfo.class);
+            } catch (RestClientException e) {
+                model.addAttribute("getInfo_error", "Error loading user info!");
+                return "home";
+            }
+
+            if (customer.getCustomer_id() != 0) {
+                model.addAttribute("email", customer.getEmail());
+                model.addAttribute("first_name", customer.getFirst_name());
+                model.addAttribute("last_name", customer.getLast_name());
+                model.addAttribute("birthday", customer.getBirthday());
+                model.addAttribute("contact_number", customer.getContact_number());
+                model.addAttribute("nic", customer.getNic());
+                model.addAttribute("gender", customer.getGender());
+                //model.addAttribute("user_image", customer.getUserImage());
+                return "settings";
+            } else {
+                return "home";
+            }
         }
-        return "settings";
     }
 
     @PostMapping("updateInfo")
-    public String updateSettings(@ModelAttribute("customerInfo") @Valid CustomerInfo customerInfo, BindingResult result, HttpSession session, Model model) {
+    public String updateSettings(@ModelAttribute("personalInfo") @Valid CustomerInfo customerInfo, BindingResult result,
+                                 HttpSession session, Model model) {
         json = new JSONObject();
         template = new RestTemplate();
         template.setErrorHandler(new ServerResponseErrorHandler());
@@ -166,21 +179,16 @@ public class CustomerController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("update_user_error", "Connection problem. Please try again.");
-            return "settings";
+            return "redirect:settings";
         }
 
         if (responseMapper.getRequestStatus().equals("updated")) {
             model.addAttribute("update_user_status", "Updated successfully successfully!");
-            return "settings";
+            return "redirect:settings";
         } else {
             model.addAttribute("update_user_error", "Can not update this moment!");
-            return "settings";
+            return "redirect:settings";
         }
-    }
-
-    @GetMapping("password_reset")
-    public String forgotPassword(Customer customer) {
-        return "resetPassword";
     }
 
     @PostMapping("updatePassword")
@@ -191,7 +199,7 @@ public class CustomerController {
 
         if (!(passwordUpdate.getNewPassword().equals(passwordUpdate.getReNewPassword()))) {
             model.addAttribute("password_not-matching_error", "Password not matching!");
-            return "settings";
+            return "redirect:settings";
         }
 
         String url = baseUrl + "customer/updatepassword";
@@ -203,15 +211,15 @@ public class CustomerController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("update_password_error", "Connection problem. Please try again.");
-            return "settings";
+            return "redirect:settings";
         }
 
         if (responseMapper.getRequestStatus().equals("updated")) {
             model.addAttribute("update_password_error", "Updated successfully successfully!");
-            return "settings";
+            return "redirect:settings";
         } else {
             model.addAttribute("current_password_error", "Incorrect current password!");
-            return "settings";
+            return "redirect:settings";
         }
     }
 
@@ -225,20 +233,26 @@ public class CustomerController {
         json.put("email", session.getAttribute("username"));
         json.put("password", encryptedPassword.encryptPassword(deleteAccount.getPassword()));
 
-        System.out.println(json.toString());
         try {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("delete_account_error", "Connection problem. Please try again.");
-            return "settings";
+            return "redirect:settings";
         }
 
         if (responseMapper.getRequestStatus().equals("success")) {
             model.addAttribute("delete_account_status", "Deletion completed!");
-            return "index";
+            session.removeAttribute("username");
+            return "redirect:/login";
         } else {
             model.addAttribute("delete_account_status", "Incorrect password!");
-            return "settings";
+            return "redirect:settings";
         }
+    }
+
+    @GetMapping("/logout")
+    public String customerLogout(HttpSession session) {
+        session.removeAttribute("username");
+        return "redirect:login";
     }
 }

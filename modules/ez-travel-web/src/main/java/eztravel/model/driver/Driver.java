@@ -3,8 +3,10 @@ package eztravel.model.driver;
 /**
  * Created by Vidushka.
  */
-public class Login {
+
+public class Driver {
     private String email;
+
     private String password;
 
     public String getEmail() {
@@ -22,4 +24,5 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
