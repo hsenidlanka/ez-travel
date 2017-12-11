@@ -37,6 +37,7 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
     Button passengerRegisterConfirmButton;
     RadioGroup radioSexGroup;
     RadioButton radioSexButton;
+    RadioButton radioMaleButton;
     EditText passengerFname;
     EditText passengerLname;
     EditText passengerMobile;
@@ -59,7 +60,8 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
         passengerMobile = (EditText) findViewById(R.id.mobile_register_passenger);
         passengerLname = (EditText) findViewById(R.id.lname_register_passenger);
         passengerFname = (EditText) findViewById(R.id.fname_register_passenger);
-
+        radioMaleButton=(RadioButton)findViewById(R.id.radioMale);
+        radioMaleButton.setChecked(true);
         //radio button selection
         radioSexGroup=(RadioGroup)findViewById(R.id.radioSex);
 
