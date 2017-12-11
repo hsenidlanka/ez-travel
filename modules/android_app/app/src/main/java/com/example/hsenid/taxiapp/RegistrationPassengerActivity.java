@@ -62,6 +62,7 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
         passengerFname = (EditText) findViewById(R.id.fname_register_passenger);
         radioMaleButton=(RadioButton)findViewById(R.id.radioMale);
         radioMaleButton.setChecked(true);
+
         //radio button selection
         radioSexGroup=(RadioGroup)findViewById(R.id.radioSex);
 
