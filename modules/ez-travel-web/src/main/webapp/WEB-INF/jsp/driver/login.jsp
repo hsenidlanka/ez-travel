@@ -19,19 +19,17 @@
                     <c:if test="${not empty login_error}">
                         <div id="loginError" class="alert-warning">${login_error}</div>
                     </c:if>
-                    <form:form action="" method="post" modelAttribute="login" name="customer-login">
+                    <form:form action="login" method="post" modelAttribute="driver">
                         <div>
                             <form:input type="text" path="email" class="form-control input-sm chat-input "
                                         placeholder="username" id="email" onchange="emailValidate()"/>
                             <span id="email-error"></span>
-                            <form:errors path="email" element="div" cssClass="error"/>
                         </div>
                         </br>
                         <div>
                             <form:input type="password" path="password" class="form-control input-sm chat-input"
                                         placeholder="password" id="password" onchange="passwordValidate()"/>
                             <span id="password-error"></span>
-                            <form:errors path="password" element="div" cssClass="error"/>
                         </div>
                         </br>
                         <div>

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
@@ -76,6 +75,14 @@
                             <li><a href="index-4.html">Contacts</a></li>
                         </ul>
                     </nav>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="popup-trigger">Login</a>
+                        </li>
+                        <li class="btn-custom">
+                            <a class="popup-trigger-signup">Signup</a>
+                        </li>
+                    </ul>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
@@ -178,6 +185,29 @@
         </div>
     </div>
 </div>
+
+<!-- ==================popup driver passenge select======================-->
+
+<div class="popup">
+    <div class="image_button_left">
+        <a href="driver/login"><img src="images/driver.png" class="img-rounded"></a>
+    </div>
+    <div class="image_button_right">
+        <a href="customer/login"><img src="images/passenger.png" class="img-rounded"></a>
+    </div>
+    <span class="popup-btn-close">&times;</span>
+</div>
+
+<div class="popup-signup">
+    <div class="image_button_left">
+        <a href="driver/signup"><img src="images/driver-signup.png" class="img-rounded"></a>
+    </div>
+    <div class="image_button_right">
+        <a href="customer/signup"><img src="images/passenger-signup.png" class="img-rounded"></a>
+    </div>
+    <span class="popup-signup-btn-close">&times;</span>
+</div>
+
 <!--==============================footer=================================-->
 <footer>
     <div class="container_12">
