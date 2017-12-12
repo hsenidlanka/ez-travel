@@ -127,7 +127,7 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
             focusView = passengerNIC;
             cancel = true;
         }
-        else if (!TextUtils.isEmpty(mobile) && !isNICValid(nic)) {
+        else if (!TextUtils.isEmpty(nic) && !isNICValid(nic)) {
             passengerNIC.setError(getString(R.string.error_invalid_nic));
             focusView = passengerNIC;
             cancel = true;
@@ -209,13 +209,13 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
     }
     private boolean isNICValid(String nic) {
         //TODO: Replace this with your own logic
-        return (nic.contains("@") &&  nic.length() ==9);
+        return (nic.length() ==9);
     }
 
 
     /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
+     * Represents an asynchronous registration task used to authenticate
+     * the customer.
      */
     public class UserRegistrationTask extends AsyncTask<Void, Void, Boolean> {
 
@@ -261,7 +261,7 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
                 json.put("contact_number", cMobile);
                 json.put("nic", cNIC);
                 json.put("gender", cGender);
-                json.put("status", "1");
+                //json.put("status", "1");
                 String requestBody = json.toString();
 
                 HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
@@ -276,9 +276,14 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
                 loginTemplate.getMessageConverters().add(formHttpMessageConverter);
                 loginTemplate.getMessageConverters().add(stringHttpMessageConverternew);
 
-                ResponseEntity<String> response=loginTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-                Log.e(TAG,"result"+ response.getBody());
-                Log.e(TAG,"result"+  response.getStatusCode());
+               ResponseEntity<String> response=loginTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+                //RegisterReplyModal response=loginTemplate.postForObject(url,entity,RegisterReplyModal.class);
+
+               /* Log.e(TAG,"result"+ response.getHttpStatusCode());
+                Log.e(TAG,"result"+  response.getUserCreation());*/
+
+                Log.e(TAG,"result"+ response.getStatusCode());
+                Log.e(TAG,"result"+  response.getBody());
 
                 if (response.getStatusCode() == HttpStatus.OK ) {
                     result= true;

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="match_parent"
-                                             tools:context="com.example.eztravel.taxiapp.DriverRegistrationActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.hsenid.taxiapp.RegistrationDriverActivity">
 
     <TextView
             android:id="@+id/label_driver_register2"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/prompt_sign_up_driver"
             android:textSize="30sp"
             android:textStyle="bold"
-            tools:layout_editor_absoluteX="66dp"
-            tools:layout_editor_absoluteY="16dp"/>
+          />
 
     <LinearLayout
             android:id="@+id/registration_form_driver"
@@ -21,13 +21,11 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingLeft="30dp"
-            android:paddingTop="20dp"
-            tools:layout_editor_absoluteX="17dp"
-            tools:layout_editor_absoluteY="78dp">
+            android:paddingTop="20dp">
 
 
         <TextView
-                android:id="@+id/label_license_no"
+                android:id="@+id/label_license_no1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Enter License Number"
@@ -134,11 +132,11 @@
     </LinearLayout>
 
     <Button
-            android:id="@+id/signup_register_driver"
+            android:id="@+id/signup_register_driver1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sign Up"
             tools:layout_editor_absoluteX="129dp"
             tools:layout_editor_absoluteY="435dp"/>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

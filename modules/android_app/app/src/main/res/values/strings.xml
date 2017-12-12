@@ -38,9 +38,16 @@
     <string name="radio_female">Female</string>
 
 
+    <!-- Strings related to passenger register -->
+    <string name="enter_license_number">License Number</string>
+    <string name="action_sign_up1_driver">Register </string>
+
+
+
 
     <!-- Strings related to passenger placehire -->
     <string name="hire_origin">Hire Place</string>
     <string name="hire_destination">Destination Place</string>
+
 
 </resources>

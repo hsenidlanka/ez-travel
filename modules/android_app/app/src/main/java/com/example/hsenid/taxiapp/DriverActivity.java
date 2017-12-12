@@ -18,11 +18,25 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,11 +52,12 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
-
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
+    private static final String TAG = "DriverActivity";
+
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
@@ -56,6 +71,8 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    Button driverRegisterAccessButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,11 +94,23 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
+        //on the click of the sign-in button
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_driver);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        //on the click of the register button
+        driverRegisterAccessButton = (Button) findViewById(R.id.register_button_driver);
+        driverRegisterAccessButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent registrationIntent = new Intent(DriverActivity.this, RegistrationDriverActivity.class);
+                DriverActivity.this.startActivity(registrationIntent);
             }
         });
 
@@ -132,7 +161,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         }
     }
 
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -142,7 +170,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         if (mAuthTask != null) {
             return;
         }
-
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -155,7 +182,12 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
+        if(TextUtils.isEmpty(password)){
+            mPasswordView.setError(getString(R.string.error_field_required));
+            focusView = mPasswordView;
+            cancel = true;
+        }
+        else if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
             mPasswordView.setError(getString(R.string.error_invalid_password));
             focusView = mPasswordView;
             cancel = true;
@@ -256,7 +288,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             emails.add(cursor.getString(ProfileQuery.ADDRESS));
             cursor.moveToNext();
         }
-
         addEmailsToAutoComplete(emails);
     }
 
@@ -264,7 +295,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
-
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
@@ -305,13 +335,49 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
+            //authenticate to the core-server
+            Boolean result=false;
             try {
                 // Simulate network access.
+                String url = "http://192.168.100.106:50000/api/driver/login";
+
+                HttpHeaders headers= new HttpHeaders();
+                headers.setContentType(MediaType.APPLICATION_JSON);
+                //headers.add("Authorization",getB64Auth(mEmail,mPassword));
+
+                JSONObject json = new JSONObject();
+                json.put("email", mEmail);
+                json.put("password", mPassword);
+                String requestBody = json.toString();
+
+                HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
+                Log.e(TAG,"entity"+ entity.getBody());
+                Log.e(TAG,"entity2"+ entity.getHeaders());
+
+
+                RestTemplate loginTemplate = new RestTemplate();
+                HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
+                HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
+
+                loginTemplate.getMessageConverters().add(formHttpMessageConverter);
+                loginTemplate.getMessageConverters().add(stringHttpMessageConverternew);
+
+                ResponseEntity<String> response=loginTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+                Log.e(TAG,"result"+ response.getBody());
+                Log.e(TAG,"result"+  response.getStatusCode());
+
+                if (response.getStatusCode() == HttpStatus.OK ) {
+                    result= true;
+                }
+                else  {
+                    result=false;
+                }
+                // result=response.toString();
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 return false;
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
 
             for (String credential : DUMMY_CREDENTIALS) {
@@ -345,6 +411,4 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             showProgress(false);
         }
     }
-
 }
-

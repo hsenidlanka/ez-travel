@@ -101,15 +101,12 @@
             android:maxLines="1"
             android:singleLine="true" />
 
-
         <Button
             android:id="@+id/signup_register_passenger"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/action_sign_up1_passenger"
             android:textStyle="bold" />
-
-
     </LinearLayout>
 
 
