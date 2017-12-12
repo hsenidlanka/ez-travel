@@ -13,7 +13,6 @@ public class HireImpl implements HireRepository{
     @Override
     public double sendCostCalculated(String length, String vehicleType) {
 
-        System.out.println("Legth recieved = >" + length);
         double numOfKm = Double.parseDouble(length);
         double totalCost = 50.0;
 
