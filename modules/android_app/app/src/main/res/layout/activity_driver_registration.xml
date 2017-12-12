@@ -84,13 +84,22 @@
                 android:hint="@string/prompt_dob"
                 android:inputType="date"/>
 
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="20px"
+            android:layout_marginTop="-12dp"
+            android:text="@string/date_label_set"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
         <EditText
             android:id="@+id/label_license_no"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/enter_license_number"
-           />
+            android:hint="@string/enter_license_number" />
 
         <AutoCompleteTextView
             android:id="@+id/email_register_driver"

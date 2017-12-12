@@ -121,6 +121,12 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
             cancel = true;
         }*/
 
+        // Check for a non-empty birthday
+        if(TextUtils.isEmpty(birthday)){
+            passengerDOB.setError(getString(R.string.error_field_required));
+            focusView = passengerDOB;
+            cancel = true;
+        }
         // Check for a non-empty and a valid NIC number, if the user entered one.
         if(TextUtils.isEmpty(nic)){
             passengerNIC.setError(getString(R.string.error_field_required));

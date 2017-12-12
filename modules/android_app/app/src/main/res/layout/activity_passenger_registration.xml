@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal">
+    >
 
         <RadioGroup
             android:id="@+id/radioSex"
@@ -80,6 +80,15 @@
             android:layout_height="wrap_content"
             android:hint="@string/prompt_dob"
             android:inputType="date" />
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:textSize="20px"
+            android:layout_marginTop="-12dp"
+            android:text="@string/date_label_set"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <AutoCompleteTextView
             android:id="@+id/email_register_passenger"

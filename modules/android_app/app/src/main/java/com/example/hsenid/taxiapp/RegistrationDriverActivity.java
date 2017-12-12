@@ -120,6 +120,12 @@ public class RegistrationDriverActivity extends AppCompatActivity {
         boolean cancel = false;
         View focusView = null;
 
+        if(TextUtils.isEmpty(birthday)){
+            driverDOB.setError(getString(R.string.error_field_required));
+            focusView = driverDOB;
+            cancel = true;
+        }
+
         // Check for a non-empty and a valid NIC number, if the user entered one.
         if(TextUtils.isEmpty(nic)){
             driverNIC.setError(getString(R.string.error_field_required));
