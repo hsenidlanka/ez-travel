@@ -320,18 +320,7 @@ public class RegistrationDriverActivity extends AppCompatActivity {
 
                 Intent play22Intent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
                 RegistrationDriverActivity.this.startActivity(play22Intent);
-             /*   Intent intent = getIntent();
-                finish();
-                startActivity(intent);*/
 
-              /*  Toast toast = Toast.makeText(getApplicationContext(),"bbbbbb", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();*/
-               /* Toast toast = Toast.makeText(context, text, duration);
-                toast.show();*/
-
-                /*mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();*/
             }
         }
 
