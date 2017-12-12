@@ -142,6 +142,7 @@ public class DriverImpl implements DriverRepository {
     @Override
     public boolean banDriver(String email) {
         String sqlForBanningDriver="UPDATE driver set driver_status=0 WHERE email=? ";
+
         Object[] args =new Object[]{email};
         boolean isDriverBanSuccess=(jdbcTemplate.update(sqlForBanningDriver, args)==1);
         return isDriverBanSuccess;
@@ -157,7 +158,7 @@ public class DriverImpl implements DriverRepository {
     @Override
     public boolean isDriverDeleted(String email, String password) {
 
-        String sqlForDeleteDriver = "DELETE FROM driver WHERE email=? AND password=?;";
+        String sqlForDeleteDriver = "DELETE FROM driver WHERE email=? AND password= ?;";
 
         Object[] args = new Object[]{email,password};
         boolean isDeleted = (jdbcTemplate.update(sqlForDeleteDriver, args) == 1);
@@ -175,7 +176,7 @@ public class DriverImpl implements DriverRepository {
     @Override
     public boolean updatePassword(String email, String currentPassword, String newPassword) {
 
-        String sqlForUpdateDriver = "UPDATE customer set password = ? where email = ? AND password = ?;";
+        String sqlForUpdateDriver = "UPDATE driver set password = ? where email = ? AND password = ?;";
         Object[] args = new Object[]{newPassword, email, currentPassword};
 
         boolean isPasswordUpdated = (jdbcTemplate.update(sqlForUpdateDriver, args) == 1);
@@ -196,8 +197,11 @@ public class DriverImpl implements DriverRepository {
     @Override
     public boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber) {
 
-        String sqlForUpdateDriverContacts = "UPDATE customer set first_name = ?, last_name=? , contact_number=? where email = ?";
+        String sqlForUpdateDriverContacts = "UPDATE driver set first_name = ?, last_name=? , contact_number=? where email = ?";
+
         Object[] args = new Object[]{firstName, lastName, contactNumber, email};
+//        System.out.println("Updated ? => " + jdbcTemplate.update(sqlForUpdateDriverContacts, args));
+
         boolean isContactsUpdated = (jdbcTemplate.update(sqlForUpdateDriverContacts, args) == 1);
 
         return isContactsUpdated;

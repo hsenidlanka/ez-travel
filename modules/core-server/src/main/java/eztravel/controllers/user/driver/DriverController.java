@@ -149,7 +149,7 @@ public class DriverController {
             driverPasswordUpdateReplyModel.setMessage("Password Update Success");
             driverPasswordUpdateReplyModel.setPasswordUpdated(true);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driverPasswordUpdateReplyModel);
+            return ResponseEntity.status(HttpStatus.OK).body(driverPasswordUpdateReplyModel);
 
         }
         driverPasswordUpdateReplyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
@@ -180,7 +180,8 @@ public class DriverController {
             driverDeleteReplyModel.setMessage("Driver deletion success!");
             driverDeleteReplyModel.setUserDeletion(true);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driverDeleteReplyModel);
+            return ResponseEntity.status(HttpStatus.OK).body(driverDeleteReplyModel);
+
         }
 
         driverDeleteReplyModel.setHttpStatusCode(500);
@@ -200,7 +201,9 @@ public class DriverController {
     @PostMapping("/updatecontacts")
     public ResponseEntity<DriverContactUpdateReplyModel> updateDriverContacts(@RequestBody DriverContactsUpdateRequestModel model)
     {
-        boolean isContactsUpdated=driverImpl.updateContactDetails(model.getEmail(),model.getFirstName(),model.getLastName(),model.getContactNumber());
+        boolean isContactsUpdated=driverImpl
+                .updateContactDetails(model.getEmail(),model.getFirstName(),model.getLastName(),model.getContactNumber());
+
         DriverContactUpdateReplyModel contactUpdateReplyModel=new DriverContactUpdateReplyModel();
 
         if(isContactsUpdated)
@@ -210,7 +213,7 @@ public class DriverController {
             contactUpdateReplyModel.setMessage("Driver Contact Details Updated successfully");
             contactUpdateReplyModel.setContactUpdated(true);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(contactUpdateReplyModel);
+            return ResponseEntity.status(HttpStatus.OK).body(contactUpdateReplyModel);
         }
 
         contactUpdateReplyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
@@ -240,7 +243,7 @@ public class DriverController {
             driverBanReplyModel.setDriverBanned(true);
             driverBanReplyModel.setMessage("Driver Ban Success");
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(driverBanReplyModel);
+            return ResponseEntity.status(HttpStatus.OK).body(driverBanReplyModel);
 
         }
 
