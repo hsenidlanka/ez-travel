@@ -11,7 +11,6 @@ public class RegisterReplyModal {
     private String userCreation;
     private String message;
 
-
     public String getHttpStatusCode() {
         return httpStatusCode;
     }

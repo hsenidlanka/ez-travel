@@ -10,7 +10,6 @@ public class LoginReplyModal {
     private String isAuthentcated;
     private String message;
 
-
     public String getHttpStatusCode() {
         return httpStatusCode;
     }
