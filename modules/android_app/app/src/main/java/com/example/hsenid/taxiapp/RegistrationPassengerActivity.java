@@ -109,17 +109,11 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
         int radioButtonID = radioSexGroup.getCheckedRadioButtonId();
         View radioButton = radioSexGroup.findViewById(radioButtonID);
         int idx = radioSexGroup.indexOfChild(radioButton);
-        RadioButton r = (RadioButton)  radioSexGroup.getChildAt(idx);
+        RadioButton r = (RadioButton)radioSexGroup.getChildAt(idx);
         String gender = r.getText().toString();
 
         boolean cancel = false;
         View focusView = null;
-
-        // Check for a selected gender.
-       /* if(radioSexGroup.getCheckedRadioButtonId() != -1){
-            Toast.makeText(getApplicationContext(), "Please select Gender", Toast.LENGTH_SHORT).show();
-            cancel = true;
-        }*/
 
         // Check for a non-empty birthday
         if(TextUtils.isEmpty(birthday)){
