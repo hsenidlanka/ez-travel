@@ -129,15 +129,15 @@ public class DriverController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("update_user_error", "Connection problem. Please try again.");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
 
         if (responseMapper.getRequestStatus().equals("updated")) {
             model.addAttribute("update_user_status", "Updated successfully successfully!");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         } else {
             model.addAttribute("update_user_error", "Can not update this moment!");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
     }
 
@@ -149,7 +149,7 @@ public class DriverController {
 
         if (!(passwordUpdate.getNewPassword().equals(passwordUpdate.getReNewPassword()))) {
             model.addAttribute("password_not-matching_error", "Password not matching!");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
 
         String url = baseUrl + "driver/updatepassword";
@@ -161,15 +161,15 @@ public class DriverController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("update_password_error", "Connection problem. Please try again.");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
 
         if (responseMapper.getRequestStatus().equals("updated")) {
             model.addAttribute("update_password_error", "Updated successfully successfully!");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         } else {
             model.addAttribute("current_password_error", "Incorrect current password!");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
     }
 
@@ -187,16 +187,16 @@ public class DriverController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("delete_account_error", "Connection problem. Please try again.");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
 
         if (responseMapper.getRequestStatus().equals("success")) {
             model.addAttribute("delete_account_status", "Deletion completed!");
             session.removeAttribute("username");
-            return "redirect:driver/login";
+            return "redirect:login";
         } else {
             model.addAttribute("delete_account_status", "Incorrect password!");
-            return "redirect:driver/settings";
+            return "redirect:settings";
         }
     }
 
@@ -237,22 +237,22 @@ public class DriverController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("signup_error", "Can not create the account right now. Please try again.");
-            return "redirect:driver/login";
+            return "redirect:login";
         }
         model.addAttribute("name", responseMapper.getMessage());
         if (responseMapper.getRequestStatus().equals("true")) {
             model.addAttribute("signup_success", "You are signed up successfully!");
             session.setAttribute("username", signUp.getEmail());
-            return "redirect:driver/login";
+            return "redirect:login";
         } else {
             model.addAttribute("signup_error", "User already exist.");
-            return "redirect:driver/signup";
+            return "redirect:signup";
         }
     }
 
     @GetMapping("/logout")
     public String customerLogout(HttpSession session) {
         session.removeAttribute("username");
-        return "redirect:driver/login";
+        return "redirect:login";
     }
 }

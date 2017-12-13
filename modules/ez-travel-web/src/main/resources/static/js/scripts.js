@@ -1,3 +1,9 @@
+var pickupLang;
+var pickupLat;
+var dropLang;
+var dropLat;
+var distanceInKM;
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('div_map'), {
         mapTypeControl: false,
@@ -23,19 +29,19 @@ function AutocompleteDirectionsHandler(map) {
     this.directionsDisplay.setMap(map);
 
     var originAutocomplete = new google.maps.places.Autocomplete(
-        start, {placeIdOnly: true});
+        start, {placeIdOnly: false});
     var destinationAutocomplete = new google.maps.places.Autocomplete(
-        end, {placeIdOnly: true});
+        end, {placeIdOnly: false});
 
     this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
     this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
 
-    //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(start);
-    //this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(end);
 }
 
-// Sets a listener on a radio button to change the filter type on Places
-// Autocomplete.
+/**
+ * Sets a listener on a radio button to change the filter type on Places
+ * Autocomplete.
+ */
 AutocompleteDirectionsHandler.prototype.setupClickListener = function (id, mode) {
     var radioButton = document.getElementById(id);
     var me = this;
@@ -45,6 +51,9 @@ AutocompleteDirectionsHandler.prototype.setupClickListener = function (id, mode)
     });
 };
 
+/**
+ * pickup and drop location boxes auto complete by giving google's places suggestions
+ */
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (autocomplete, mode) {
     var me = this;
     autocomplete.bindTo('bounds', this.map);
@@ -56,14 +65,21 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (au
         }
         if (mode === 'ORIG') {
             me.originPlaceId = place.place_id;
+            pickupLang = place.geometry.location.lng();
+            pickupLat = place.geometry.location.lat();
         } else {
             me.destinationPlaceId = place.place_id;
+            dropLang = place.geometry.location.lng();
+            dropLat = place.geometry.location.lat();
         }
         me.route();
     });
 
 };
 
+/**
+ * Draw the root between the pickup and drop location
+ */
 AutocompleteDirectionsHandler.prototype.route = function () {
     if (!this.originPlaceId || !this.destinationPlaceId) {
         return;
@@ -77,8 +93,12 @@ AutocompleteDirectionsHandler.prototype.route = function () {
     }, function (response, status) {
         if (status === 'OK') {
             me.directionsDisplay.setDirections(response);
+            distanceInKM = (response.routes[0].legs[0].distance.value) / 1000;
+            alert(distanceInKM);
         } else {
             window.alert('Directions request failed due to ' + status);
         }
+
     });
 };
+

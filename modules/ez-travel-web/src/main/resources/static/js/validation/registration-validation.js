@@ -1,14 +1,23 @@
 /**
- * Created by hsenid on 18/10/17.
+ * When a validation error caught this function will indicate the error on the jsp page
+ *
+ * @param para1 id of the div which use to show the error message
+ * @param para2 id of the form feild which has the error
+ * @param para3 error message
  */
-
-
 function indicateError(para1, para2, para3) {
     document.getElementById(para2).style.border = "2px solid #f9b43f";
     document.getElementById(para1).style.color = "#f9b43f";
     document.getElementById(para1).innerHTML = para3;
 }
 
+/**
+ * Remove the error message and warnings when a user correct the error
+ *
+ * @param para1 id of the div which use to show the error message
+ * @param para2 id of the form feild which has the error
+ * @param para3 empty string
+ */
 function clearErrors(para1, para2, para3) {
     document.getElementById(para2).style.border = "";
     document.getElementById(para1).style.color = "";
@@ -72,7 +81,7 @@ function validateMonth() {
     var month = document.getElementById("month");
 
     if (month.value == null || month.value == '') {
-        indicateError("month-error", "moth", "Select a month.")
+        indicateError("month-error", "moth", "Select a month.");
         return true;
     } else {
         clearErrors("month-error", "moth", "");
@@ -123,7 +132,7 @@ function validateEmail(){
 function validatePassword(){
     var password = document.getElementById("password");
     if (password.value.length < 6){
-        indicateError("password-error", "password", "Too short. Minimum length is 6")
+        indicateError("password-error", "password", "Too short. Minimum length is 6");
         return false;
     } else {
         clearErrors("password-error", "password", "");
@@ -144,11 +153,17 @@ function checkRePassword() {
     }
 }
 
+/**
+ * Check all the validations before submit the form
+ *
+ * @returns {boolean}
+ */
 function validateForm() {
     if (validateName() && validateLastName() && validatePNumber() && validateNIC() && validateYear()
         && validateMonth() && validateDay() && validateEmail() && validatePassword() && checkRePassword()){
         return true;
     } else {
+        document.getElementById("registration-error").innerHTML = "Please complete all the fields!";
         return false;
     }
 }
