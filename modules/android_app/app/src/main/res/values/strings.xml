@@ -11,7 +11,7 @@
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_invalid_mobile">This mobile should contain 10 digits</string>
-    <string name="error_invalid_nic">This NIC number is of invalid format</string>
+    <string name="error_invalid_nic">This NIC number should contain 9 digits</string>
 
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
@@ -30,6 +30,7 @@
     <string name="prompt_phone">Mobile</string>
     <string name="prompt_nic">NIC</string>
     <string name="prompt_dob">DOB</string>
+    <string name="date_label_set">date format:xxxx-xx-xx</string>
     <string name="prompt_cpassword">Confirm Password</string>
     <string name="prompt_sign_up_driver">Driver Registration</string>
     <string name="view_image">app_logo</string>
@@ -38,9 +39,16 @@
     <string name="radio_female">Female</string>
 
 
+    <!-- Strings related to passenger register -->
+    <string name="enter_license_number">License Number</string>
+    <string name="action_sign_up1_driver">Register </string>
+
+
+
 
     <!-- Strings related to passenger placehire -->
     <string name="hire_origin">Hire Place</string>
     <string name="hire_destination">Destination Place</string>
+
 
 </resources>

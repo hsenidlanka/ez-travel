@@ -24,7 +24,11 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,7 +62,7 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String TAG = "MyActivity";
+    private static final String TAG = "PassengerActivity";
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
@@ -68,6 +72,7 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
      */
     private UserLoginTask mAuthTask = null;
 
+    private final String passengerLoginUrl="http://192.168.100.106:50000/api/customer/login";
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -219,6 +224,7 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
         }
     }
 
@@ -341,10 +347,9 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
+
             Boolean result=false;
             try {
-                // Simulate network access.
                     String url = "http://192.168.100.106:50000/api/customer/login";
 
                     HttpHeaders headers= new HttpHeaders();
@@ -410,24 +415,16 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
 
                 Intent play22Intent = new Intent(PassengerActivity.this, MainActivity.class);
                 PassengerActivity.this.startActivity(play22Intent);
-             /*   Intent intent = getIntent();
-                finish();
-                startActivity(intent);*/
 
-              /*  Toast toast = Toast.makeText(getApplicationContext(),"bbbbbb", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();*/
-               /* Toast toast = Toast.makeText(context, text, duration);
-                toast.show();*/
 
-                /*mPasswordView.setError(getString(R.string.error_incorrect_password));
-                mPasswordView.requestFocus();*/
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
             }
         }
 
         private String getB64Auth (String login, String pass) {
             String source=login+":"+pass;
-            String ret="Basic "+ Base64.encodeToString(source.getBytes(),Base64.URL_SAFE|Base64.NO_WRAP);
+            String ret="Basic "+ Base64.encodeToString(source.getBytes(), Base64.URL_SAFE|Base64.NO_WRAP);
             return ret;
         }
 

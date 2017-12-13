@@ -90,12 +90,10 @@
                 android:layout_centerInParent="true"
                 android:autoLink="web"
                 android:linksClickable="true"
-
                 android:text="@string/txtCredits"
                 android:textColorLink="@color/colorPrimaryDark">
 
             </TextView>
-
         </LinearLayout>
     </ScrollView>
 
