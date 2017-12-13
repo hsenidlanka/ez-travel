@@ -237,22 +237,22 @@ public class DriverController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("signup_error", "Can not create the account right now. Please try again.");
-            return "redirect:driver/login";
+            return "redirect:login";
         }
         model.addAttribute("name", responseMapper.getMessage());
         if (responseMapper.getRequestStatus().equals("true")) {
             model.addAttribute("signup_success", "You are signed up successfully!");
             session.setAttribute("username", signUp.getEmail());
-            return "redirect:driver/login";
+            return "redirect:login";
         } else {
             model.addAttribute("signup_error", "User already exist.");
-            return "redirect:driver/signup";
+            return "redirect:signup";
         }
     }
 
     @GetMapping("/logout")
     public String customerLogout(HttpSession session) {
         session.removeAttribute("username");
-        return "redirect:driver/login";
+        return "redirect:login";
     }
 }
