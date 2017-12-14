@@ -18,7 +18,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="txtCredits"><a href="http://www.google.com">Forgot your Password or Email</a></string>
+    <string name="txtCredits"><a href="http://www.google.com">Update my Password </a></string>
     <string name="title_activity_registration_driver">RegistrationDriverActivity</string>
 
 
@@ -49,6 +49,21 @@
     <!-- Strings related to passenger placehire -->
     <string name="hire_origin">Hire Place</string>
     <string name="hire_destination">Destination Place</string>
+    <string name="place_hire">Place Hire</string>
+    <string name="hire_taxi">Hire Taxi</string>
+
+    <!-- Strings related to reset password -->
+    <string name="reset_pw">Reset Password</string>
+    <string name="current_email">Current Email</string>
+    <string name="current_pw">Current Password</string>
+    <string name="new_pw">New Password</string>
+    <string name="not_yet_have_an_acount">Not yet have an acount?</string>
+    <string name="register">REGISTER</string>
+    <string name="register_passenger">REGISTER</string>
+    <string name="not_yet_have_an_acount_passenger">Not yet have an acount?</string>
+    <string name="driver">Driver</string>
+    <string name="customer">Customer</string>
+    <string name="start_as_a">Start As a</string>
 
 
 </resources>

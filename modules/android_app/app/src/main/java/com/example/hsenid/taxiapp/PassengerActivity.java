@@ -29,6 +29,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,7 +73,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
      */
     private UserLoginTask mAuthTask = null;
 
-    private final String passengerLoginUrl="http://192.168.100.106:50000/api/customer/login";
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -122,8 +122,22 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
         });
 
 
+        //passenger password reset function
+        TextView pwresetDialog= (TextView) findViewById(R.id.infoTxtCredits);
+        pwresetDialog.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                openDialog();
+            }
+        });
+
         mLoginFormView = findViewById(R.id.login_form_passenger);
         mProgressView = findViewById(R.id.login_progress_passenger);
+    }
+
+    public void openDialog(){
+            DialogBoxActivity pwUpdateDialog = new DialogBoxActivity();
+            pwUpdateDialog.show(getSupportFragmentManager(),"Update Password");
     }
 
     private void populateAutoComplete() {
@@ -399,22 +413,26 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+            Log.e(TAG,"onPostExecute entrance"+ success);
 
             //if the login validation is a success
             if (success) {
-                Intent playIntent = new Intent(PassengerActivity.this, PassengerPlacehireActivity.class);
-                PassengerActivity.this.startActivity(playIntent);
-                //finish();
+                Log.e(TAG,"onPostExecute success"+ success);
+
+                Intent customerLoginIntent = new Intent(PassengerActivity.this, PassengerPlacehireActivity.class);
+                PassengerActivity.this.startActivity(customerLoginIntent);
 
             //if the login validation fails
             } else {
+                Log.e(TAG,"onPostExecute fail"+ success);
 
-             /*   Context context = getApplicationContext();
-                CharSequence text = "Hello toast!";
-                int duration = Toast.LENGTH_SHORT;*/
-
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                Toast.makeText(PassengerActivity.this,"HIre is confirmed",Toast.LENGTH_SHORT).show();
+/*
                 Intent play22Intent = new Intent(PassengerActivity.this, MainActivity.class);
-                PassengerActivity.this.startActivity(play22Intent);
+                PassengerActivity.this.startActivity(play22Intent);*/
 
 
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

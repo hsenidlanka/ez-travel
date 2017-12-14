@@ -317,15 +317,15 @@ public class RegistrationDriverActivity extends AppCompatActivity {
 
             //if the login validation is a success
             if (success) {
-                Intent playIntent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
-                RegistrationDriverActivity.this.startActivity(playIntent);
+                Intent driverSuccessIntent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
+                RegistrationDriverActivity.this.startActivity(driverSuccessIntent);
                 //finish();
 
                 //if the login validation fails
             } else {
 
-                Intent play22Intent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
-                RegistrationDriverActivity.this.startActivity(play22Intent);
+                Intent play2Intent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
+                RegistrationDriverActivity.this.startActivity(play2Intent);
 
             }
         }

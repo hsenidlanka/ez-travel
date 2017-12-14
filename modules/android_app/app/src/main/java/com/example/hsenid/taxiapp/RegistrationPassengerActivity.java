@@ -308,8 +308,8 @@ public class RegistrationPassengerActivity extends AppCompatActivity {
 
             //if the login validation is a success
             if (success) {
-                Intent playIntent = new Intent(RegistrationPassengerActivity.this, MainActivity.class);
-                RegistrationPassengerActivity.this.startActivity(playIntent);
+                Intent passengerSuccessIntent = new Intent(RegistrationPassengerActivity.this, MainActivity.class);
+                RegistrationPassengerActivity.this.startActivity(passengerSuccessIntent);
                 //finish();
 
                 //if the login validation fails
