@@ -9,10 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
-/**
- * Created by hsenid on 12/14/17.
- */
-
 public class DialogBoxActivity extends AppCompatDialogFragment {
     private EditText currentEmail;
     private EditText currentPassword;
