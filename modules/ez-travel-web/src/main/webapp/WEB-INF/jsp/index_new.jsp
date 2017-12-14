@@ -15,8 +15,10 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 
     <script src="js/jquery.min.js"></script>
+    <script src="js/jquery-1.10.2.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/popup.js"></script>
+    <script src="js/costCalculate.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places"
             async defer></script>
 </head>
@@ -120,32 +122,51 @@
         <div class="container_12">
             <div class="grid_5">
                 <h3>Need a Taxi?</h3>
-                <form:form method="POST" id="bookingForm" action="hire" modelAttribute="hire">
+                <form id="bookingForm" action="" modelAttribute="hire">
                     <div class="fl1">
                         <div class="tmInput">
-                            <form:input path="pickup" name="pickup" id="pickup" placeHolder="From:" type="text"/>
+                            <input path="pickup" name="pickup" id="pickup" placeHolder="From:" type="text"/>
                         </div>
                     </div>
                     <div class="fl1">
                         <div class="tmInput mr0">
-                            <form:input path="drop" name="drop" id="drop" placeHolder="To:" type="text"/>
+                            <input path="drop" name="drop" id="drop" placeHolder="To:" type="text"/>
                         </div>
                     </div>
-                    <div class="fl1">
+                    <div class="fl1" style="padding-top: 16px; margin-left: 0px">
                         <div class="tmInput">
-                            <form:select path="vehicleType" class="form-control input-sm chat-input" id="vehicleType">
+                            <select path="vehicleType" class="form-control input-sm chat-input" id="vehicleType">
                                 <option selected disabled>Vehicle Type</option>
-                                <option>Budget</option>
-                                <option>Hibrid</option>
-                                <option>Van</option>
-                            </form:select>
+                                <option>budget</option>
+                                <option>hibrid</option>
+                                <option>van</option>
+                            </select>
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <a href="#" class="btn" data-type="submit" id="index_booking_btn">Book Now!</a>
-                </form:form>
+                    <input type="hidden" id="length"/>
+                    <button type="button" class="btn" id="find_cost_btn">Find Cost</button>
+                </form>
+
+                <div id="cost_result" style="display: none; padding-right: 36px; padding-top: 16px">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td scope="row">Estimated cost</td>
+                            <td id="cost"></td>
+                        </tr>
+                        <tr>
+                            <td scope="row" colspan="2">
+                                <button type="button" id="sign_in_for_booking" class="btn"
+                                        style="width: 100%; height: 42px"/>
+                                Find a Taxi
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="grid_6 prefix_1" id="div_map" style="margin-top: 2em; width: 40em; height: 30em;"></div>
+            <div class="grid_6 prefix_1" id="map" style="margin-top: 2em; width: 40em; height: 30em;"></div>
             <div class="clear"></div>
         </div>
     </div>
@@ -167,7 +188,7 @@
             </div>
             <div class="col-md-6 image" style="width:280px;padding-left: 45px;">
                 <a href="customer/login"><img class="image" src="images/passenger.png" id="imagepreview"
-                                              style="width: 250; height: 260px;"></a>
+                                              style="width: 250px; height: 260px;"></a>
             </div>
         </div>
     </div>

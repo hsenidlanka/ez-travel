@@ -2,10 +2,9 @@ var pickupLang;
 var pickupLat;
 var dropLang;
 var dropLat;
-var distanceInKM;
 
 function initMap() {
-    var map = new google.maps.Map(document.getElementById('div_map'), {
+    var map = new google.maps.Map(document.getElementById('map'), {
         mapTypeControl: false,
         center: {lat: 6.9271, lng: 79.8612},
         zoom: 13
@@ -94,7 +93,7 @@ AutocompleteDirectionsHandler.prototype.route = function () {
         if (status === 'OK') {
             me.directionsDisplay.setDirections(response);
             distanceInKM = (response.routes[0].legs[0].distance.value) / 1000;
-            alert(distanceInKM);
+            document.getElementById("length").value = distanceInKM;
         } else {
             window.alert('Directions request failed due to ' + status);
         }
