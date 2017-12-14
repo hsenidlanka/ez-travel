@@ -13,6 +13,7 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.sql.Date;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @version 1.0
@@ -63,7 +64,7 @@ public class CustomerImpl implements CustomerRepository {
 
         TransactionDefinition def = new DefaultTransactionDefinition();
         TransactionStatus status = transactionManager.getTransaction(def);
-        System.out.println("value => " + email);
+
         try {
             String sql = "INSERT INTO customer (email, password, first_name, last_name, birthday, contact_number, nic, gender, user_status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 1);";
             Object[] args = new Object[]{email, password, first_name, last_name, birthday, contact_number, nic, gender};
@@ -145,6 +146,8 @@ public class CustomerImpl implements CustomerRepository {
      */
     @Override
     public boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber) {
+
+        CompletableFuture.completedFuture(null);
 
         String sqlForUpdateCustomerContacts = "UPDATE customer set first_name = ?, last_name=? , contact_number=? where email = ?";
         Object[] args = new Object[]{firstName, lastName, contactNumber, email};
