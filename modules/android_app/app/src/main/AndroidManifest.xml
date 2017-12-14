@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hsenid.taxiapp">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -43,7 +42,7 @@
        -->
 
         <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDJrNYxujvFrRMubvy7m6Fumya2g-EngWg"/>
+            android:value="AIzaSyAQkhecbqPo7fgRkNKrCtIArbDelANoQKg"/>
 
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
@@ -59,10 +58,12 @@
         <activity
             android:name=".PassengerActivity"
             android:label="@string/title_activity_passenger" />
+
         <activity
             android:name=".DriverActivity"
             android:label="@string/title_activity_driver" />
         <activity android:name=".RegistrationPassengerActivity" />
+
         <activity
             android:name=".RegistrationDriverActivity"
             android:label="@string/title_activity_registration_driver"
