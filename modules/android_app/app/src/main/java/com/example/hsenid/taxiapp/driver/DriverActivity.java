@@ -1,4 +1,4 @@
-package com.example.hsenid.taxiapp;
+package com.example.hsenid.taxiapp.driver;
 
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -26,6 +26,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.hsenid.taxiapp.DialogBoxActivity;
+import com.example.hsenid.taxiapp.MainActivity;
+import com.example.hsenid.taxiapp.PasswordUpdate;
+import com.example.hsenid.taxiapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -48,12 +54,15 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class DriverActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class DriverActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> ,DialogBoxActivity.DialogListener {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static final String driverUpdateUrl = "http://192.168.100.106:50000/api/driver/updatepassword";
+
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
@@ -67,6 +76,8 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private UserLoginTask mAuthTask = null;
+    private PasswordUpdate updatepwTask = null;
+
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -363,8 +374,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
                     return pieces[1].equals(mPassword);
                 }
             }
-
-            // TODO: register the new account here.
             return true;
         }
 
@@ -385,5 +394,23 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         protected void onCancelled() {
             mAuthTask = null;
         }
+    }
+
+
+
+    @Override
+    public void updatePassword(String email, String currentPw, String newPw) {
+
+        updatepwTask = new PasswordUpdate(email, currentPw,newPw,driverUpdateUrl);
+        Boolean updateStatus=updatepwTask.updatePassword();
+
+        //on successful update
+        if(updateStatus){
+            Toast.makeText(DriverActivity.this, "Updated Password successfully", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(DriverActivity.this, "Password Update Failed", Toast.LENGTH_SHORT).show();
+
+        }
+
     }
 }

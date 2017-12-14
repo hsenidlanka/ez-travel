@@ -1,6 +1,7 @@
 package com.example.hsenid.taxiapp;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -13,6 +14,10 @@ public class DialogBoxActivity extends AppCompatDialogFragment {
     private EditText currentEmail;
     private EditText currentPassword;
     private EditText newPassword;
+    private DialogListener listener;
+
+    private String url;
+
 
 
     @Override
@@ -37,6 +42,8 @@ public class DialogBoxActivity extends AppCompatDialogFragment {
                         String cPwd =currentPassword.getText().toString();
                         String nPwd =newPassword.getText().toString();
 
+                        listener.updatePassword(email,cPwd,nPwd);
+
                     }
                 });
         currentEmail = (EditText) view.findViewById(R.id.current_email_text);
@@ -47,7 +54,18 @@ public class DialogBoxActivity extends AppCompatDialogFragment {
 
     }
 
+    public void onAttach(Context context){
+        super.onAttach(context);
 
+        try {
+            listener =(DialogListener) context;
+        }catch (ClassCastException e){
+            throw new ClassCastException(context.toString() + "must implement DialogListener");
+        }
+    }
 
+    public interface  DialogListener{
+        void updatePassword(String email,String currentPw,String newPw);
+    }
 
 }

@@ -1,10 +1,11 @@
-package com.example.hsenid.taxiapp;
+package com.example.hsenid.taxiapp.passenger;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import com.example.hsenid.taxiapp.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;

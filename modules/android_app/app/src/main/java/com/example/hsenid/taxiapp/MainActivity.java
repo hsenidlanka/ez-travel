@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.hsenid.taxiapp.driver.DriverActivity;
+import com.example.hsenid.taxiapp.passenger.PassengerActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

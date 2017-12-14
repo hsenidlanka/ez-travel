@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.example.hsenid.taxiapp.PassengerActivity"
+    tools:context="com.example.hsenid.taxiapp.passenger.PassengerActivity"
     android:weightSum="1">
 
     <!-- Login progress -->

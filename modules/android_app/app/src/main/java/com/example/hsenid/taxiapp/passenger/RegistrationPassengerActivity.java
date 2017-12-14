@@ -1,4 +1,4 @@
-package com.example.hsenid.taxiapp;
+package com.example.hsenid.taxiapp.passenger;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.example.hsenid.taxiapp.MainActivity;
+import com.example.hsenid.taxiapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;

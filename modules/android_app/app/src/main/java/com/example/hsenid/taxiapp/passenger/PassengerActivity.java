@@ -1,4 +1,4 @@
-package com.example.hsenid.taxiapp;
+package com.example.hsenid.taxiapp.passenger;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -31,6 +31,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsenid.taxiapp.DialogBoxActivity;
+import com.example.hsenid.taxiapp.R;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.http.HttpEntity;
@@ -58,6 +61,8 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static final String passengerUpdateUrl = "http://192.168.100.106:50000/api/customer/updatepassword";
+
 
     /**
      * A dummy authentication store containing known user names and passwords.
