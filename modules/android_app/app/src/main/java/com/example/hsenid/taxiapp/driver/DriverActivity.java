@@ -115,8 +115,21 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
+        //passenger password reset function
+        TextView pwresetDialog= (TextView) findViewById(R.id.infoTxtCredits_driver);
+        pwresetDialog.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                openDialog();
+            }
+        });
         mLoginFormView = findViewById(R.id.login_form_driver);
-      //  mProgressView = findViewById(R.id.login_progress_driver);
+    }
+
+
+    public void openDialog(){
+        DialogBoxActivity pwUpdateDialog = new DialogBoxActivity();
+        pwUpdateDialog.show(getSupportFragmentManager(),"Update Password");
     }
 
     private void populateAutoComplete() {

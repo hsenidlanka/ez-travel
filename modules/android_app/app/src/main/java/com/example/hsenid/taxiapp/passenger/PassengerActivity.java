@@ -182,8 +182,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
             }
         }
     }
-
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -243,12 +241,10 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -342,7 +338,6 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     /**
