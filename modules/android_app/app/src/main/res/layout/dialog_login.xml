@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:weightSum="1">
+
+
+    <LinearLayout
+        android:id="@+id/current_email_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/current_email_label"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/current_email"
+            android:textSize="15sp"
+             />
+
+        <EditText
+            android:id="@+id/current_email_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/current_password_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/current_pw_label"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/current_pw"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/current_pw_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/new_password_layout"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/new_pw_label"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/new_pw"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/new_pw_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
