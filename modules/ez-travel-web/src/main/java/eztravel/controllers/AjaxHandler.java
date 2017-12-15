@@ -3,6 +3,7 @@ package eztravel.controllers;
 import eztravel.model.CostCalculation;
 import eztravel.model.Hire;
 import eztravel.model.HireCostCalculateResponseMapper;
+import eztravel.model.InitialHirePlaceAccept;
 import eztravel.model.customer.Locations;
 import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
@@ -82,6 +83,7 @@ public class AjaxHandler {
         json = new JSONObject();
         template = new RestTemplate();
         template.setErrorHandler(new ServerResponseErrorHandler());
+        InitialHirePlaceAccept hirePlaceResponse;
 
         String hireDate = hire.getPickupDate();
         java.util.Date utilDate = null;
@@ -93,14 +95,14 @@ public class AjaxHandler {
         java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
         String url = baseUrl + "hire/costoftrip";
-        json.put("email", session.getAttribute("username"));
-        json.put("vehicleType", hire.getVehicleType());
-        json.put("pickupLat", hire.getPickupLat());
-        json.put("pickupDate", sqlDate);
-        json.put("pickupTime", hire.getTime());
-        json.put("pickupLng", hire.getPickupLng());
+        json.put("customer_email", session.getAttribute("username"));
+        json.put("vehicle_type", hire.getVehicleType());
+        json.put("start_location_latitude", hire.getPickupLat());
+        json.put("date", sqlDate);
+        json.put("time", hire.getTime());
+        json.put("start_location_longitude", hire.getPickupLng());
         try {
-            responseMapper = template.postForObject(url, json, HireCostCalculateResponseMapper.class);
+            hirePlaceResponse = template.postForObject(url, json, InitialHirePlaceAccept.class);
         } catch (RestClientException e) {
             System.out.println("Rest client exception");
         }

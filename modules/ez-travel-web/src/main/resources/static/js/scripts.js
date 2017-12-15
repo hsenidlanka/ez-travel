@@ -66,6 +66,8 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function (au
             me.originPlaceId = place.place_id;
             pickupLang = place.geometry.location.lng();
             pickupLat = place.geometry.location.lat();
+            document.getElementById("pickupLat").value = pickupLat;
+            document.getElementById("pickupLng").value = pickupLang;
         } else {
             me.destinationPlaceId = place.place_id;
             dropLang = place.geometry.location.lng();
