@@ -1,6 +1,7 @@
 package eztravel.controllers;
 
 import eztravel.model.CostCalculation;
+import eztravel.model.Hire;
 import eztravel.model.HireCostCalculateResponseMapper;
 import eztravel.model.customer.Locations;
 import eztravel.util.ServerResponseErrorHandler;
@@ -11,6 +12,8 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpSession;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 /**
  * Created by Vidushka
@@ -71,5 +74,40 @@ public class AjaxHandler {
     @GetMapping("customer/defaultLocations")
     public String addDefaultLocations(@ModelAttribute Locations location) {
         return "defaultLocations";
+    }
+
+    @PostMapping("placeHire")
+    @ResponseBody
+    public String placeHire(Hire hire, HttpSession session) {
+        json = new JSONObject();
+        template = new RestTemplate();
+        template.setErrorHandler(new ServerResponseErrorHandler());
+
+        String hireDate = hire.getPickupDate();
+        java.util.Date utilDate = null;
+        try {
+            utilDate = new SimpleDateFormat("MM/dd/yyy").parse(hireDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+        String url = baseUrl + "hire/costoftrip";
+        json.put("email", session.getAttribute("username"));
+        json.put("vehicleType", hire.getVehicleType());
+        json.put("pickupLat", hire.getPickupLat());
+        json.put("pickupDate", sqlDate);
+        json.put("pickupTime", hire.getTime());
+        json.put("pickupLng", hire.getPickupLng());
+        try {
+            responseMapper = template.postForObject(url, json, HireCostCalculateResponseMapper.class);
+        } catch (RestClientException e) {
+            System.out.println("Rest client exception");
+        }
+        if (responseMapper.getRequestStatus().equals("success")) {
+            return responseMapper.getCost();
+        } else {
+            return "Can't calculate cost at the moment.";
+        }
     }
 }

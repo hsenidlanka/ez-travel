@@ -9,59 +9,17 @@
     <title>Home</title>
     <meta charset="utf-8">
     <meta name="format-detection" content="telephone=no"/>
-    <link rel="icon" href="images/favicon.ico">
-    <link rel="shortcut icon" href="images/favicon.ico"/>
-    <link rel="stylesheet" href="css/camera.css">
-    <link rel="stylesheet" href="css/owl.carousel.css">
+
     <link rel="stylesheet" href="css/styles.css">
-    <%--<link rel="stylesheet" href="css/style.css">--%>
     <link rel="stylesheet" href="css/booking.css">
+    <link rel="stylesheet" href="css/bootstrap.css">
+
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
-    <script src="js/superfish.js"></script>
-    <script src="js/jquery.ui.totop.js"></script>
-    <script src="js/jquery.equalheights.js"></script>
-    <script src="js/jquery.mobilemenu.js"></script>
-    <script src="js/jquery.easing.1.3.js"></script>
-    <script src="js/owl.carousel.js"></script>
-    <script src="js/camera.js"></script>
-    <script src="js/popup.js"></script>
-    <!--[if (gt IE 9)|!(IE)]><!-->
-    <script src="js/jquery.mobile.customized.min.js"></script>
-    <!--<![endif]-->
-    <script src="js/booking.js"></script>
+    <script src="js/costCalculate.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places"
             async defer></script>
-    <script>
-        $(document).ready(function () {
-            jQuery('#camera_wrap').camera({
-                loader: false,
-                pagination: false,
-                minHeight: '444',
-                thumbnails: false,
-                height: '28.28125%',
-                caption: true,
-                navigation: true,
-                fx: 'mosaic'
-            });
-            $().UItoTop({easingType: 'easeOutQuart'});
-        });
-    </script>
-    <!--[if lt IE 8]>
-    <div style=' clear: both; text-align:center; position: relative;'>
-        <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
-            <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0"
-                 height="42" width="820"
-                 alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today."/>
-        </a>
-    </div>
-    <![endif]-->
-    <!--[if lt IE 9]>
-    <script src="js/html5shiv.js"></script>
-    <link rel="stylesheet" media="screen" href="css/ie.css">
-    <![endif]-->
 </head>
 <body class="page1" id="top">
 <div class="main">
@@ -72,43 +30,26 @@
                 <div class="grid_12">
                     <nav class="horizontal-nav full-width horizontalNav-notprocessed">
                         <ul class="sf-menu">
+                            <a href="index.html"><img src="images/logo.png" alt="Your Happy Family"
+                                                      style="width: 120px"></a>
                             <li class="current"><a href="index.html">Home</a></li>
                             <li><a href="index-1.html">About</a></li>
                             <li><a href="index-2.html">Cars</a></li>
-                            <li><a href="index-3.html">Services</a></li>
                             <li><a href="index-4.html">Contacts</a></li>
+
+                            <li><a data-toggle="modal" data-target="#popup">Login</a>
+                            <li class="btn-custom"><a data-toggle="modal" data-target="#signup_popup">Signup</a></li>
                         </ul>
                     </nav>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <a class="popup-trigger">Login</a>
-                        </li>
-                        <li class="btn-custom">
-                            <a class="popup-trigger-signup test">Signup</a>
-                        </li>
-                    </ul>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
-        <div class="container_12">
-            <div class="grid_12">
-                <h1>
-                    <a href="index.html">
-                        <img src="images/logo.png" alt="Your Happy Family">
-                    </a>
-                </h1>
-            </div>
-        </div>
         <div class="clear"></div>
     </header>
-    <div class="slider_wrapper ">
-        <div id="camera_wrap" class="">
-            <div data-src="images/slide.jpg"></div>
-            <div data-src="images/slide1.jpg"></div>
-            <div data-src="images/slide2.jpg"></div>
-        </div>
+    <div>
+        <img src="images/taxi-3.jpeg" style="margin-top: 30px"></img>
     </div>
     <div class="container_12">
         <div class="grid_4">
@@ -120,10 +61,14 @@
                             <div class="color1">Safe</div>
                         </div>
                     </div>
-                    Dorem ipsum dolor sit amet, consectetur adipiscinger elit. In mollis erat mattis neque facilisis,
-                    sit ameter ultricies erat rutrum. Cras facilisis, nulla vel viver auctor, leo magna sodales felis,
-                    quis malesuad
-                    <a href="#" class="fa fa-share-square"></a>
+                    We operate 24/7, 365 days around the clock. Geared with latest state
+                    of the art modern technology we ensure that our customers enjoy the
+                    convenience and best of ez-travel experience. All the cars are equipped
+                    with GPS tracking system for prompt executions. SMS messaging systems
+                    are incorporated to give out information to our clients with time of
+                    dispatch, type of car and plate numbers, the all new mobile phone app
+                    enables the customers to place bookings even faster.
+                    <a class="fa fa-share-square"></a>
                 </div>
             </div>
         </div>
@@ -136,10 +81,15 @@
                             <div class="color1">Prices</div>
                         </div>
                     </div>
-                    Hem ipsum dolor sit amet, consectetur adipiscinger elit. In mollis erat mattis neque facilisis, sit
-                    ameter ultricies erat rutrum. Cras facilisis, nulla vel viver auctor, leo magna sodales felis, quis
-                    malesuader
-                    <a href="#" class="fa fa-share-square"></a>
+                    Budget cars at everyday prices are always available. For special
+                    occasions, no occasion at all, or when you just a need a bit more
+                    room, call a black Hibrid or Van. Prices are change based on vehicle
+                    category and distence you ride.
+
+                    Big fleet of vehicles from 4 seat cars up to 8 seat minibuses.
+                    If all our vehicles are busy we use trusted partners to cover
+                    our bookings.
+                    <a class="fa fa-share-square"></a>
                 </div>
             </div>
         </div>
@@ -148,14 +98,19 @@
                 <div class="maxheight">
                     <div class="banner_title">
                         <img src="images/icon3.png" alt="">
-                        <div class="extra_wrapper">Package
-                            <div class="color1">Delivery</div>
+                        <div class="extra_wrapper">Service&amp;
+                            <div class="color1">Support</div>
                         </div>
                     </div>
-                    Kurem ipsum dolor sit amet, consectetur adipiscinger elit. In mollis erat mattis neque facilisis,
-                    sit ameter ultricies erat rutrum. Cras facilisis, nulla vel viver auctor, leo magna sodales felis,
-                    quis malesuki
-                    <a href="#" class="fa fa-share-square"></a>
+                    Our travel portal account is open to travel operators looking to make
+                    and manage bookings online. By signing up to the business account you
+                    will receive a login which give you access to special platform designed
+                    for travel operators who take bookings over the phone.
+
+                    You will be able to make bookings and manage payments online plus you
+                    will also be assigned your own account manager who is available to
+                    assist you with any questions you may have.
+                    <a class="fa fa-share-square"></a>
                 </div>
             </div>
         </div>
@@ -176,32 +131,52 @@
         <div class="container_12">
             <div class="grid_5">
                 <h3>Need a Taxi?</h3>
-                <form:form method="POST" id="bookingForm" action="hire" modelAttribute="hire">
+                <form id="bookingForm" action="" modelAttribute="hire">
                     <div class="fl1">
                         <div class="tmInput">
-                            <form:input path="pickup" name="pickup" id="pickup" placeHolder="From:" type="text"/>
+                            <input path="pickup" name="pickup" id="pickup" placeHolder="From:" type="text"/>
                         </div>
                     </div>
                     <div class="fl1">
                         <div class="tmInput mr0">
-                            <form:input path="drop" name="drop" id="drop" placeHolder="To:" type="text"/>
+                            <input path="drop" name="drop" id="drop" placeHolder="To:" type="text"/>
                         </div>
                     </div>
-                    <div class="fl1">
+                    <div class="fl1" style="padding-top: 16px; margin-left: 0px">
                         <div class="tmInput">
-                            <form:select path="vehicleType" class="form-control input-sm chat-input" id="vehicleType">
+                            <select path="vehicleType" class="form-control input-sm chat-input" id="vehicleType"
+                                    name="vehicleType">
                                 <option selected disabled>Vehicle Type</option>
-                                <option>Budget</option>
-                                <option>Hibrid</option>
-                                <option>Van</option>
-                            </form:select>
+                                <option>budget</option>
+                                <option>hibrid</option>
+                                <option>van</option>
+                            </select>
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <a href="#" class="btn" data-type="submit" id="index_booking_btn">Book Now!</a>
-                </form:form>
+                    <input type="hidden" id="length" name="length"/>
+                    <button type="button" class="btn" id="find_cost_btn">Find Cost</button>
+                </form>
+
+                <div id="cost_result" style="display: none; padding-right: 36px; padding-top: 16px">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td scope="row">Estimated cost</td>
+                            <td id="cost"></td>
+                        </tr>
+                        <tr>
+                            <td scope="row" colspan="2">
+                                <button type="button" id="sign_in_for_booking" class="btn"
+                                        style="width: 100%; height: 42px"/>
+                                Find a Taxi
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="grid_6 prefix_1" id="div_map" style="margin-top: 2em; width: 40em; height: 30em;"></div>
+            <div class="grid_6 prefix_1" id="map" style="margin-top: 2em; width: 40em; height: 30em;"></div>
             <div class="clear"></div>
         </div>
     </div>
@@ -209,26 +184,46 @@
 
 <!-- ==================popup driver passenger select======================-->
 
-<div class="popup" style="">
-    <div class="image_button_left">
-        <a href="driver/login"><img src="images/driver.png" class="img-rounded"></a>
+<div class="modal modalbox modal-transparent fade " id="popup" role="dialog">
+
+    <!-- Modal content-->
+    <div class=" box">
+        <div style="padding-bottom: 36px;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="content">
+            <div class="col-md-6 image" style="width:280px;">
+                <a href="driver/login"><img class="image" src="images/driver.png" id="imagepreview"
+                                            style="width: 250px; height: 260px;"></a>
+            </div>
+            <div class="col-md-6 image" style="width:280px;padding-left: 45px;">
+                <a href="customer/login"><img class="image" src="images/passenger.png" id="imagepreview"
+                                              style="width: 250px; height: 260px;"></a>
+            </div>
+        </div>
     </div>
-    <div class="image_button_right">
-        <a href="customer/login"><img src="images/passenger.png" class="img-rounded"></a>
-    </div>
-    <span class="popup-btn-close">&times;</span>
 </div>
 
-<div class="popup-signup">
-    <div class="image_button_left">
-        <a href="driver/signup"><img src="images/driver-signup.png" class="img-rounded"></a>
-    </div>
-    <div class="image_button_right">
-        <a href="customer/signup"><img src="images/passenger-signup.png" class="img-rounded"></a>
-    </div>
-    <span class="popup-signup-btn-close">&times;</span>
-</div>
+<!-- Modal -->
+<div class="modal modalbox modal-transparent fade " id="signup_popup" role="dialog">
 
+    <!-- Modal content-->
+    <div class=" box">
+        <div style="padding-bottom: 36px;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        <div class="content">
+            <div class="col-md-6 image" style="width:280px;">
+                <a href="driver/signup"><img class="image" src="images/driver.png" id="imagepreview"
+                                             style="width: 250px; height: 260px;"></a>
+            </div>
+            <div class="col-md-6 image" style="width:280px;padding-left: 45px;">
+                <a href="customer/signup"><img class="image" src="images/passenger.png" id="imagepreview"
+                                               style="width: 250; height: 260px;"></a>
+            </div>
+        </div>
+    </div>
+</div>
 <!--==============================footer=================================-->
 <footer>
     <div class="container_12">
@@ -250,13 +245,3 @@
         <div class="clear"></div>
     </div>
 </footer>
-<script>
-    $(function () {
-        $('#bookingForm').bookingForm({
-            ownerEmail: '#'
-        });
-    })
-    $(function () {
-        $('#bookingForm input, #bookingForm textarea').placeholder();
-    });
-</script>
