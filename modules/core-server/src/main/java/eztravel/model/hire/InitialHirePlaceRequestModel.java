@@ -9,7 +9,8 @@ public class InitialHirePlaceRequestModel {
     private String start_location_latitude;
     private String start_location_longitude;
     private String vehicle_type;
-    private String dateTime;
+    private String date;
+    private String time;
 
     public String getCustomer_email() {
         return customer_email;
@@ -43,12 +44,20 @@ public class InitialHirePlaceRequestModel {
         this.vehicle_type = vehicle_type;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }
 

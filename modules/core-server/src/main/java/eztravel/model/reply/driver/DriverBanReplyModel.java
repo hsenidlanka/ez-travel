@@ -3,7 +3,10 @@ package eztravel.model.reply.driver;
 import eztravel.model.reply.ReplyModel;
 
 /**
- * Created by Vidushika on 12/7/17.
+ * This model used to reply driver ban request
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
 public class DriverBanReplyModel extends ReplyModel {
     private boolean isDriverBanned;

@@ -10,6 +10,9 @@ import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
+ * Implementation class for Location related Database activities.
+ * This use for autowire
+ *
  * @version 1.0
  * @auther Vidushka
  */
@@ -22,6 +25,14 @@ public class LocationImpl implements LocationRepository {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
+    /**
+     * This method is responsible for updating driver current location
+     *
+     * @param email - driver's email
+     * @param longitude - driver's current longitude
+     * @param latitude - driver's current latitude
+     * @return - boolean which contains whether update success or not
+     */
     @Override
     public boolean updateDriverCurrentLocation(String email, float longitude, float latitude) {
 

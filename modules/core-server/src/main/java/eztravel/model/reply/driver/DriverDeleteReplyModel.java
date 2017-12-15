@@ -3,8 +3,12 @@ package eztravel.model.reply.driver;
 import eztravel.model.reply.ReplyModel;
 
 /**
- * Created by Vidushika on 12/6/17.
+ * This model used to reply driver account delete requests
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
+
 public class DriverDeleteReplyModel extends ReplyModel {
 
     private boolean userDeletion;

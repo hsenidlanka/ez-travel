@@ -1,6 +1,8 @@
 package eztravel.model.customer;
 
 /**
+ * Model used to request Customer contact details update request
+ *
  * @version 1.0
  * @auther Vidushka
  */

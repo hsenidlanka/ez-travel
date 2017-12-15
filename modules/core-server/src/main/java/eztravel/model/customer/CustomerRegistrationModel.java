@@ -1,6 +1,8 @@
 package eztravel.model.customer;
 
 /**
+ * This model is used for Customer registration request
+ *
  * @version 1.0
  * @auther Vidushka
  */

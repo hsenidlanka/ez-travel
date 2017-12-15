@@ -79,7 +79,7 @@ function pickupDateValidation() {
 
 function pickupTimeValidation() {
     var pickupTime = document.getElementById("time");
-    var pattern = /^\d{1,2}:\d{2}([ap]m)?$/;
+    var pattern = /^\d{1,2}:\d{1,2}([AP]M)?$/;
 
     if (!pickupTime.value.match(pattern)) {
         indicateError("time-error", "time", "invalid time.");

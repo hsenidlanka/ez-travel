@@ -3,7 +3,9 @@ package eztravel.model.reply.driver;
 import eztravel.model.reply.ReplyModel;
 
 /**
- * Created by hsenid on 12/7/17.
+ * This model used to reply driver contact update requests
+ * @version 1.0
+ * @auther Vidushka
  */
 public class DriverContactUpdateReplyModel extends ReplyModel {
 

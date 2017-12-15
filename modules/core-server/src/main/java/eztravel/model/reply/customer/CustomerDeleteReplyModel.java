@@ -3,7 +3,7 @@ package eztravel.model.reply.customer;
 import eztravel.model.reply.ReplyModel;
 
 /**
- * Model class to send result of deletion of customer
+ * This model used to reply customer account delete requests
  *
  * @version 1.0
  * @auther Vidushka

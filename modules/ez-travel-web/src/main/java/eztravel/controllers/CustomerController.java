@@ -43,8 +43,10 @@ public class CustomerController {
         session.setAttribute("distance", distance);
         session.setAttribute("vehicleType", vehicleType);
         if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
+            System.out.println("not logged in");
             return "login";
         } else {
+            System.out.println("already logged in");
             return "home";
         }
     }
@@ -53,7 +55,8 @@ public class CustomerController {
     public String login(@ModelAttribute("customer") @Valid Customer customer, BindingResult result, HttpSession session, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("login_error", "Invalid username or password!!");
-            return "redirect:login";
+            System.out.println("invalid username and password");
+            return "login";
         }
 
         json = new JSONObject();
@@ -68,7 +71,8 @@ public class CustomerController {
             responseMapper = template.postForObject(url, json, ResponseMapper.class);
         } catch (RestClientException e) {
             model.addAttribute("login_error", "Can't login right now!");
-            return "redirect:login";
+            System.out.println("login fail. rest call exception");
+            return "login";
         }
 
         if (responseMapper.getRequestStatus().equals("Successful")) {
@@ -77,6 +81,7 @@ public class CustomerController {
             Hire hire = new Hire();
             if (session.getAttribute("pickup") == "" || session.getAttribute("pickup") == null) {
                 model.addAttribute(hire);
+                System.out.println("logged in to place hire");
                 return "home";
             } else {
                 hire.setPickup(session.getAttribute("pickup").toString());
@@ -84,11 +89,13 @@ public class CustomerController {
                 hire.setDistance(session.getAttribute("distance").toString());
                 hire.setVehicleType(session.getAttribute("vehicleType").toString());
                 model.addAttribute(hire);
+                System.out.println("login success");
                 return "home";
             }
 
         } else {
             model.addAttribute("login_error", "Invalid username or password!!");
+            System.out.println("login fail invalid credentials");
             return "redirect:login";
         }
     }
@@ -155,7 +162,7 @@ public class CustomerController {
 
             String url = baseUrl + "customer/info";
             json.put("email", session.getAttribute("username"));
-            //CustomerInfo customer = null;
+
             try {
                 customer = template.postForObject(url, json, CustomerInfo.class);
             } catch (RestClientException e) {
@@ -171,7 +178,6 @@ public class CustomerController {
                 model.addAttribute("contact_number", customer.getContact_number());
                 model.addAttribute("nic", customer.getNic());
                 model.addAttribute("gender", customer.getGender());
-                //model.addAttribute("user_image", customer.getUserImage());
                 return "settings";
             } else {
                 return "home";
@@ -260,10 +266,10 @@ public class CustomerController {
         if (responseMapper.getRequestStatus().equals("success")) {
             model.addAttribute("delete_account_status", "Deletion completed!");
             session.removeAttribute("username");
-            return "redirect:/login";
+            return "redirect:login";
         } else {
             model.addAttribute("delete_account_status", "Incorrect password!");
-            return "redirect:settings";
+            return "settings";
         }
     }
 

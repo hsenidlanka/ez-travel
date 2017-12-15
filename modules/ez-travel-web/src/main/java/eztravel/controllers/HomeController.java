@@ -15,6 +15,6 @@ public class HomeController {
     public String getIndexPage(Model model) {
         Hire hire = new Hire();
         model.addAttribute(hire);
-        return "index_new";
+        return "index";
     }
 }

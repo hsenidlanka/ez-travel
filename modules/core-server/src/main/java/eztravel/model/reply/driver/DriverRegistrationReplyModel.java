@@ -3,8 +3,12 @@ package eztravel.model.reply.driver;
 import eztravel.model.reply.ReplyModel;
 
 /**
- * Created by hsenid on 12/5/17.
+ * This model used to reply driver registration requests
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
+
 public class DriverRegistrationReplyModel extends ReplyModel {
 
     private boolean userCreation;

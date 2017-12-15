@@ -20,7 +20,11 @@ import java.sql.Date;
 
 /**
  * This Controller class is responsible for actions which affects to customer.
- * Here I have used ResponseEntity to create custome server-side responses so we could controll the Http Response
+ * For detailed instruction of this api please refer below spreadsheet
+ * https://goo.gl/FQcZMw
+ *
+ * Here I have used ResponseEntity to create custome server-side responses,
+ * so we could control the Http Response
  *
  * @version 1.0O
  * @auther Vidushka

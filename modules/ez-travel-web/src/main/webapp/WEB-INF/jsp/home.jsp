@@ -23,6 +23,8 @@
                     <form:input type="text" path="pickup" class="form-control input-sm chat-input"
                                 placeholder="Pickup" id="pickup" onchange="pickupValidation()"/>
                     <form:errors path="pickup" class="error"/>
+                    <form:hidden path="pickupLng" id="pickupLng" name="pickupLng"></form:hidden>
+                    <form:hidden path="pickupLat" id="pickupLat" name="pickupLat"></form:hidden>
                     <span id="pickup-error"></span>
                 </div>
                 <div id="form-element">
