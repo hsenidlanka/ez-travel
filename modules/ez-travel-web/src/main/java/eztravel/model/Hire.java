@@ -9,6 +9,7 @@ public class Hire {
     private String pickupDate;
     private String time;
     private String vehicleType;
+    private String distance;
 
     public Hire() {
     }
@@ -51,5 +52,13 @@ public class Hire {
 
     public void setVehicleType(String vehicleType) {
         this.vehicleType = vehicleType;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 }

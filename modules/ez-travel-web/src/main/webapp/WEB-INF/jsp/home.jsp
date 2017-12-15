@@ -5,6 +5,7 @@
     <title>ez-travel</title>
     <%@include file="commonCss.jsp" %>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="../css/timepicki.css">
 </head>
 <body>
 <!--  wrapper -->
@@ -41,8 +42,8 @@
                 </div>
                 <div class="inline-input" id="form-element">
                     <form:label path="time">Time</form:label>
-                    <form:input type="text" path="time" class="form-control input-sm chat-input"
-                                placeholder="Time" id="time" onchange="pickupTimeValidation()"/>
+                    <input type="text" path="time" class="form-control input-sm chat-input timepick" id="time"
+                           placeholder="Time"/>
                     <form:errors path="time" cssClass="error"/>
                     <span id="time-error"></span>
                 </div>
@@ -52,12 +53,13 @@
                     <form:select path="vehicleType" class="form-control input-sm chat-input"
                                  placeholder="Vehicle Type" id="vehicleType" onchange="vehicleTypeValidation()">
                         <option selected disabled>Vehicle Type</option>
-                        <option>Budget Car</option>
-                        <option>Hibrid Car</option>
-                        <option>Van</option>
+                        <option>budget</option>
+                        <option>hibrid</option>
+                        <option>van</option>
                     </form:select>
                     <form:errors path="vehicleType" cssClass="error"/>
                     <span id="vehicleType-error"></span>
+                    <form:hidden path="distance" id="distance" name="distance"></form:hidden>
                 </div>
                 <input type="submit" class="btn btn-primary btn-md button-long" value="Book">
             </form:form>
@@ -73,8 +75,20 @@
 <script src="../js/validation/hire-validation.js"></script>
 <script src="../js/util.js"></script>
 <script src="../js/scripts.js"></script>
+<script src="../js/timepicki.js"></script>
+<%--<script src="../js/jquery.min.js"></script>--%>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places"
         async defer></script>
+<script>
+    $(document).ready(function () {
+        $(".timepick").timepicki();
+    });
+
+    function pickTime() {
+        var time = $("#time").val();
+        console.log(time);
+    }
+</script>
 </body>
 </html>

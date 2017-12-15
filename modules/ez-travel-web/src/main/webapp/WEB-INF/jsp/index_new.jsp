@@ -15,9 +15,8 @@
     <link rel="stylesheet" href="css/bootstrap.css">
 
     <script src="js/jquery.min.js"></script>
-    <script src="js/jquery-1.10.2.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/scripts.js"></script>
-    <script src="js/popup.js"></script>
     <script src="js/costCalculate.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places"
             async defer></script>
@@ -49,12 +48,8 @@
         </div>
         <div class="clear"></div>
     </header>
-    <div class="slider_wrapper ">
-        <div id="camera_wrap" class="">
-            <div src="images/slide.jpg"></div>
-            <div data-src="images/slide1.jpg"></div>
-            <div data-src="images/slide2.jpg"></div>
-        </div>
+    <div>
+        <img src="images/taxi-3.jpeg" style="margin-top: 30px"></img>
     </div>
     <div class="container_12">
         <div class="grid_4">
@@ -66,10 +61,14 @@
                             <div class="color1">Safe</div>
                         </div>
                     </div>
-                    Dorem ipsum dolor sit amet, consectetur adipiscinger elit. In mollis erat mattis neque facilisis,
-                    sit ameter ultricies erat rutrum. Cras facilisis, nulla vel viver auctor, leo magna sodales felis,
-                    quis malesuad
-                    <a href="#" class="fa fa-share-square"></a>
+                    We operate 24/7, 365 days around the clock. Geared with latest state
+                    of the art modern technology we ensure that our customers enjoy the
+                    convenience and best of ez-travel experience. All the cars are equipped
+                    with GPS tracking system for prompt executions. SMS messaging systems
+                    are incorporated to give out information to our clients with time of
+                    dispatch, type of car and plate numbers, the all new mobile phone app
+                    enables the customers to place bookings even faster.
+                    <a class="fa fa-share-square"></a>
                 </div>
             </div>
         </div>
@@ -82,10 +81,15 @@
                             <div class="color1">Prices</div>
                         </div>
                     </div>
-                    Hem ipsum dolor sit amet, consectetur adipiscinger elit. In mollis erat mattis neque facilisis, sit
-                    ameter ultricies erat rutrum. Cras facilisis, nulla vel viver auctor, leo magna sodales felis, quis
-                    malesuader
-                    <a href="#" class="fa fa-share-square"></a>
+                    Budget cars at everyday prices are always available. For special
+                    occasions, no occasion at all, or when you just a need a bit more
+                    room, call a black Hibrid or Van. Prices are change based on vehicle
+                    category and distence you ride.
+
+                    Big fleet of vehicles from 4 seat cars up to 8 seat minibuses.
+                    If all our vehicles are busy we use trusted partners to cover
+                    our bookings.
+                    <a class="fa fa-share-square"></a>
                 </div>
             </div>
         </div>
@@ -94,14 +98,19 @@
                 <div class="maxheight">
                     <div class="banner_title">
                         <img src="images/icon3.png" alt="">
-                        <div class="extra_wrapper">Package
-                            <div class="color1">Delivery</div>
+                        <div class="extra_wrapper">Service&amp;
+                            <div class="color1">Support</div>
                         </div>
                     </div>
-                    Kurem ipsum dolor sit amet, consectetur adipiscinger elit. In mollis erat mattis neque facilisis,
-                    sit ameter ultricies erat rutrum. Cras facilisis, nulla vel viver auctor, leo magna sodales felis,
-                    quis malesuki
-                    <a href="#" class="fa fa-share-square"></a>
+                    Our travel portal account is open to travel operators looking to make
+                    and manage bookings online. By signing up to the business account you
+                    will receive a login which give you access to special platform designed
+                    for travel operators who take bookings over the phone.
+
+                    You will be able to make bookings and manage payments online plus you
+                    will also be assigned your own account manager who is available to
+                    assist you with any questions you may have.
+                    <a class="fa fa-share-square"></a>
                 </div>
             </div>
         </div>
@@ -135,7 +144,8 @@
                     </div>
                     <div class="fl1" style="padding-top: 16px; margin-left: 0px">
                         <div class="tmInput">
-                            <select path="vehicleType" class="form-control input-sm chat-input" id="vehicleType">
+                            <select path="vehicleType" class="form-control input-sm chat-input" id="vehicleType"
+                                    name="vehicleType">
                                 <option selected disabled>Vehicle Type</option>
                                 <option>budget</option>
                                 <option>hibrid</option>
@@ -144,7 +154,7 @@
                         </div>
                     </div>
                     <div class="clear"></div>
-                    <input type="hidden" id="length"/>
+                    <input type="hidden" id="length" name="length"/>
                     <button type="button" class="btn" id="find_cost_btn">Find Cost</button>
                 </form>
 
