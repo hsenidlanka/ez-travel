@@ -30,8 +30,6 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
     private GoogleApiClient mClient;
     private int PLACE_PICKER_REQUEST = 1;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

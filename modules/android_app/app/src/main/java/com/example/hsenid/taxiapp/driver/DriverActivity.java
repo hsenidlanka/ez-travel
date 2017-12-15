@@ -395,8 +395,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         }
     }
 
-
-
     @Override
     public void updatePassword(String email, String currentPw, String newPw) {
 
