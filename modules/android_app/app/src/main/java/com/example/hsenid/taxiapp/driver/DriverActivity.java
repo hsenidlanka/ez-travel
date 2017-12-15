@@ -26,7 +26,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.hsenid.taxiapp.DialogBoxActivity;
 import com.example.hsenid.taxiapp.MainActivity;
@@ -127,8 +126,8 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         });
 
         //passenger password reset function
-        TextView pwresetDialog= (TextView) findViewById(R.id.infoTxtCredits_driver);
-        pwresetDialog.setOnClickListener(new View.OnClickListener(){
+        TextView pwresetDialogDriver= (TextView) findViewById(R.id.infoTxtCredits_driver);
+        pwresetDialogDriver.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 openDialog();
@@ -139,8 +138,8 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
 
 
     public void openDialog(){
-        DialogBoxActivity pwUpdateDialog = new DialogBoxActivity();
-        pwUpdateDialog.show(getSupportFragmentManager(),"Update Password");
+        DialogBoxActivity pwUpdateDialogDriver = new DialogBoxActivity();
+        pwUpdateDialogDriver.show(getSupportFragmentManager(),"Update Password");
     }
 
     private void populateAutoComplete() {
@@ -401,16 +400,18 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
     @Override
     public void updatePassword(String email, String currentPw, String newPw) {
 
-        updatepwTask = new PasswordUpdate(email, currentPw,newPw,driverUpdateUrl);
-        Boolean updateStatus=updatepwTask.updatePassword();
+        updatepwTask = new PasswordUpdate(this,email, currentPw,newPw,driverUpdateUrl);
+        Boolean updateStatus= null;
 
-        //on successful update
-        if(updateStatus){
-            Toast.makeText(DriverActivity.this, "Updated Password successfully", Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(DriverActivity.this, "Password Update Failed", Toast.LENGTH_SHORT).show();
+            updatepwTask.execute();
+            //on successful update
+          /*  if(updateStatus){
+            }else{
 
-        }
+            }
+      */
+
+
 
     }
 }
