@@ -104,7 +104,7 @@ CREATE TABLE `driver` (
 
 LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
-INSERT INTO `driver` VALUES (3,'Tesdbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(5,'Tesdxbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(6,'Menuka@Ishan.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(8,'ssss@Ishan.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(10,'ssss@Ishfan.csom','password','Tgest','xxxxBug','111dff3','0714561238','1993-11-18','Male',2,NULL,'912345687v'),(14,'vidu@vidya.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,NULL,'912345687v');
+INSERT INTO `driver` VALUES (3,'Tesdbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(5,'Tesdxbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(6,'Menuka@Ishan.csom','xxxxBug','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(8,'ssss@Ishan.csom','TestNewPass','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(10,'ssss@Ishfan.csom','password','Tgest','xxxxBug','111dff3','0714561238','1993-11-18','Male',2,NULL,'912345687v'),(14,'vidu@vidya.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,NULL,'912345687v');
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,16 +235,17 @@ CREATE TABLE `hire` (
   `end_location_latitude` float(10,6) DEFAULT NULL,
   `end_location_longitude` float(10,6) DEFAULT NULL,
   `vehicle_type` varchar(10) DEFAULT NULL,
-  `length` varchar(255) DEFAULT NULL,
+  `length` double DEFAULT NULL,
   `cost` double DEFAULT NULL,
   `date` date DEFAULT NULL,
+  `time` varchar(200) DEFAULT NULL,
   `customer_id` int(11) NOT NULL,
   `driver_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`hire_id`),
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
   CONSTRAINT `driver_idx` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +254,7 @@ CREATE TABLE `hire` (
 
 LOCK TABLES `hire` WRITE;
 /*!40000 ALTER TABLE `hire` DISABLE KEYS */;
-INSERT INTO `hire` VALUES (1,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',18,NULL),(2,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',18,NULL);
+INSERT INTO `hire` VALUES (1,63.034000,18.230000,4.738459,15.283740,'van',18,124.22,'1993-11-18',NULL,18,8),(2,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',NULL,26,NULL),(4,63.034000,18.230000,NULL,NULL,'budget',NULL,NULL,'1993-11-18',NULL,31,NULL),(5,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',NULL,21,NULL),(6,83.433998,58.230000,NULL,NULL,'hybrid',NULL,NULL,'1993-11-18','12:45',32,NULL),(7,55.764000,23.830000,NULL,NULL,'hybrid',NULL,NULL,'1993-11-18','12:45',26,NULL);
 /*!40000 ALTER TABLE `hire` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -266,4 +267,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-15  9:35:21
+-- Dump completed on 2017-12-15 15:21:54
