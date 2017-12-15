@@ -19,7 +19,7 @@
                 <!--end user image section-->
             </li>
             <li>
-                <a href="home"><i class="fa fa-map-marker fa-fw"></i> New Hire</a>
+                <a href="login"><i class="fa fa-map-marker fa-fw"></i> New Hire</a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> My Travels</a>

@@ -2,15 +2,15 @@ package eztravel.controllers;
 
 import eztravel.model.CostCalculation;
 import eztravel.model.HireCostCalculateResponseMapper;
+import eztravel.model.customer.Locations;
 import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Vidushka
@@ -19,7 +19,7 @@ import org.springframework.web.client.RestTemplate;
  */
 
 @Controller
-@RequestMapping("/hire/")
+@RequestMapping("/")
 public class AjaxHandler {
     private JSONObject json;
     private RestTemplate template;
@@ -33,7 +33,7 @@ public class AjaxHandler {
      * @param costCalculation Object to map request parameters(distance and vehicle type)
      * @return Estimated cost in Rupees will return a String
      */
-    @RequestMapping(method = RequestMethod.POST, value = "findCost")
+    @RequestMapping(method = RequestMethod.POST, value = "hire/findCost")
     @ResponseBody
     public String getEstimatedCost(CostCalculation costCalculation) {
         json = new JSONObject();
@@ -56,7 +56,20 @@ public class AjaxHandler {
     }
 
     @PostMapping("signin")
-    public String redirectToLoginForHire() {
-        return "x";
+    public String redirectToLoginForHire(CostCalculation costCalculation, HttpSession session) {
+        if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
+            session.setAttribute("pickup", costCalculation.getPickup());
+            session.setAttribute("drop", costCalculation.getDrop());
+            session.setAttribute("distance", costCalculation.getLength());
+            session.setAttribute("vehicleType", costCalculation.getVehicleType());
+            return "redirect:../customer/login";
+        } else {
+            return "home";
+        }
+    }
+
+    @GetMapping("customer/defaultLocations")
+    public String addDefaultLocations(@ModelAttribute Locations location) {
+        return "defaultLocations";
     }
 }

@@ -18,23 +18,8 @@ $(document).ready(function () {
         });
     });
 
-    $("#sign_in_for_booking").click(function (e) {
-        $.ajax({
-            type: "post",
-            url: "http://localhost:8085/ez-travel/login",
-            data: {
-                "length": $("#length").val(),
-                "vehicleType": $("#vehicleType").val(),
-                "pickup": $("#pickup").val(),
-                "drop": $("#drop").valueOf()
-            },
-            success: function (result) {
-                alert("logged in");
-            },
-            error: function (result) {
-                alert("fail");
-                console.log(result);
-            }
-        });
+    $("#sign_in_for_booking").on("click", function (e) {
+        e.preventDefault();
+        $('#bookingForm').attr('action', "customer/login").submit();
     });
 });

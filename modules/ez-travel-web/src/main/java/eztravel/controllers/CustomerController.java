@@ -9,10 +9,7 @@ import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -35,7 +32,16 @@ public class CustomerController {
     private ResponseMapper responseMapper = null;
 
     @GetMapping("login")
-    public String viewLogin(Customer customer, Hire hire, HttpSession session) {
+    public String viewLogin(Customer customer, Hire hire, HttpSession session,
+                            @RequestParam(value = "pickup", required = false) String pickup,
+                            @RequestParam(value = "drop", required = false) String drop,
+                            @RequestParam(value = "length", required = false) String distance,
+                            @RequestParam(value = "vehicleType", required = false) String vehicleType) {
+
+        session.setAttribute("pickup", pickup);
+        session.setAttribute("drop", drop);
+        session.setAttribute("distance", distance);
+        session.setAttribute("vehicleType", vehicleType);
         if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
             return "login";
         } else {
@@ -68,8 +74,19 @@ public class CustomerController {
         if (responseMapper.getRequestStatus().equals("Successful")) {
             model.addAttribute("name", responseMapper.getMessage());
             session.setAttribute("username", customer.getEmail());
-            model.addAttribute(new Hire());
-            return "home";
+            Hire hire = new Hire();
+            if (session.getAttribute("pickup") == "" || session.getAttribute("pickup") == null) {
+                model.addAttribute(hire);
+                return "home";
+            } else {
+                hire.setPickup(session.getAttribute("pickup").toString());
+                hire.setDrop(session.getAttribute("drop").toString());
+                hire.setDistance(session.getAttribute("distance").toString());
+                hire.setVehicleType(session.getAttribute("vehicleType").toString());
+                model.addAttribute(hire);
+                return "home";
+            }
+
         } else {
             model.addAttribute("login_error", "Invalid username or password!!");
             return "redirect:login";

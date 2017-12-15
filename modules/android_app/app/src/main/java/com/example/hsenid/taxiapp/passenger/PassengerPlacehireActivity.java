@@ -20,6 +20,7 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
 
     GoogleMap mGoogleMap;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,11 +30,14 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             Toast.makeText(this, "Perfect !!!", Toast.LENGTH_LONG).show();
             setContentView(R.layout.activity_passenger_placehire);
             initMap();
+
         }else {
             Toast.makeText(this, "Sorryyyyy !!!", Toast.LENGTH_LONG).show();
 
         }
     }
+
+
 
     private void initMap(){
         MapFragment mapFragment =(MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
@@ -68,5 +72,17 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
         mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Colombo"));
         CameraPosition Liberty = CameraPosition.builder().target(sydney).zoom(16).bearing(0).tilt(45).build();
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
+
+
+        // Turn on the My Location layer and the related control on the map.
+
+
+        // Get the current location of the device and set the position of the map.
+
     }
+
+
+
+
+
 }

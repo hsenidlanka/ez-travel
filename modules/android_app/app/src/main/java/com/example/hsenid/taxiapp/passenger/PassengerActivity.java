@@ -135,21 +135,20 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
                 openDialog();
             }
         });
-
         mLoginFormView = findViewById(R.id.login_form_passenger);
         mProgressView = findViewById(R.id.login_progress_passenger);
     }
 
+    //call method to open the password update dialog box
     public void openDialog(){
-            DialogBoxActivity pwUpdateDialog = new DialogBoxActivity();
-            pwUpdateDialog.show(getSupportFragmentManager(),"Update Password");
+            DialogBoxActivity pwUpdateDialogPassenger = new DialogBoxActivity();
+            pwUpdateDialogPassenger.show(getSupportFragmentManager(),"Update Password");
     }
 
     private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
-
         getLoaderManager().initLoader(0, null, this);
     }
 

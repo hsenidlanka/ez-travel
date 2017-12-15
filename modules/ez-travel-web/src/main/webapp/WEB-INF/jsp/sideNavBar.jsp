@@ -19,13 +19,13 @@
                 <!--end user image section-->
             </li>
             <li>
-                <a href="home"><i class="fa fa-map-marker fa-fw"></i> New Hire</a>
+                <a href="login"><i class="fa fa-map-marker fa-fw"></i> New Hire</a>
             </li>
             <li>
-                <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> My Travels</a>
+                <a href="myTrips"><i class="fa fa-bar-chart-o fa-fw"></i> My Travels</a>
             </li>
             <li>
-                <a href="timeline.html"><i class="fa fa-location-arrow fa-fw"></i> Default Locations</a>
+                <a href="defaultLocations"><i class="fa fa-location-arrow fa-fw"></i> Default Locations</a>
             </li>
             <li class="selected">
                 <a href="settings"><i class="fa fa-cogs fa-fw"></i> Settings</a>

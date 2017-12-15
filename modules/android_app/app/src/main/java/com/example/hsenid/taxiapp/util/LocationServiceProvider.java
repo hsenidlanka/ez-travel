@@ -42,6 +42,7 @@ public class LocationServiceProvider implements GoogleApiClient.ConnectionCallba
     private GoogleApiClient mGoogleApiClient;
     private Location location;
 
+
     private AppCompatActivity currentActivity;
     private ProgressDialog waitForLoc;
     private LocationServiceListener listener;
