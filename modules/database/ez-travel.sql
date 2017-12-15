@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `ez-travel` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `ez-travel`;
 -- MySQL dump 10.13  Distrib 5.6.31, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: ez-travel
@@ -36,8 +34,18 @@ CREATE TABLE `customer` (
   `gender` varchar(20) DEFAULT NULL,
   `user_status` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer`
+--
+
+LOCK TABLES `customer` WRITE;
+/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+INSERT INTO `customer` VALUES (18,'menuka@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','2015-03-31','0716542398255','910455658v','Male',1),(20,'menuka2@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','2015-03-31','0716542398255','910455658v','Male',0),(21,'menuka3@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','2015-03-31','0716542398255','910455658v','Male',1),(22,'menuka11@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(24,'menuka112@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(25,'menuka11dfgh2@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(26,'fgh@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(27,'Test@Menfluka.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(28,'Test@Menuka.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(29,'Test@Menuka.csom','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(31,'Tesmnt@Menuka.csom','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(32,'Tesmnt@Mxenuka.csom','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(33,'Tesdmnt@Mxenfddfdduka.csom','password','First','Last','1993-11-18','0716548523','912345687v','Male',1);
+/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `customer_current_location`
@@ -56,6 +64,16 @@ CREATE TABLE `customer_current_location` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `customer_current_location`
+--
+
+LOCK TABLES `customer_current_location` WRITE;
+/*!40000 ALTER TABLE `customer_current_location` DISABLE KEYS */;
+INSERT INTO `customer_current_location` VALUES (18,0.000000,0.000000,'2017-09-08 16:28:00'),(20,0.000000,0.000000,'2017-09-08 17:35:34'),(21,0.000000,0.000000,'2017-09-08 17:49:27'),(22,0.000000,0.000000,'2017-09-08 17:49:57'),(24,0.000000,0.000000,'2017-09-11 09:34:53'),(25,0.000000,0.000000,'2017-09-11 09:39:37'),(26,0.000000,0.000000,'2017-09-11 09:40:18'),(27,0.000000,0.000000,'2017-09-18 08:59:59'),(28,0.000000,0.000000,'2017-09-18 09:01:10'),(29,0.000000,0.000000,'2017-09-18 09:04:27'),(31,0.000000,0.000000,'2017-09-18 09:56:51'),(32,0.000000,0.000000,'2017-09-18 10:13:22'),(33,0.000000,0.000000,'2017-12-13 16:40:30');
+/*!40000 ALTER TABLE `customer_current_location` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `driver`
 --
 
@@ -63,7 +81,7 @@ DROP TABLE IF EXISTS `driver`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `driver` (
-  `driver_id` int(11) NOT NULL,
+  `driver_id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(200) DEFAULT NULL,
   `first_name` varchar(50) DEFAULT NULL,
@@ -76,10 +94,19 @@ CREATE TABLE `driver` (
   `confirmed_by` int(11) DEFAULT NULL,
   `nic` varchar(10) NOT NULL,
   PRIMARY KEY (`driver_id`),
-  KEY `confirmed_by_idx` (`confirmed_by`),
-  CONSTRAINT `confirmed_by` FOREIGN KEY (`confirmed_by`) REFERENCES `employee` (`employee_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  KEY `confirmed_by_idx` (`confirmed_by`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driver`
+--
+
+LOCK TABLES `driver` WRITE;
+/*!40000 ALTER TABLE `driver` DISABLE KEYS */;
+INSERT INTO `driver` VALUES (3,'Tesdbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(5,'Tesdxbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(6,'Menuka@Ishan.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(8,'ssss@Ishan.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(10,'ssss@Ishfan.csom','password','Tgest','xxxxBug','111dff3','0714561238','1993-11-18','Male',2,NULL,'912345687v'),(14,'vidu@vidya.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,NULL,'912345687v');
+/*!40000 ALTER TABLE `driver` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `driver_current_location`
@@ -92,10 +119,20 @@ CREATE TABLE `driver_current_location` (
   `driver_id` int(11) NOT NULL,
   `longitude` float(10,6) DEFAULT NULL,
   `latitude` float(10,6) DEFAULT NULL,
-  `update_time` time DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`driver_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driver_current_location`
+--
+
+LOCK TABLES `driver_current_location` WRITE;
+/*!40000 ALTER TABLE `driver_current_location` DISABLE KEYS */;
+INSERT INTO `driver_current_location` VALUES (3,63.034000,18.230000,'2017-12-14 15:01:41'),(5,0.000000,0.000000,'2017-12-13 15:35:44'),(6,0.000000,0.000000,'2017-12-13 15:36:04'),(7,0.000000,0.000000,'2017-12-13 15:40:35'),(8,0.000000,0.000000,'2017-12-13 15:43:06'),(10,0.000000,0.000000,'2017-12-13 15:32:41'),(12,0.000000,0.000000,'2017-12-13 15:49:42'),(13,0.000000,0.000000,'2017-12-13 09:25:56'),(14,0.000000,0.000000,'2017-12-13 09:26:13');
+/*!40000 ALTER TABLE `driver_current_location` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `driver_image`
@@ -113,6 +150,15 @@ CREATE TABLE `driver_image` (
   PRIMARY KEY (`driver_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driver_image`
+--
+
+LOCK TABLES `driver_image` WRITE;
+/*!40000 ALTER TABLE `driver_image` DISABLE KEYS */;
+/*!40000 ALTER TABLE `driver_image` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `employee`
@@ -134,6 +180,15 @@ CREATE TABLE `employee` (
   PRIMARY KEY (`employee_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `employee`
+--
+
+LOCK TABLES `employee` WRITE;
+/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
+/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `feedback`
@@ -158,6 +213,15 @@ CREATE TABLE `feedback` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `feedback`
+--
+
+LOCK TABLES `feedback` WRITE;
+/*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+/*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `hire`
 --
 
@@ -165,21 +229,33 @@ DROP TABLE IF EXISTS `hire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hire` (
-  `hire_id` int(11) NOT NULL,
+  `hire_id` int(11) NOT NULL AUTO_INCREMENT,
   `start_location_latitude` float(10,6) DEFAULT NULL,
   `start_location_longitude` float(10,6) DEFAULT NULL,
   `end_location_latitude` float(10,6) DEFAULT NULL,
   `end_location_longitude` float(10,6) DEFAULT NULL,
+  `vehicle_type` varchar(10) DEFAULT NULL,
+  `length` varchar(255) DEFAULT NULL,
   `cost` double DEFAULT NULL,
   `date` date DEFAULT NULL,
-  `customer_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) NOT NULL,
   `driver_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`hire_id`),
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
-  CONSTRAINT `driver_idx` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `driver_idx` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hire`
+--
+
+LOCK TABLES `hire` WRITE;
+/*!40000 ALTER TABLE `hire` DISABLE KEYS */;
+INSERT INTO `hire` VALUES (1,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',18,NULL),(2,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',18,NULL);
+/*!40000 ALTER TABLE `hire` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -190,4 +266,4 @@ CREATE TABLE `hire` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-11  8:25:09
+-- Dump completed on 2017-12-15  9:35:21

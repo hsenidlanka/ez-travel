@@ -1,4 +1,4 @@
-package com.example.hsenid.taxiapp;
+package com.example.hsenid.taxiapp.passenger;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -18,12 +18,21 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
-import android.widget.*;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.hsenid.taxiapp.DialogBoxActivity;
+import com.example.hsenid.taxiapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,17 +55,20 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class DriverActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
+public class PassengerActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
     /**
      * Id to identity READ_CONTACTS permission request.
      */
     private static final int REQUEST_READ_CONTACTS = 0;
+    private static final String passengerUpdateUrl = "http://192.168.100.106:50000/api/customer/updatepassword";
+
+
     /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
-    private static final String TAG = "DriverActivity";
+    private static final String TAG = "PassengerActivity";
 
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
@@ -71,18 +83,18 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    Button driverRegisterAccessButton;
-
+    Button mEmailSignInButton;
+    Button passengerRegisterAccessButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver);
+        setContentView(R.layout.activity_passenger);
         // Set up the login form.
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email_driver);
+        mEmailView = (AutoCompleteTextView) findViewById(R.id.email_passenger);
         populateAutoComplete();
 
-        mPasswordView = (EditText) findViewById(R.id.password_driver);
+        mPasswordView = (EditText) findViewById(R.id.password_passenger);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -94,8 +106,8 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
-        //on the click of the sign-in button
-        Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_driver);
+        //on the click of Signin button
+        mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_passenger);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,18 +116,33 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         });
 
         //on the click of the register button
-        driverRegisterAccessButton = (Button) findViewById(R.id.register_button_driver);
-        driverRegisterAccessButton.setOnClickListener(new OnClickListener() {
+        passengerRegisterAccessButton = (Button) findViewById(R.id.register_button_passenger);
+        passengerRegisterAccessButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Intent registrationIntent = new Intent(DriverActivity.this, RegistrationDriverActivity.class);
-                DriverActivity.this.startActivity(registrationIntent);
+                Intent registrationIntent = new Intent(PassengerActivity.this, RegistrationPassengerActivity.class);
+                PassengerActivity.this.startActivity(registrationIntent);
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form_driver);
-        mProgressView = findViewById(R.id.login_progress_driver);
+
+        //passenger password reset function
+        TextView pwresetDialog= (TextView) findViewById(R.id.infoTxtCredits);
+        pwresetDialog.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                openDialog();
+            }
+        });
+
+        mLoginFormView = findViewById(R.id.login_form_passenger);
+        mProgressView = findViewById(R.id.login_progress_passenger);
+    }
+
+    public void openDialog(){
+            DialogBoxActivity pwUpdateDialog = new DialogBoxActivity();
+            pwUpdateDialog.show(getSupportFragmentManager(),"Update Password");
     }
 
     private void populateAutoComplete() {
@@ -160,7 +187,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             }
         }
     }
-
     /**
      * Attempts to sign in or register the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
@@ -170,6 +196,7 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         if (mAuthTask != null) {
             return;
         }
+
         // Reset errors.
         mEmailView.setError(null);
         mPasswordView.setError(null);
@@ -214,16 +241,15 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
             mAuthTask.execute((Void) null);
+
         }
     }
 
     private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
         return email.contains("@");
     }
 
     private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
         return password.length() > 4;
     }
 
@@ -295,17 +321,18 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
+
     private void addEmailsToAutoComplete(List<String> emailAddressCollection) {
         //Create adapter to tell the AutoCompleteTextView what to show in its dropdown list.
         ArrayAdapter<String> adapter =
-                new ArrayAdapter<>(DriverActivity.this,
+                new ArrayAdapter<>(PassengerActivity.this,
                         android.R.layout.simple_dropdown_item_1line, emailAddressCollection);
 
         mEmailView.setAdapter(adapter);
     }
 
-    public void gotoDriverRegistrationPage(View view) {
-        Intent driverPage = new Intent(DriverActivity.this, RegistrationDriverActivity.class);
+    public void gotoPassengerRegistrationPage(View view) {
+        Intent driverPage = new Intent(PassengerActivity.this, RegistrationPassengerActivity.class);
         startActivity(driverPage);
     }
 
@@ -316,7 +343,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         };
 
         int ADDRESS = 0;
-        int IS_PRIMARY = 1;
     }
 
     /**
@@ -335,74 +361,89 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            //authenticate to the core-server
+
             Boolean result=false;
             try {
-                // Simulate network access.
-                String url = "http://192.168.100.106:50000/api/driver/login";
+                    String url = "http://192.168.100.106:50000/api/customer/login";
 
-                HttpHeaders headers= new HttpHeaders();
-                headers.setContentType(MediaType.APPLICATION_JSON);
-                //headers.add("Authorization",getB64Auth(mEmail,mPassword));
-
-                JSONObject json = new JSONObject();
-                json.put("email", mEmail);
-                json.put("password", mPassword);
-                String requestBody = json.toString();
-
-                HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
-                Log.e(TAG,"entity"+ entity.getBody());
-                Log.e(TAG,"entity2"+ entity.getHeaders());
+                    HttpHeaders headers= new HttpHeaders();
+                    headers.setContentType(MediaType.APPLICATION_JSON);
+                    headers.add("Authorization",getB64Auth(mEmail,mPassword));
 
 
-                RestTemplate loginTemplate = new RestTemplate();
-                HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
-                HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
+                    JSONObject json = new JSONObject();
+                    json.put("email", mEmail);
+                    json.put("password", mPassword);
+                    String requestBody = json.toString();
 
-                loginTemplate.getMessageConverters().add(formHttpMessageConverter);
-                loginTemplate.getMessageConverters().add(stringHttpMessageConverternew);
+                    HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
+                    Log.e(TAG,"entity"+ entity.getBody());
+                    Log.e(TAG,"entity2"+ entity.getHeaders());
 
-                ResponseEntity<String> response=loginTemplate.exchange(url, HttpMethod.POST, entity, String.class);
-                Log.e(TAG,"result"+ response.getBody());
-                Log.e(TAG,"result"+  response.getStatusCode());
 
-                if (response.getStatusCode() == HttpStatus.OK ) {
-                    result= true;
-                }
-                else  {
-                    result=false;
-                }
-                // result=response.toString();
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
+                    RestTemplate loginTemplate = new RestTemplate();
+                    HttpMessageConverter formHttpMessageConverter = new FormHttpMessageConverter();
+                    HttpMessageConverter stringHttpMessageConverternew = new StringHttpMessageConverter();
+
+                    loginTemplate.getMessageConverters().add(formHttpMessageConverter);
+                    loginTemplate.getMessageConverters().add(stringHttpMessageConverternew);
+
+                    ResponseEntity<String> response=loginTemplate.exchange(url, HttpMethod.POST, entity, String.class);
+                    Log.e(TAG,"result"+ response.getBody());
+                    Log.e(TAG,"result"+  response.getStatusCode());
+
+                    if (response.getStatusCode() == HttpStatus.OK ) {
+                        result= true;
+                    }
+                    else  {
+                        result=false;
+                    }
+                    // result=response.toString();
+                    Thread.sleep(2000);
+
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
+            return result;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
+            Log.e(TAG,"onPostExecute entrance"+ success);
 
+            //if the login validation is a success
             if (success) {
-                finish();
+                Log.e(TAG,"onPostExecute success"+ success);
+
+                Intent customerLoginIntent = new Intent(PassengerActivity.this, PassengerPlacehireActivity.class);
+                PassengerActivity.this.startActivity(customerLoginIntent);
+
+            //if the login validation fails
             } else {
+                Log.e(TAG,"onPostExecute fail"+ success);
+
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+                Toast.makeText(PassengerActivity.this,"HIre is confirmed",Toast.LENGTH_SHORT).show();
+/*
+                Intent play22Intent = new Intent(PassengerActivity.this, MainActivity.class);
+                PassengerActivity.this.startActivity(play22Intent);*/
+
+
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
+        }
+
+        private String getB64Auth (String login, String pass) {
+            String source=login+":"+pass;
+            String ret="Basic "+ Base64.encodeToString(source.getBytes(), Base64.URL_SAFE|Base64.NO_WRAP);
+            return ret;
         }
 
         @Override
@@ -411,4 +452,6 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             showProgress(false);
         }
     }
+
 }
+

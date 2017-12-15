@@ -40,15 +40,13 @@
             android:id="@+id/homepage_driver_btn"
             android:layout_width="191dp"
             android:layout_height="89dp"
-            android:onClick="gotoDriverPage"
-            android:text="Driver" />
+            android:text="@string/driver" />
 
         <Button
             android:id="@+id/homepage_cus_btn"
             android:layout_width="match_parent"
             android:layout_height="95dp"
-            android:onClick="gotoPassengerPage"
-            android:text="Customer" />
+            android:text="@string/customer" />
 
     </LinearLayout>
 
@@ -62,7 +60,7 @@
         android:layout_marginLeft="27dp"
         android:layout_marginStart="27dp"
         android:layout_marginTop="31dp"
-        android:text="Start As a"
+        android:text="@string/start_as_a"
         android:textSize="30sp" />
 
 </RelativeLayout>

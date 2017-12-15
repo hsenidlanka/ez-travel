@@ -5,17 +5,10 @@
               android:layout_height="match_parent"
               android:gravity="center_horizontal"
               android:orientation="vertical"
-              tools:context="com.example.hsenid.taxiapp.DriverActivity"
+              tools:context="com.example.hsenid.taxiapp.driver.DriverActivity"
               android:weightSum="1">
 
     <!-- Login progress -->
-    <ProgressBar
-            android:id="@+id/login_progress_driver"
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone"/>
 
     <ImageView
             android:id="@+id/imageView_driver"
@@ -57,9 +50,6 @@
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
                 <EditText
                         android:id="@+id/password_driver"
@@ -72,8 +62,6 @@
                         android:inputType="textPassword"
                         android:maxLines="1"
                         android:singleLine="true"/>
-
-            </android.support.design.widget.TextInputLayout>
 
             <Button
                     android:id="@+id/sign_in_button_driver"
@@ -103,13 +91,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Not yet have an acount?"
+            android:text="@string/not_yet_have_an_acount"
             android:textSize="24sp"/>
 
     <Button
             android:id="@+id/register_button_driver"
             android:layout_width="200dp"
             android:layout_height="80dp"
-            android:text="REGISTER"
+            android:text="@string/register"
             android:onClick="gotoDriverRegistrationPage"/>
 </LinearLayout>

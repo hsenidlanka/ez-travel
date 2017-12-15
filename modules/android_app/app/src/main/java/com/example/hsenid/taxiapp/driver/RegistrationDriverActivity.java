@@ -1,4 +1,4 @@
-package com.example.hsenid.taxiapp;
+package com.example.hsenid.taxiapp.driver;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.example.hsenid.taxiapp.MainActivity;
+import com.example.hsenid.taxiapp.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -317,15 +320,15 @@ public class RegistrationDriverActivity extends AppCompatActivity {
 
             //if the login validation is a success
             if (success) {
-                Intent playIntent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
-                RegistrationDriverActivity.this.startActivity(playIntent);
+                Intent driverSuccessIntent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
+                RegistrationDriverActivity.this.startActivity(driverSuccessIntent);
                 //finish();
 
                 //if the login validation fails
             } else {
 
-                Intent play22Intent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
-                RegistrationDriverActivity.this.startActivity(play22Intent);
+                Intent play2Intent = new Intent(RegistrationDriverActivity.this, MainActivity.class);
+                RegistrationDriverActivity.this.startActivity(play2Intent);
 
             }
         }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context="com.example.hsenid.taxiapp.RegistrationDriverActivity">
+    tools:context="com.example.hsenid.taxiapp.driver.RegistrationDriverActivity">
 
     <TextView
             android:id="@+id/label_driver_register"
@@ -83,6 +83,7 @@
                 android:ems="10"
                 android:hint="@string/prompt_dob"
                 android:inputType="date"/>
+
 
         <TextView
             android:id="@+id/textView1"

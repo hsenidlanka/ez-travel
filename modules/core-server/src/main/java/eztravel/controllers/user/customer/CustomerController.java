@@ -156,7 +156,7 @@ public class CustomerController {
             contactUpdateReplyModel.setMessage("Customer contact details successfully updated");
             contactUpdateReplyModel.setContactUpdated(true);
 
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body(contactUpdateReplyModel);
+            return ResponseEntity.status(HttpStatus.OK).body(contactUpdateReplyModel);
         }
 
 
