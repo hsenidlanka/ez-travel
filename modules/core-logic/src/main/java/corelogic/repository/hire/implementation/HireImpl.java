@@ -65,14 +65,14 @@ public class HireImpl implements HireRepository{
 
             String sqlForGetCustomerId = "SELECT customer_id FROM customer WHERE email = ?";
             Object[] args = new Object[]{customer_email};
-
+            System.out.println(customer_email);
             String customer_id = jdbcTemplate.queryForObject(sqlForGetCustomerId, args, String.class);
 
             String sqlForIntialHirePlace = "INSERT INTO hire (start_location_latitude, start_location_longitude, vehicle_type, date, customer_id) VALUES (?, ?, ?, ?, ?)";
 
             Object[] argsForPlaceHire = new Object[]{start_location_latitude, start_location_longitude, vehicle_type, dateTime, Integer.parseInt(customer_id)};
             jdbcTemplate.update(sqlForIntialHirePlace, argsForPlaceHire);
-
+            System.out.println("Hire place inside");
             transactionManager.commit(status);
 
             return true;

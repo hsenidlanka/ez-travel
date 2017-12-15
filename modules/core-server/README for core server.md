@@ -19,6 +19,11 @@ The project created using following sdk's and tools.
   - apache-tomcat-8.0.32
   
 ### Configuration and building
+First you need to configure database. For that you have to import sql file in module/database/ez-trave.sql
+
+- database name - ez-travel
+
+
 Core server uses abstract database layer from **core logic** module. There for you need to build whole project first. 
 
 First clone the Project from github
