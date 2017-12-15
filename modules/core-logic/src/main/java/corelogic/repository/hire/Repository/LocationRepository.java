@@ -1,6 +1,8 @@
 package corelogic.repository.hire.Repository;
 
 /**
+ * Repository class for Location related Database activities.
+ *
  * @version 1.0
  * @auther Vidushka
  */

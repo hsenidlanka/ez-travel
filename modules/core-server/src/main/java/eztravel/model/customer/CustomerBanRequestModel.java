@@ -1,6 +1,8 @@
 package eztravel.model.customer;
 
 /**
+ * Model for Customer Ban request
+ *
  * @version 1.0
  * @auther Vidushka
  */

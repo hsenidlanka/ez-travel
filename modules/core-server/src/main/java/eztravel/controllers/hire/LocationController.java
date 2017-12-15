@@ -12,8 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
+ * This Controller is responsible for Location related functions
+ * For detailed instruction of this api please refer below spreadsheet
+ * https://goo.gl/FQcZMw
+ *
+ * Here I have used ResponseEntity to create Custom server-side responses,
+ * so we could control the Http Response
+ *
  * @version 1.0
  * @auther Vidushka
+ *
  */
 @RestController
 @RequestMapping("/location")
@@ -22,6 +30,13 @@ public class LocationController {
     @Autowired
     LocationImpl locationImpl;
 
+    /**
+     * This controller method is responsible for driver location updating
+     *
+     * @param model - DriverLocationUpdateRequestModel model that contains,
+     *              data needed for driver's current location update
+     * @return - DriverLocationUpdateReplyModel wrapped in ResponseEntity
+     */
     @PostMapping("/updatedriverlocation")
     public ResponseEntity<DriverLocationUpdateReplyModel> updateDriverLocation(@RequestBody DriverLocationUpdateRequestModel model){
 

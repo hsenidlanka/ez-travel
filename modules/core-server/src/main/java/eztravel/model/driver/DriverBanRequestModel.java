@@ -1,7 +1,8 @@
 package eztravel.model.driver;
 
 /**
- * Created by hsenid on 12/7/17.
+ * @version 1.0
+ * @auther Vidushka
  */
 public class DriverBanRequestModel {
 

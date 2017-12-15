@@ -1,7 +1,10 @@
 package eztravel.model.customer;
 
 /**
- * Created by Menuka on 12/5/17.
+ * This model is used for Customer password update request
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
 public class CustomerPasswordUpdateModel {
     private String email;

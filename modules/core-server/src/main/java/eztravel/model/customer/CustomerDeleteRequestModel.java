@@ -1,6 +1,8 @@
 package eztravel.model.customer;
 
 /**
+ * This medal used for customer delete request
+ *
  * @version 1.0
  * @auther Vidushka
  */

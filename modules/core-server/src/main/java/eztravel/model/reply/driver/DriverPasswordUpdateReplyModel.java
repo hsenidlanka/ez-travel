@@ -4,8 +4,12 @@ package eztravel.model.reply.driver;
 import eztravel.model.reply.ReplyModel;
 
 /**
- * Created by hsenid on 12/6/17.
+ * This model used to reply driver password update requests
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
+
 public class DriverPasswordUpdateReplyModel extends ReplyModel {
 
     private boolean isPasswordUpdated;

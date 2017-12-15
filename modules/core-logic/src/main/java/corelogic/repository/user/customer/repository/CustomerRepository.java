@@ -6,6 +6,8 @@ import java.sql.Date;
 
 
 /**
+ * Repository class for Customer related Database activities.
+ *
  * @version 1.0
  * @auther Vidushka
  */

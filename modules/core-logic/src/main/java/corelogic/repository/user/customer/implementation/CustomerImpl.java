@@ -16,6 +16,9 @@ import java.sql.Date;
 import java.util.concurrent.CompletableFuture;
 
 /**
+ * Implementation class for Customer related Database activities.
+ * This use for autowire
+ *
  * @version 1.0
  * @auther Vidushka
  */
@@ -177,7 +180,7 @@ public class CustomerImpl implements CustomerRepository {
      * This method is responsible for deleting customer account record from database.
      *
      * @param email - this is the unique data we use to identify customer
-     * @return - boolean
+     * @return - boolean sa
      */
     @Override
     public boolean isCustomerDeleted(String email, String password) {
@@ -189,6 +192,13 @@ public class CustomerImpl implements CustomerRepository {
         return isDeleted;
     }
 
+    /**
+     * This method is responsible for checking whether customer in the database or not
+     * used as error handling method
+     *
+     * @param email - customer's email
+     * @return - boolean
+     */
     @Override
     public boolean isCustomerInDatabase(String email) {
 

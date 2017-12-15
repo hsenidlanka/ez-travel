@@ -7,7 +7,10 @@ import corelogic.domain.user.driver.Driver;
 import java.sql.Date;
 
 /**
- * Created by hsenid on 12/5/17.
+ * Repository class for Driver related Database activities.
+ *
+ * @version 1.0
+ * @auther Vidushka
  */
 public interface DriverRepository {
     boolean isDriverAuthenticated(String email, String password);
