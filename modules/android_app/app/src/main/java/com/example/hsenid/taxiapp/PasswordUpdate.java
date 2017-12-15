@@ -1,6 +1,9 @@
 package com.example.hsenid.taxiapp;
 
+import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by hsenid on 12/14/17.
  */
 
-public class PasswordUpdate  {
+public class PasswordUpdate extends AsyncTask<Void, Void, Boolean> {
 
     private static final String TAG = "PasswordUpdate";
 
@@ -27,18 +30,20 @@ public class PasswordUpdate  {
     private final String cPassword;
     private final String nPassword;
     private final String requestUrl;
+    private final Context context;
 
 
 
-    public PasswordUpdate(String email, String cpassword, String npassword, String requestUrl) {
+    public PasswordUpdate(Context context, String email, String cpassword, String npassword, String requestUrl  ) {
         this.cEmail = email;
         this.cPassword = cpassword;
         this.nPassword=npassword;
         this.requestUrl = requestUrl;
+        this.context = context;
     }
 
-
-    public Boolean updatePassword() {
+    @Override
+    protected Boolean doInBackground(Void... voids) {
         Boolean result=false;
         try {
             //String url = "http://192.168.100.106:50000/api/customer/login";
@@ -66,7 +71,9 @@ public class PasswordUpdate  {
             loginTemplate.getMessageConverters().add(formHttpMessageConverter);
             loginTemplate.getMessageConverters().add(stringHttpMessageConverternew);
 
-            ResponseEntity<String> response=loginTemplate.exchange(requestUrl, HttpMethod.POST, entity, String.class);
+
+            ResponseEntity<String> response= null;
+            response = loginTemplate.exchange(requestUrl, HttpMethod.POST, entity, String.class);
             Log.e(TAG,"result"+ response.getBody());
             Log.e(TAG,"result"+  response.getStatusCode());
 
@@ -88,4 +95,15 @@ public class PasswordUpdate  {
     }
 
 
+    @Override
+    protected void onPostExecute(final Boolean success) {
+
+        if (success) {
+            Toast.makeText(context, "Updated Password successfully", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Toast.makeText(context, "Password Update Failed", Toast.LENGTH_SHORT).show();
+
+        }
+    }
 }
