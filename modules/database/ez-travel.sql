@@ -135,6 +135,34 @@ INSERT INTO `driver_current_location` VALUES (3,63.034000,18.230000,'2017-12-14 
 UNLOCK TABLES;
 
 --
+-- Table structure for table `driver_feedback`
+--
+
+DROP TABLE IF EXISTS `driver_feedback`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `driver_feedback` (
+  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `driver_id` int(11) NOT NULL,
+  `hire_id` int(11) NOT NULL,
+  `feedback_status` tinyint(1) NOT NULL,
+  PRIMARY KEY (`feedback_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `driver_feedback`
+--
+
+LOCK TABLES `driver_feedback` WRITE;
+/*!40000 ALTER TABLE `driver_feedback` DISABLE KEYS */;
+INSERT INTO `driver_feedback` VALUES (1,'Ez-travel is the best app',3,3,2,0),(2,'Ez-travel is the best app',3,3,2,0);
+/*!40000 ALTER TABLE `driver_feedback` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `driver_image`
 --
 
@@ -198,18 +226,19 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `feedback` (
-  `feedback_id` int(11) NOT NULL,
-  `description` varchar(200) DEFAULT NULL,
+  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
+  `description` text,
   `customer_id` int(11) DEFAULT NULL,
   `driver_id` int(11) DEFAULT NULL,
   `hire_id` int(11) DEFAULT NULL,
+  `feedback_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`feedback_id`),
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
   KEY `hire_id_idx` (`hire_id`),
   CONSTRAINT `driver_idy` FOREIGN KEY (`driver_id`) REFERENCES `driver` (`driver_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `hire_idy` FOREIGN KEY (`hire_id`) REFERENCES `hire` (`hire_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,6 +247,7 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
+INSERT INTO `feedback` VALUES (1,'Ez-travel is the best app',18,3,2,0),(2,'Ez-travel is the best app',3,3,2,0),(3,'Ez-travel is the best app',3,3,2,0);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -267,4 +297,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-15 15:21:54
+-- Dump completed on 2017-12-18 16:01:15
