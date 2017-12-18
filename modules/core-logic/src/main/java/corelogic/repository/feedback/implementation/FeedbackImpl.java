@@ -50,4 +50,33 @@ public class FeedbackImpl implements FeedbackRepository {
 
         return false;
     }
+
+    @Override
+    public boolean addDriverFeedback(String description, String driver_email, int customer_id, int hire_id) {
+
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        try {
+
+            String sqlForGetDriverId = "SELECT driver_id FROM driver WHERE email = ?";
+            Object[] args = new Object[]{driver_email};
+
+            String driver_id = jdbcTemplate.queryForObject(sqlForGetDriverId, args, String.class);
+
+            String sqlForAddDriverFeedback =
+                    "INSERT INTO driver_feedback (description, customer_id, driver_id, hire_id, feedback_status) VALUES (?, ?, ?, ?, 0)";
+
+            Object[] arge = new Object[]{description, customer_id, Integer.parseInt(driver_id), hire_id};
+            jdbcTemplate.update(sqlForAddDriverFeedback, arge);
+
+            transactionManager.commit(status);
+
+            return true;
+        }catch (Exception e){
+            System.out.println("Reason => " + e.getMessage());
+        }
+
+        return false;
+    }
 }
