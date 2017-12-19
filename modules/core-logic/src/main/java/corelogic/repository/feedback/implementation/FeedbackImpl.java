@@ -79,4 +79,68 @@ public class FeedbackImpl implements FeedbackRepository {
 
         return false;
     }
+
+    @Override
+    public boolean customerFeedbackReviewed(int feedback_id, String admin_email) {
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        try {
+            String sqlForGetAdminId = "SELECT admin_id FROM admin WHERE email = ?";
+            Object[] args = new Object[]{admin_email};
+
+            String admin_id = jdbcTemplate.queryForObject(sqlForGetAdminId, args, String.class);
+
+            String sqlForUpdateCustomerFeedback = "UPDATE feedback set feedback_status = ?,  confirmed_by = ? where feedback_id = ?";
+            Object[] argsForCustomerFeedbackUpdate = new Object[]{1, Integer.parseInt(admin_id), feedback_id};
+
+            boolean isUpdated = jdbcTemplate.update(sqlForUpdateCustomerFeedback, argsForCustomerFeedbackUpdate) == 1;
+
+            if (!isUpdated) {
+                throw new Exception("No feedback in that ID in database!!!");
+            }
+
+            transactionManager.commit(status);
+
+            return true;
+        } catch (Exception e) {
+
+            System.out.println("Reason => " + e.getMessage());
+
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean driverFeedbackReviewed(int feedback_id, String admin_email) {
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        try {
+            String sqlForGetAdminId = "SELECT admin_id FROM admin WHERE email = ?";
+            Object[] args = new Object[]{admin_email};
+
+            String admin_id = jdbcTemplate.queryForObject(sqlForGetAdminId, args, String.class);
+
+            String sqlForUpdateDriverFeedback = "UPDATE driver_feedback set feedback_status = ?,  confirmed_by = ? where feedback_id = ?";
+            Object[] argsForDriverFeedbackUpdate = new Object[]{1, Integer.parseInt(admin_id), feedback_id};
+
+            boolean isUpdated = jdbcTemplate.update(sqlForUpdateDriverFeedback, argsForDriverFeedbackUpdate) == 1;
+
+            if (!isUpdated) {
+                throw new Exception("No feedback in that ID in database!!!");
+            }
+
+            transactionManager.commit(status);
+
+            return true;
+        } catch (Exception e) {
+
+            System.out.println("Reason => " + e.getMessage());
+
+        }
+
+        return false;
+    }
 }

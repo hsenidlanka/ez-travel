@@ -3,17 +3,15 @@ package eztravel.controllers.user.customer;
 
 import corelogic.domain.user.customer.Customer;
 import corelogic.repository.user.customer.implementation.CustomerImpl;
-
 import eztravel.model.customer.*;
 import eztravel.model.reply.customer.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 
@@ -33,7 +31,6 @@ import java.sql.Date;
 @RequestMapping("/customer")
 public class CustomerController {
 
-    final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 
     @Autowired
     CustomerImpl customerImpl;
