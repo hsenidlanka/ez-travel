@@ -83,32 +83,38 @@ public class AjaxHandler {
         json = new JSONObject();
         template = new RestTemplate();
         template.setErrorHandler(new ServerResponseErrorHandler());
-        InitialHirePlaceAccept hirePlaceResponse;
+        InitialHirePlaceAccept hirePlaceResponse = null;
 
-        String hireDate = hire.getPickupDate();
-        java.util.Date utilDate = null;
+        String hireDate = hire.getDate();
+        String url = baseUrl + "hire/intialplacehire";
+
+
         try {
-            utilDate = new SimpleDateFormat("MM/dd/yyy").parse(hireDate);
+            java.util.Date utilDate = new SimpleDateFormat("dd-MM-yyyy").parse(hireDate);
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+
+            json.put("customer_email", session.getAttribute("username"));
+            json.put("vehicle_type", hire.getVehicleType());
+            json.put("start_location_latitude", hire.getPickupLat());
+            json.put("date", sqlDate);
+            json.put("time", hire.getTime());
+            json.put("start_location_longitude", hire.getPickupLng());
+            System.out.println(json.toString());
         } catch (ParseException e) {
             e.printStackTrace();
+            System.out.println("exception parse date");
         }
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-        String url = baseUrl + "hire/costoftrip";
-        json.put("customer_email", session.getAttribute("username"));
-        json.put("vehicle_type", hire.getVehicleType());
-        json.put("start_location_latitude", hire.getPickupLat());
-        json.put("date", sqlDate);
-        json.put("time", hire.getTime());
-        json.put("start_location_longitude", hire.getPickupLng());
         try {
             hirePlaceResponse = template.postForObject(url, json, InitialHirePlaceAccept.class);
         } catch (RestClientException e) {
             System.out.println("Rest client exception");
         }
-        if (responseMapper.getRequestStatus().equals("success")) {
-            return responseMapper.getCost();
+        if (hirePlaceResponse.getRequestStatus().equals("success")) {
+            return "Your hire is placed successfully. Please wait." +
+                    " We will confirm with dirver's details.";
         } else {
+            System.out.println("5");
             return "Can't calculate cost at the moment.";
         }
     }

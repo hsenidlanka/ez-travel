@@ -6,7 +6,7 @@ package eztravel.model;
 public class Hire {
     private String pickup;
     private String drop;
-    private String pickupDate;
+    private String date;
     private String time;
     private String vehicleType;
     private String distance;
@@ -32,12 +32,12 @@ public class Hire {
         this.drop = drop;
     }
 
-    public String getPickupDate() {
-        return pickupDate;
+    public String getDate() {
+        return date;
     }
 
-    public void setPickupDate(String pickupDate) {
-        this.pickupDate = pickupDate;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getTime() {

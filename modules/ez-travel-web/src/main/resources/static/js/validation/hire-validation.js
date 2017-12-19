@@ -64,22 +64,22 @@ function dropValidation() {
 }
 
 function pickupDateValidation() {
-    var pickupDate = document.getElementById("pickupDate");
-    var pattern = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+    var pickupDate = document.getElementById("date");
+    var pattern = /^\d{1,2}\-\d{1,2}\-\d{4}$/;
 
     if (!pickupDate.value.match(pattern)) {
-        indicateError("pickupDate-error", "pickupDate", "invalid date.");
+        indicateError("date-error", "date", "invalid date.");
         return false;
 
     } else {
-        clearErrors("pickupDate-error", "pickupDate", "");
+        clearErrors("date-error", "date", "");
         return true;
     }
 }
 
 function pickupTimeValidation() {
     var pickupTime = document.getElementById("time");
-    var pattern = /^\d{1,2}:\d{1,2}([AP]M)?$/;
+    var pattern = /^(0?[1-9]|1[012])(:[0-5]\d) [AP][M]$/;
 
     if (!pickupTime.value.match(pattern)) {
         indicateError("time-error", "time", "invalid time.");

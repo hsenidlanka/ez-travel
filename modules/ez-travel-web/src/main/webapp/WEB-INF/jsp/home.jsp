@@ -16,56 +16,54 @@
             <div class="form_lable booking-form">
                 <h4>Reserve a vehicle</h4>
             </div>
-            <form:form action="" method="post" modelAttribute="hire" onsubmit="return validateForm()">
+            <form action="" method="post" id="hireBooking" modelAttribute="hire" onsubmit="return validateForm()">
                 <span id="form-errors" class="alert-warning"></span>
                 <div id="form-element">
-                    <form:label path="pickup"> Pickup </form:label>
-                    <form:input type="text" path="pickup" class="form-control input-sm chat-input"
+                    <label path="pickup"> Pickup </label>
+                    <input type="text" path="pickup" class="form-control input-sm chat-input"
                                 placeholder="Pickup" id="pickup" onchange="pickupValidation()"/>
-                    <form:errors path="pickup" class="error"/>
-                    <form:hidden path="pickupLng" id="pickupLng" name="pickupLng"></form:hidden>
-                    <form:hidden path="pickupLat" id="pickupLat" name="pickupLat"></form:hidden>
+                    <input type="hidden" path="pickupLng" id="pickupLng" name="pickupLng"/>
+                    <input type="hidden" path="pickupLat" id="pickupLat" name="pickupLat"/>
+                    <input type="hidden" path="pickupLat" id="length" name="pickupLat"/>
                     <span id="pickup-error"></span>
                 </div>
                 <div id="form-element">
-                    <form:label path="drop">Drop</form:label>
-                    <form:input type="text" path="drop" class="form-control input-sm chat-input"
+                    <label path="drop">Drop</label>
+                    <input type="text" path="drop" class="form-control input-sm chat-input"
                                 placeholder="Drop" id="drop" onchange="dropValidation()"/>
-                    <form:errors path="drop" cssClass="error"/>
                     <span id="drop-error"></span>
                 </div>
                 <div class="inline-input" id="form-element">
-                    <form:label path="pickupDate">Pickup Date</form:label>
-                    <form:input type="text" path="pickupDate" class="form-control input-sm chat-input"
-                                placeholder="`Pickup Date" id="pickupDate"
-                                onchange="pickupDateValidation()"></form:input>
-                    <form:errors path="pickupDate" cssClass="error"/>
-                    <span id="pickupDate-error"></span>
+                    <label path="date">Pickup Date</label>
+                    <input type="text" path="date" class="form-control input-sm chat-input"
+                           placeholder="`Pickup Date" id="date"
+                           onchange="pickupDateValidation()"/>
+                    <span id="date-error"></span>
                 </div>
                 <div class="inline-input" id="form-element">
-                    <form:label path="time">Time</form:label>
+                    <label path="time">Time</label>
                     <input type="text" path="time" class="form-control input-sm chat-input timepick" id="time"
                            placeholder="Time"/>
-                    <form:errors path="time" cssClass="error"/>
                     <span id="time-error"></span>
                 </div>
                 <div id="removeFloat"></div>
                 <div id="form-element">
-                    <form:label path="vehicleType">Vehicle Type</form:label>
-                    <form:select path="vehicleType" class="form-control input-sm chat-input"
+                    <label path="vehicleType">Vehicle Type</label>
+                    <select path="vehicleType" class="form-control input-sm chat-input"
                                  placeholder="Vehicle Type" id="vehicleType" onchange="vehicleTypeValidation()">
                         <option selected disabled>Vehicle Type</option>
                         <option>budget</option>
                         <option>hibrid</option>
                         <option>van</option>
-                    </form:select>
-                    <form:errors path="vehicleType" cssClass="error"/>
+                    </select>
                     <span id="vehicleType-error"></span>
-                    <form:hidden path="distance" id="distance" name="distance"></form:hidden>
+                    <hidden path="distance" id="distance" name="distance"></hidden>
                 </div>
-                <input type="submit" class="btn btn-primary btn-md button-long" value="Book">
-            </form:form>
+                <button type="button" class="btn btn-primary btn-md button-long" id="booking_hire_btn"/>
+                Book
+            </form>
         </div>
+        <div id="hirePlaced-dialog" style="display: none"></div>
     </div>
     <div id="map" style="position:static; overflow: hidden;">
     </div>
@@ -75,10 +73,10 @@
 <!-- end wrapper -->
 <%@include file="commonJs.jsp" %>
 <script src="../js/validation/hire-validation.js"></script>
-<script src="../js/util.js"></script>
+<script src="../js/datepicker.js"></script>
 <script src="../js/scripts.js"></script>
 <script src="../js/timepicki.js"></script>
-<%--<script src="../js/jquery.min.js"></script>--%>
+<script src="../js/hireBooking.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDUdeTQ7RvCrXcACTn5lJUBUvTK6WOvXYg&callback=initMap&libraries=places"
         async defer></script>
