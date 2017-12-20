@@ -1,8 +1,13 @@
 package eztravel.controllers.user.admin;
 
 import corelogic.repository.feedback.implementation.FeedbackImpl;
+import corelogic.repository.user.admin.implementation.AdminImpl;
+import eztravel.model.admin.AddAdminRequestModel;
+import eztravel.model.admin.AdminBanRequestModel;
 import eztravel.model.admin.CustomerFeedbackReviewRequestModel;
 import eztravel.model.admin.DriverFeedbackReviewRequestModel;
+import eztravel.model.reply.admin.AdminBanReplyModel;
+import eztravel.model.reply.admin.AdminRegistrationReplyModel;
 import eztravel.model.reply.admin.CustomerFeedbackReviewReplyModel;
 import eztravel.model.reply.admin.DriverFeedbackReviewReplyModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +27,59 @@ public class AdminController {
 
     @Autowired
     FeedbackImpl feedbackImpl;
+
+    @Autowired
+    AdminImpl adminImpl;
+
+
+    @PostMapping("/add")
+    public ResponseEntity<AdminRegistrationReplyModel> addAdmin(@RequestBody AddAdminRequestModel model) {
+        boolean isAdminAdded = adminImpl.registerAdmin(model.getEmail(), model.getPassword(),
+                model.getFirst_name(),
+                model.getLast_name(), model.getBirthday(), model.getGender(), model.getNic(),
+                model.getContact_number(), model.getSuper_admin_email());
+
+        AdminRegistrationReplyModel replyModel = new AdminRegistrationReplyModel();
+
+        if (isAdminAdded) {
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Admin registration success");
+            replyModel.setAdminAddSuccess(true);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Admin registration failed");
+        replyModel.setAdminAddSuccess(false);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
+
+    @PostMapping("/ban")
+    public ResponseEntity<AdminBanReplyModel> banAdmin(@RequestBody AdminBanRequestModel model) {
+        boolean isAdminBanned = adminImpl.banAdmin(model.getSuper_admin_email(), model.getAdmin_id());
+
+        AdminBanReplyModel replyModel = new AdminBanReplyModel();
+        if (isAdminBanned) {
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Admin ban successful");
+            replyModel.setAdminBanned(true);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Admin ban successful");
+        replyModel.setAdminBanned(false);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+
+    }
 
     @PostMapping("/reviewcustomerfeedback")
     public ResponseEntity<CustomerFeedbackReviewReplyModel> customerFeedbackReviewed(@RequestBody CustomerFeedbackReviewRequestModel model) {
@@ -72,4 +130,6 @@ public class AdminController {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
     }
+
+
 }
