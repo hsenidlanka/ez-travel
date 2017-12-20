@@ -2,8 +2,8 @@ package corelogic.repository.user.driver.Implementation;
 
 
 import corelogic.domain.user.driver.Driver;
+import corelogic.domain.user.driver.DriverName;
 import corelogic.repository.user.driver.Repository.DriverRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -56,20 +56,20 @@ public class DriverImpl implements DriverRepository {
      * This method is responsible for add new drivers to database.
      * But there default driver status will be 2 and confirmed by will be null.
      * Because in the initial stage no one confirm it.
-     *
+     * <p>
      * 0 - ban
      * 1 - valid user
      * 2 - not verified
      *
-     * @param email - new driver's email
-     * @param password - new driver's password
-     * @param first_name - new driver's First name
-     * @param last_name - new driver's Last name
+     * @param email          - new driver's email
+     * @param password       - new driver's password
+     * @param first_name     - new driver's First name
+     * @param last_name      - new driver's Last name
      * @param license_number - new driver's license number
      * @param contact_number - new driver's contact number
-     * @param birthday - new driver's birthday
-     * @param gender - new driver's gender
-     * @param nic - new driver's National ID card number
+     * @param birthday       - new driver's birthday
+     * @param gender         - new driver's gender
+     * @param nic            - new driver's National ID card number
      * @return - boolean
      */
     @Override
@@ -111,7 +111,7 @@ public class DriverImpl implements DriverRepository {
         String sqlForDriverDetailsSend = "SELECT driver_id, email, password, first_name, last_name, license_number, contact_number, birthday, gender, driver_status, confirmed_by, nic FROM driver WHERE email = ?";
         Object[] args = new Object[]{email};
 
-        Driver driverDetails = this.jdbcTemplate.queryForObject( sqlForDriverDetailsSend, args,
+        Driver driverDetails = this.jdbcTemplate.queryForObject(sqlForDriverDetailsSend, args,
                 (resultSet, i) -> {
                     Driver driverRowMapper = new Driver();
 
@@ -136,22 +136,23 @@ public class DriverImpl implements DriverRepository {
 
     /**
      * This method is resposible for banning the drivers.
+     *
      * @param email- email of driver who is going to be banned
      * @return
      */
     @Override
     public boolean banDriver(String email) {
-        String sqlForBanningDriver="UPDATE driver set driver_status=0 WHERE email=? ";
+        String sqlForBanningDriver = "UPDATE driver set driver_status=0 WHERE email=? ";
 
-        Object[] args =new Object[]{email};
-        boolean isDriverBanSuccess=(jdbcTemplate.update(sqlForBanningDriver, args)==1);
+        Object[] args = new Object[]{email};
+        boolean isDriverBanSuccess = (jdbcTemplate.update(sqlForBanningDriver, args) == 1);
         return isDriverBanSuccess;
     }
 
     /**
      * This method responsible for self account deletion of driver
      *
-     * @param email - Email of driver, who request for account deletion
+     * @param email    - Email of driver, who request for account deletion
      * @param password - password of the driver
      * @return - boolean
      */
@@ -160,7 +161,7 @@ public class DriverImpl implements DriverRepository {
 
         String sqlForDeleteDriver = "DELETE FROM driver WHERE email=? AND password= ?;";
 
-        Object[] args = new Object[]{email,password};
+        Object[] args = new Object[]{email, password};
         boolean isDeleted = (jdbcTemplate.update(sqlForDeleteDriver, args) == 1);
 
         return isDeleted;
@@ -168,9 +169,10 @@ public class DriverImpl implements DriverRepository {
 
     /**
      * This method is responsible for updating the password
-     * @param email - email of driver who request for password change
+     *
+     * @param email           - email of driver who request for password change
      * @param currentPassword - current password of the driver
-     * @param newPassword - the new password which is going to assign to driver(if current password matches)
+     * @param newPassword     - the new password which is going to assign to driver(if current password matches)
      * @return - boolean
      */
     @Override
@@ -222,5 +224,24 @@ public class DriverImpl implements DriverRepository {
         int count = jdbcTemplate.queryForObject(sqlForDriverrAvailability, args, Integer.class);
 
         return count > 0;
+    }
+
+    @Override
+    public String sendDriverName(int driver_id) {
+        String sqlForDriverName = "SELECT first_name, last_name FROM driver WHERE driver_id=?";
+        Object[] args = new Object[]{driver_id};
+
+        DriverName driverName = this.jdbcTemplate.queryForObject(sqlForDriverName, args,
+                (resultSet, i) -> {
+                    DriverName rowMapper = new DriverName();
+
+                    rowMapper.setFirstName(resultSet.getString("first_name"));
+                    rowMapper.setLastName(resultSet.getString("last_name"));
+
+                    return rowMapper;
+
+                });
+
+        return driverName.toString();
     }
 }

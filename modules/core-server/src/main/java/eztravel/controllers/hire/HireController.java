@@ -1,8 +1,10 @@
 package eztravel.controllers.hire;
 
+import corelogic.domain.hire.CustomerHireRecord;
 import corelogic.domain.hire.IntialHireModel;
 import corelogic.repository.hire.implementation.HireImpl;
 import eztravel.model.hire.ConfirmHireRequestModel;
+import eztravel.model.hire.CustomerHireRecordsRequestModel;
 import eztravel.model.hire.HireCostCalculateRequestModel;
 import eztravel.model.hire.InitialHirePlaceRequestModel;
 import eztravel.model.reply.hire.ConfirmHireReplyModel;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * This Controller is responsible for Hire related calculations
@@ -130,5 +133,11 @@ public class HireController {
         replyModel.setHirePlaceConfirmed(false);
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
+
+    @PostMapping("/customerrecords")
+    public List<CustomerHireRecord> sendCustomerHireRecords(@RequestBody CustomerHireRecordsRequestModel model) {
+
+        return hireImpl.getCustomerHireDetails(model.getCustomer_email());
     }
 }

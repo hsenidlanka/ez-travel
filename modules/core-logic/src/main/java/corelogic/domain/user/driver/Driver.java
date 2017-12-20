@@ -5,8 +5,8 @@ import corelogic.domain.UserDriver;
 import java.sql.Date;
 
 /**
- *  @version 1.0
- *  @auther Vidushka
+ * @version 1.0
+ * @auther Vidushka
  */
 public class Driver extends UserDriver {
 

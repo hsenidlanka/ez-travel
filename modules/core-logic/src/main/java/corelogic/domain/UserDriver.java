@@ -3,22 +3,22 @@ package corelogic.domain;
 import java.sql.Date;
 
 /**
- *  @version 1.0
- *  @auther Vidushka
+ * @version 1.0
+ * @auther Vidushka
  */
 
-    public class UserDriver {
-        private String email;
+public class UserDriver {
+    private String email;
 
-        private String first_name;
-        private String last_name;
-        private String license_number;
-        private String contact_number;
-        private Date birthday;
-        private String gender;
-        private int driver_status;
-        private int confirmed_by;
-        private String nic;
+    private String first_name;
+    private String last_name;
+    private String license_number;
+    private String contact_number;
+    private Date birthday;
+    private String gender;
+    private int driver_status;
+    private int confirmed_by;
+    private String nic;
 
     public String getEmail() {
         return email;

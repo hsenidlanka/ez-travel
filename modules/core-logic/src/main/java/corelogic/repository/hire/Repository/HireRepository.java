@@ -1,8 +1,10 @@
 package corelogic.repository.hire.Repository;
 
+import corelogic.domain.hire.CustomerHireRecord;
 import corelogic.domain.hire.IntialHireModel;
 
 import java.sql.Date;
+import java.util.List;
 
 /**
  * Repository class for Hire related Database activities.
@@ -27,4 +29,6 @@ public interface HireRepository {
                                  double cost,
                                  int driver_id,
                                  double length);
+
+    List<CustomerHireRecord> getCustomerHireDetails(String customer_email);
 }

@@ -15,8 +15,9 @@ public class CoreServerRunner {
     /**
      * The Main class of Core server which responsible for starting the Server (Spring boot application)
      */
-    public static void main(String[] args) {
 
+
+    public static void main(String[] args) {
         SpringApplication.run(CoreServerRunner.class, args);
 
     }

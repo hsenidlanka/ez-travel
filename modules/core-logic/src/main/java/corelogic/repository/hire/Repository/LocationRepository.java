@@ -8,4 +8,6 @@ package corelogic.repository.hire.Repository;
  */
 public interface LocationRepository {
     boolean updateDriverCurrentLocation(String email, float longitude, float latitude);
+
+    String giveAddressOfGivenCordinates(double latitude, double longitude);
 }

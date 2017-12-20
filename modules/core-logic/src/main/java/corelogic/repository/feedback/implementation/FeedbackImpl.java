@@ -16,6 +16,7 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 @Repository
 public class FeedbackImpl implements FeedbackRepository {
 
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -44,8 +45,9 @@ public class FeedbackImpl implements FeedbackRepository {
             transactionManager.commit(status);
 
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
         }
 
         return false;
@@ -73,8 +75,9 @@ public class FeedbackImpl implements FeedbackRepository {
             transactionManager.commit(status);
 
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
         }
 
         return false;
@@ -104,8 +107,8 @@ public class FeedbackImpl implements FeedbackRepository {
 
             return true;
         } catch (Exception e) {
-
             System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
 
         }
 
@@ -118,6 +121,7 @@ public class FeedbackImpl implements FeedbackRepository {
         TransactionStatus status = transactionManager.getTransaction(def);
 
         try {
+
             String sqlForGetAdminId = "SELECT admin_id FROM admin WHERE email = ?";
             Object[] args = new Object[]{admin_email};
 
@@ -136,9 +140,8 @@ public class FeedbackImpl implements FeedbackRepository {
 
             return true;
         } catch (Exception e) {
-
             System.out.println("Reason => " + e.getMessage());
-
+            transactionManager.rollback(status);
         }
 
         return false;

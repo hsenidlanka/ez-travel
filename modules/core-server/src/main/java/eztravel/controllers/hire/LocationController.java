@@ -62,4 +62,15 @@ public class LocationController {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
     }
+//
+//    @PostMapping("/getaddress")
+//
+//
+//
+//    @RequestMapping("/test")
+//    public GoogleMapApiReplyModel test(){
+//        return locationImpl.giveAddressOfGivenCordinates(6.9132663, 79.87325);
+////        return null;
+//
+//    }
 }

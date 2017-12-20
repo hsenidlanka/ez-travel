@@ -2,7 +2,6 @@ package corelogic.repository.user.customer.implementation;
 
 import corelogic.domain.user.customer.Customer;
 import corelogic.repository.user.customer.repository.CustomerRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -38,7 +37,7 @@ public class CustomerImpl implements CustomerRepository {
      * this method is used for authentication
      * It will check whether user is in the database and not banned.
      *
-     * @param email - customer's email
+     * @param email    - customer's email
      * @param password - customer's password
      * @return - boolean
      */
@@ -53,14 +52,14 @@ public class CustomerImpl implements CustomerRepository {
     /**
      * This method is responsible for adding new customer to database
      *
-     * @param email - customer's email
-     * @param password - customers password (sha256 hashed)
-     * @param first_name - customer's first name
-     * @param last_name - customer's last name
-     * @param birthday - customer's birthday
+     * @param email          - customer's email
+     * @param password       - customers password (sha256 hashed)
+     * @param first_name     - customer's first name
+     * @param last_name      - customer's last name
+     * @param birthday       - customer's birthday
      * @param contact_number - customer's contact number
-     * @param nic customer's nic
-     * @param gender customer's gender
+     * @param nic            customer's nic
+     * @param gender         customer's gender
      * @return - boolean
      */
     public boolean registerCustomer(String email, String password, String first_name, String last_name, Date birthday, String contact_number, String nic, String gender) {
@@ -122,9 +121,9 @@ public class CustomerImpl implements CustomerRepository {
     /**
      * This methode is responsible for upating the customer's password
      *
-     * @param email - customer's password
+     * @param email           - customer's password
      * @param currentPassword - password which is being used currently
-     * @param newPassword - New password you need to add
+     * @param newPassword     - New password you need to add
      * @return - boolean
      */
     @Override
