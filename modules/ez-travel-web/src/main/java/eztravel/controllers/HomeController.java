@@ -17,4 +17,9 @@ public class HomeController {
         model.addAttribute(hire);
         return "index";
     }
+
+    @GetMapping("/admin")
+    public String viewAdmin() {
+        return "admin/home";
+    }
 }

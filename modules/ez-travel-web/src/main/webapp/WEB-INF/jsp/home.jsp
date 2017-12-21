@@ -12,6 +12,7 @@
 <div id="test">
     <%@include file="header.jsp" %>
     <div class="booking-form-background">
+        <div id="hirePlaced-dialog" style="display: none"></div>
         <div class="booking-form" id="booking-form">
             <div class="form_lable booking-form">
                 <h4>Reserve a vehicle</h4>
@@ -21,7 +22,7 @@
                 <div id="form-element">
                     <label path="pickup"> Pickup </label>
                     <input type="text" path="pickup" class="form-control input-sm chat-input"
-                                placeholder="Pickup" id="pickup" onchange="pickupValidation()"/>
+                           placeholder="Pickup" id="pickup" onchange="pickupValidation()"/>
                     <input type="hidden" path="pickupLng" id="pickupLng" name="pickupLng"/>
                     <input type="hidden" path="pickupLat" id="pickupLat" name="pickupLat"/>
                     <input type="hidden" path="pickupLat" id="length" name="pickupLat"/>
@@ -30,7 +31,7 @@
                 <div id="form-element">
                     <label path="drop">Drop</label>
                     <input type="text" path="drop" class="form-control input-sm chat-input"
-                                placeholder="Drop" id="drop" onchange="dropValidation()"/>
+                           placeholder="Drop" id="drop" onchange="dropValidation()"/>
                     <span id="drop-error"></span>
                 </div>
                 <div class="inline-input" id="form-element">
@@ -50,7 +51,7 @@
                 <div id="form-element">
                     <label path="vehicleType">Vehicle Type</label>
                     <select path="vehicleType" class="form-control input-sm chat-input"
-                                 placeholder="Vehicle Type" id="vehicleType" onchange="vehicleTypeValidation()">
+                            placeholder="Vehicle Type" id="vehicleType" onchange="vehicleTypeValidation()">
                         <option selected disabled>Vehicle Type</option>
                         <option>budget</option>
                         <option>hibrid</option>
@@ -63,7 +64,6 @@
                 Book
             </form>
         </div>
-        <div id="hirePlaced-dialog" style="display: none"></div>
     </div>
     <div id="map" style="position:static; overflow: hidden;">
     </div>

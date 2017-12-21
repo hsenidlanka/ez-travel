@@ -99,10 +99,8 @@ public class AjaxHandler {
             json.put("date", sqlDate);
             json.put("time", hire.getTime());
             json.put("start_location_longitude", hire.getPickupLng());
-            System.out.println(json.toString());
         } catch (ParseException e) {
             e.printStackTrace();
-            System.out.println("exception parse date");
         }
 
         try {
@@ -114,7 +112,6 @@ public class AjaxHandler {
             return "Your hire is placed successfully. Please wait." +
                     " We will confirm with dirver's details.";
         } else {
-            System.out.println("5");
             return "Can't calculate cost at the moment.";
         }
     }

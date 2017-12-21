@@ -1,6 +1,7 @@
 package eztravel.controllers;
 
 import eztravel.model.Hire;
+import eztravel.model.HireRecordResponseMapper;
 import eztravel.model.ResponseMapper;
 import eztravel.model.customer.*;
 import eztravel.util.EncryptPassword;
@@ -271,6 +272,30 @@ public class CustomerController {
             model.addAttribute("delete_account_status", "Incorrect password!");
             return "settings";
         }
+    }
+
+    @GetMapping("myTrips")
+    public String viewMyTrips(HttpSession session, Model model) {
+        json = new JSONObject();
+        template = new RestTemplate();
+        template.setErrorHandler(new ServerResponseErrorHandler());
+
+        if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
+            return "redirect:login";
+        } else {
+            try {
+
+                json.put("customer_email", session.getAttribute("username"));
+                String url = baseUrl + "hire/customerrecords";
+                HireRecordResponseMapper[] mapper = template.postForObject(url, json, HireRecordResponseMapper[].class);
+
+                model.addAttribute("hires", mapper);
+                return "myTrips";
+            } catch (RestClientException e) {
+                e.printStackTrace();
+            }
+        }
+        return "login";
     }
 
     @GetMapping("/logout")
