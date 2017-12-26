@@ -12,7 +12,8 @@
                     <div class="user-info">
                         <div>${first_name} <strong>${last_name}</strong></div>
                         <div class="user-text-online">
-                            <span class="user-circle-online btn btn-success btn-circle "></span>&nbsp;Online
+                            <span class="user-circle-online btn btn-success btn-circle"
+                                  style="background-color: #5cb85c"></span>&nbsp;Online
                         </div>
                     </div>
                 </div>
