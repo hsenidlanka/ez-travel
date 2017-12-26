@@ -18,4 +18,7 @@ public interface AdminRepository {
 
     boolean banAdmin(String super_admin_email, int admin_id);
 
+    boolean confirmDriver(String admin_email, String driver_id);
+
+
 }

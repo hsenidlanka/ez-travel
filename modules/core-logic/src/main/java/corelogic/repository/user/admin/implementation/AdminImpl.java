@@ -83,4 +83,34 @@ public class AdminImpl implements AdminRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean confirmDriver(String admin_email, String driver_id) {
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        try {
+            String sqlForGetAdminId = "SELECT admin_id FROM admin WHERE email = ?";
+            Object[] args = new Object[]{admin_email};
+            Integer super_admin_id = jdbcTemplate.queryForObject(sqlForGetAdminId, args, Integer.class);
+
+            if (super_admin_id == 0) {
+                throw new Exception("No admin found in that email");
+            }
+
+            String sqlForConfirmDriver = "UPDATE driver set driver_status=1, confirmed_by=? where driver_id = ?";
+            Object[] argsForDriverConfirm = new Object[]{super_admin_id, driver_id};
+
+            boolean isDriverConfirmed = (jdbcTemplate.update(sqlForConfirmDriver, argsForDriverConfirm) == 1);
+            transactionManager.commit(status);
+
+            return isDriverConfirmed;
+
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
+        }
+
+        return false;
+    }
 }

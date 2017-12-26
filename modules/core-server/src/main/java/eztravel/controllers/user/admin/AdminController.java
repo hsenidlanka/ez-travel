@@ -2,14 +2,8 @@ package eztravel.controllers.user.admin;
 
 import corelogic.repository.feedback.implementation.FeedbackImpl;
 import corelogic.repository.user.admin.implementation.AdminImpl;
-import eztravel.model.admin.AddAdminRequestModel;
-import eztravel.model.admin.AdminBanRequestModel;
-import eztravel.model.admin.CustomerFeedbackReviewRequestModel;
-import eztravel.model.admin.DriverFeedbackReviewRequestModel;
-import eztravel.model.reply.admin.AdminBanReplyModel;
-import eztravel.model.reply.admin.AdminRegistrationReplyModel;
-import eztravel.model.reply.admin.CustomerFeedbackReviewReplyModel;
-import eztravel.model.reply.admin.DriverFeedbackReviewReplyModel;
+import eztravel.model.admin.*;
+import eztravel.model.reply.admin.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -131,5 +125,25 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
     }
 
+    @PostMapping("/driverconfirm")
+    public ResponseEntity<DriverConfirmReplyModel> confirmDriverStatus(@RequestBody DriverConfirmRequestModel model) {
 
+        boolean isDriverConfirmed = adminImpl.confirmDriver(model.getAdmin_email(), model.getDriver_id());
+        DriverConfirmReplyModel replyModel = new DriverConfirmReplyModel();
+
+        if (isDriverConfirmed) {
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Driver Confirm successful");
+            replyModel.setDriverConfirmed(true);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Driver confirm failed");
+        replyModel.setDriverConfirmed(false);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
 }
