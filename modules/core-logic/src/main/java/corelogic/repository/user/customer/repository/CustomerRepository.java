@@ -34,4 +34,6 @@ public interface CustomerRepository {
 
     boolean isCustomerInDatabase(String email);
 
+    int countOfUnbanCustomer();
+
 }

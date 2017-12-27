@@ -258,6 +258,30 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(deleteReplyModel);
     }
 
+    @PostMapping("/count")
+    public ResponseEntity<CountOfUnbanCustomerReply> countOfUnbanCustomers() {
 
+        CountOfUnbanCustomerReply replyModel = new CountOfUnbanCustomerReply();
+
+        try {
+            int totalCustomer = customerImpl.countOfUnbanCustomer();
+
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Unban Customer Count retrieved");
+            replyModel.setCountOfUnbanCustomer(totalCustomer);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Unban Customer count retrieve failed");
+        replyModel.setCountOfUnbanCustomer(0);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
 }
 

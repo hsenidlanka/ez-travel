@@ -16,6 +16,47 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `admin`
+--
+
+DROP TABLE IF EXISTS `admin`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `admin` (
+  `admin_id`       INT(11)     NOT NULL AUTO_INCREMENT,
+  `email`          VARCHAR(50)          DEFAULT NULL,
+  `password`       VARCHAR(200)         DEFAULT NULL,
+  `first_name`     VARCHAR(50)          DEFAULT NULL,
+  `last_name`      VARCHAR(50)          DEFAULT NULL,
+  `gender`         VARCHAR(20) NOT NULL,
+  `birthday`       DATE                 DEFAULT NULL,
+  `nic`            VARCHAR(10)          DEFAULT NULL,
+  `contact_number` VARCHAR(20)          DEFAULT NULL,
+  `added_by`       INT(11)     NOT NULL,
+  `admin_status`   TINYINT(1)  NOT NULL,
+  PRIMARY KEY (`admin_id`),
+  UNIQUE KEY `email` (`email`)
+)
+  ENGINE = InnoDB
+  AUTO_INCREMENT = 3
+  DEFAULT CHARSET = utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `admin`
+--
+
+LOCK TABLES `admin` WRITE;
+/*!40000 ALTER TABLE `admin`
+  DISABLE KEYS */;
+INSERT INTO `admin`
+VALUES (1, 'superadmin@mail.com', 'password', 'Super', 'Admin', 'Male', '1991-03-16', '910564789', '0711111233', 0, 1),
+  (2, 'admin@new.com', 'password', 'First', 'Last', 'Male', '1993-11-18', '912345687v', '0716548523', 1, 0);
+/*!40000 ALTER TABLE `admin`
+  ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `customer`
 --
 
@@ -43,7 +84,22 @@ CREATE TABLE `customer` (
 
 LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-INSERT INTO `customer` VALUES (18,'menuka@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','2015-03-31','0716542398255','910455658v','Male',1),(20,'menuka2@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','2015-03-31','0716542398255','910455658v','Male',0),(21,'menuka3@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','2015-03-31','0716542398255','910455658v','Male',1),(22,'menuka11@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(24,'menuka112@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(25,'menuka11dfgh2@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(26,'fgh@gmail.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','Menuka','Ishan','1991-03-16','0716542398255','910455658v','Male',1),(27,'Test@Menfluka.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(28,'Test@Menuka.com','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(29,'Test@Menuka.csom','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(31,'Tesmnt@Menuka.csom','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(32,'Tesmnt@Mxenuka.csom','5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8','First','Last','1993-11-18','0716548523','912345687v','Male',1),(33,'Tesdmnt@Mxenfddfdduka.csom','password','First','Last','1993-11-18','0716548523','912345687v','Male',1);
+INSERT INTO `customer` VALUES
+  (18, 'menuka@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan',
+   '2015-03-31', '0716542398255', '910455658v', 'Male', 1),
+  (20, 'menuka2@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan', '2015-03-31', '0716542398255', '910455658v', 'Male', 0),
+  (21, 'menuka3@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan', '2015-03-31', '0716542398255', '910455658v', 'Male', 1),
+  (22, 'menuka11@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan', '1991-03-16', '0716542398255', '910455658v', 'Male', 1),
+  (24, 'menuka112@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan', '1991-03-16', '0716542398255', '910455658v', 'Male', 1),
+  (25, 'menuka11dfgh2@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan', '1991-03-16', '0716542398255', '910455658v', 'Male', 1),
+  (26, 'fgh@gmail.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'Menuka', 'Ishan', '1991-03-16', '0716542398255', '910455658v', 'Male', 1),
+  (27, 'Test@Menfluka.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'First', 'Last', '1993-11-18', '0716548523', '912345687v', 'Male', 0),
+  (28, 'Test@Menuka.com', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'First', 'Last', '1993-11-18', '0716548523', '912345687v', 'Male', 1),
+  (29, 'Test@Menuka.csom', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'First', 'Last', '1993-11-18', '0716548523', '912345687v', 'Male', 1),
+  (31, 'Tesmnt@Menuka.csom', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'First', 'Last', '1993-11-18', '0716548523', '912345687v', 'Male', 1),
+  (32, 'Tesmnt@Mxenuka.csom', '5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8', 'First', 'Last',
+   '1993-11-18', '0716548523', '912345687v', 'Male', 1),
+  (33, 'Tesdmnt@Mxenfddfdduka.csom', 'password', 'First', 'Last', '1993-11-18', '0716548523', '912345687v', 'Male', 1);
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -104,7 +160,19 @@ CREATE TABLE `driver` (
 
 LOCK TABLES `driver` WRITE;
 /*!40000 ALTER TABLE `driver` DISABLE KEYS */;
-INSERT INTO `driver` VALUES (3,'Tesdbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(5,'Tesdxbmnt@Mxenuka.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(6,'Menuka@Ishan.csom','xxxxBug','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(8,'ssss@Ishan.csom','TestNewPass','First','Last','111dff3','0716548523','1993-11-18','Male',2,2,'912345687v'),(10,'ssss@Ishfan.csom','password','Tgest','xxxxBug','111dff3','0714561238','1993-11-18','Male',2,NULL,'912345687v'),(14,'vidu@vidya.csom','password','First','Last','111dff3','0716548523','1993-11-18','Male',2,NULL,'912345687v');
+INSERT INTO `driver` VALUES
+  (3, 'Tesdbmnt@Mxenuka.csom', 'password', 'First', 'Last', '111dff3', '0716548523', '1993-11-18', 'Male', 1, 2,
+   '912345687v'),
+  (5, 'Tesdxbmnt@Mxenuka.csom', 'password', 'First', 'Last', '111dff3', '0716548523', '1993-11-18', 'Male', 1, 1,
+   '912345687v'),
+  (6, 'Menuka@Ishan.csom', 'xxxxBug', 'First', 'Last', '111dff3', '0716548523', '1993-11-18', 'Male', 1, 1,
+   '912345687v'),
+  (8, 'ssss@Ishan.csom', 'TestNewPass', 'First', 'Last', '111dff3', '0716548523', '1993-11-18', 'Male', 2, NULL,
+   '912345687v'),
+  (10, 'ssss@Ishfan.csom', 'password', 'Tgest', 'xxxxBug', '111dff3', '0714561238', '1993-11-18', 'Male', 2, NULL,
+   '912345687v'),
+  (14, 'vidu@vidya.csom', 'password', 'First', 'Last', '111dff3', '0716548523', '1993-11-18', 'Male', 2, NULL,
+   '912345687v');
 /*!40000 ALTER TABLE `driver` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -142,12 +210,13 @@ DROP TABLE IF EXISTS `driver_feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `driver_feedback` (
-  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `driver_id` int(11) NOT NULL,
-  `hire_id` int(11) NOT NULL,
+  `feedback_id`     int(11) NOT NULL AUTO_INCREMENT,
+  `description`     text NOT NULL,
+  `customer_id`     int(11) NOT NULL,
+  `driver_id`       int(11) NOT NULL,
+  `hire_id`         int(11) NOT NULL,
   `feedback_status` tinyint(1) NOT NULL,
+  `confirmed_by`    INT(11)          DEFAULT NULL,
   PRIMARY KEY (`feedback_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -158,7 +227,8 @@ CREATE TABLE `driver_feedback` (
 
 LOCK TABLES `driver_feedback` WRITE;
 /*!40000 ALTER TABLE `driver_feedback` DISABLE KEYS */;
-INSERT INTO `driver_feedback` VALUES (1,'Ez-travel is the best app',3,3,2,0),(2,'Ez-travel is the best app',3,3,2,0);
+INSERT INTO `driver_feedback`
+VALUES (1, 'Ez-travel is the best app', 3, 3, 2, 1, 1), (2, 'Ez-travel is the best app', 3, 3, 2, 0, NULL);
 /*!40000 ALTER TABLE `driver_feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,36 +259,6 @@ LOCK TABLES `driver_image` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `employee`
---
-
-DROP TABLE IF EXISTS `employee`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `employee` (
-  `employee_id` int(11) NOT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `password` varchar(200) DEFAULT NULL,
-  `first_name` varchar(50) DEFAULT NULL,
-  `last_name` varchar(50) DEFAULT NULL,
-  `is_admin` tinyint(1) DEFAULT NULL,
-  `birthday` date DEFAULT NULL,
-  `nic` varchar(10) DEFAULT NULL,
-  `contact_number` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`employee_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `employee`
---
-
-LOCK TABLES `employee` WRITE;
-/*!40000 ALTER TABLE `employee` DISABLE KEYS */;
-/*!40000 ALTER TABLE `employee` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `feedback`
 --
 
@@ -226,12 +266,13 @@ DROP TABLE IF EXISTS `feedback`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `feedback` (
-  `feedback_id` int(11) NOT NULL AUTO_INCREMENT,
-  `description` text,
-  `customer_id` int(11) DEFAULT NULL,
-  `driver_id` int(11) DEFAULT NULL,
-  `hire_id` int(11) DEFAULT NULL,
+  `feedback_id`     int(11) NOT NULL AUTO_INCREMENT,
+  `description`     text,
+  `customer_id`     int(11)          DEFAULT NULL,
+  `driver_id`       int(11)          DEFAULT NULL,
+  `hire_id`         int(11)          DEFAULT NULL,
   `feedback_status` tinyint(1) NOT NULL,
+  `confirmed_by`    INT(11)          DEFAULT NULL,
   PRIMARY KEY (`feedback_id`),
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
@@ -247,7 +288,9 @@ CREATE TABLE `feedback` (
 
 LOCK TABLES `feedback` WRITE;
 /*!40000 ALTER TABLE `feedback` DISABLE KEYS */;
-INSERT INTO `feedback` VALUES (1,'Ez-travel is the best app',18,3,2,0),(2,'Ez-travel is the best app',3,3,2,0),(3,'Ez-travel is the best app',3,3,2,0);
+INSERT INTO `feedback`
+VALUES (1, 'Ez-travel is the best app', 18, 3, 2, 1, 1), (2, 'Ez-travel is the best app', 3, 3, 2, 0, NULL),
+  (3, 'Ez-travel is the best app', 3, 3, 2, 0, NULL);
 /*!40000 ALTER TABLE `feedback` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,18 +302,19 @@ DROP TABLE IF EXISTS `hire`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `hire` (
-  `hire_id` int(11) NOT NULL AUTO_INCREMENT,
-  `start_location_latitude` float(10,6) DEFAULT NULL,
-  `start_location_longitude` float(10,6) DEFAULT NULL,
-  `end_location_latitude` float(10,6) DEFAULT NULL,
-  `end_location_longitude` float(10,6) DEFAULT NULL,
-  `vehicle_type` varchar(10) DEFAULT NULL,
-  `length` double DEFAULT NULL,
-  `cost` double DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `time` varchar(200) DEFAULT NULL,
-  `customer_id` int(11) NOT NULL,
-  `driver_id` int(11) DEFAULT NULL,
+  `hire_id`                  int(11)    NOT NULL AUTO_INCREMENT,
+  `start_location_latitude`  float(10,6)         DEFAULT NULL,
+  `start_location_longitude` float(10,6)         DEFAULT NULL,
+  `end_location_latitude`    float(10,6)         DEFAULT NULL,
+  `end_location_longitude`   float(10,6)         DEFAULT NULL,
+  `vehicle_type`             varchar(10)         DEFAULT NULL,
+  `length`                   double              DEFAULT NULL,
+  `cost`                     double              DEFAULT NULL,
+  `date`                     date                DEFAULT NULL,
+  `time`                     varchar(200)        DEFAULT NULL,
+  `customer_id`              int(11)    NOT NULL,
+  `driver_id`                int(11)             DEFAULT NULL,
+  `hire_status`              TINYINT(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`hire_id`),
   KEY `customer_id_idx` (`customer_id`),
   KEY `driver_id_idx` (`driver_id`),
@@ -284,7 +328,13 @@ CREATE TABLE `hire` (
 
 LOCK TABLES `hire` WRITE;
 /*!40000 ALTER TABLE `hire` DISABLE KEYS */;
-INSERT INTO `hire` VALUES (1,63.034000,18.230000,4.738459,15.283740,'van',18,124.22,'1993-11-18',NULL,18,8),(2,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',NULL,26,NULL),(4,63.034000,18.230000,NULL,NULL,'budget',NULL,NULL,'1993-11-18',NULL,31,NULL),(5,63.034000,18.230000,NULL,NULL,'van',NULL,NULL,'1993-11-18',NULL,21,NULL),(6,83.433998,58.230000,NULL,NULL,'hybrid',NULL,NULL,'1993-11-18','12:45',32,NULL),(7,55.764000,23.830000,NULL,NULL,'hybrid',NULL,NULL,'1993-11-18','12:45',26,NULL);
+INSERT INTO `hire`
+VALUES (1, 63.034000, 18.230000, 4.738459, 15.283740, 'van', 18, 124.22, '1993-11-18', NULL, 18, 8, 1),
+  (2, 63.034000, 18.230000, 14.738459, 75.283737, 'van', 18, 324.62, '1993-11-18', NULL, 26, 6, 1),
+  (4, 63.034000, 18.230000, NULL, NULL, 'budget', NULL, NULL, '1993-11-18', NULL, 31, NULL, 0),
+  (5, 63.034000, 18.230000, NULL, NULL, 'van', NULL, NULL, '1993-11-18', NULL, 21, NULL, 0),
+  (6, 83.433998, 58.230000, NULL, NULL, 'hybrid', NULL, NULL, '1993-11-18', '12:45', 32, NULL, 0),
+  (7, 55.764000, 23.830000, NULL, NULL, 'hybrid', NULL, NULL, '1993-11-18', '12:45', 26, NULL, 0);
 /*!40000 ALTER TABLE `hire` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -297,4 +347,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-12-18 16:01:15
+-- Dump completed on 2017-12-27 13:15:35

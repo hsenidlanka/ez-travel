@@ -31,4 +31,6 @@ public interface DriverRepository {
     boolean isDriverInDatabase(String email);
 
     String sendDriverName(int driver_id);
+
+    int countOfVerifiedDrivers();
 }

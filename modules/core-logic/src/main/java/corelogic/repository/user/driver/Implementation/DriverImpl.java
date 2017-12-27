@@ -244,4 +244,12 @@ public class DriverImpl implements DriverRepository {
 
         return driverName.toString();
     }
+
+    @Override
+    public int countOfVerifiedDrivers() {
+        String sqlForVerifiedDrivers = "SELECT COUNT(driver_id) FROM driver WHERE driver_status= 1";
+        int count = jdbcTemplate.queryForObject(sqlForVerifiedDrivers, Integer.class);
+
+        return count;
+    }
 }

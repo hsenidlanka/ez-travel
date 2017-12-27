@@ -208,4 +208,13 @@ public class CustomerImpl implements CustomerRepository {
 
     }
 
+    @Override
+    public int countOfUnbanCustomer() {
+
+        String sqlForUnbanCustomers = "SELECT COUNT(customer_id) FROM customer WHERE user_status= 1";
+        int count = jdbcTemplate.queryForObject(sqlForUnbanCustomers, Integer.class);
+
+        return count;
+    }
+
 }

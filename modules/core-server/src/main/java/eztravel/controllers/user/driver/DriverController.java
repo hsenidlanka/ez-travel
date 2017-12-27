@@ -1,10 +1,10 @@
 package eztravel.controllers.user.driver;
 
 
-
 import corelogic.domain.user.driver.Driver;
 import corelogic.repository.user.driver.Implementation.DriverImpl;
 import eztravel.model.driver.*;
+import eztravel.model.reply.customer.CountOfVerifiedDriversReplyModel;
 import eztravel.model.reply.driver.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -260,5 +260,30 @@ public class DriverController {
 
     }
 
+    @PostMapping("/count")
+    public ResponseEntity<CountOfVerifiedDriversReplyModel> countOfVerifiedDrivers() {
+        CountOfVerifiedDriversReplyModel replyModel = new CountOfVerifiedDriversReplyModel();
 
+        try {
+
+            int totalCustomer = driverImpl.countOfVerifiedDrivers();
+
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Verified Driver Count retrieved");
+            replyModel.setCountVerifiedDrivers(totalCustomer);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+        } catch (Exception e) {
+
+            System.out.println(e.getMessage());
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Verified Driver count retrieve failed");
+        replyModel.setCountVerifiedDrivers(0);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
 }
