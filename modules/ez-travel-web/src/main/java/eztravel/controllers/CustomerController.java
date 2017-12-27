@@ -298,6 +298,32 @@ public class CustomerController {
         return "login";
     }
 
+    @PostMapping("feedback")
+    @ResponseBody
+    public String addFeedback(HttpSession session, FeedbackRequest feedback) {
+
+        if (session.getAttribute("username") == null || session.getAttribute("username") == "") {
+            return "redirect:login";
+        }
+
+        json = new JSONObject();
+        template = new RestTemplate();
+        template.setErrorHandler(new ServerResponseErrorHandler());
+
+        json.put("customer_email", session.getAttribute("username"));
+        json.put("driver_id", feedback.getDriver_id());
+        json.put("hire_id", feedback.getHire_id());
+        json.put("description", feedback.getFeedbackDescription());
+
+        String url = baseUrl + "feedback/addcustomerfeedback";
+        FeedbackResponse response = template.postForObject(url, json, FeedbackResponse.class);
+        if (response.getIsCustomerFeedbackSucceed().equals("true")) {
+            return "success";
+        } else {
+            return "fail";
+        }
+    }
+
     @GetMapping("/logout")
     public String customerLogout(HttpSession session) {
         session.removeAttribute("username");
