@@ -8,6 +8,7 @@ import eztravel.model.driver.*;
 import eztravel.util.EncryptPassword;
 import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -34,7 +35,8 @@ public class DriverController {
     private JSONObject json;
     private RestTemplate template;
     private EncryptPassword encryptedPassword = new EncryptPassword();
-    private String baseUrl = "http://localhost:50000/api/";
+    @Value("${baseUrl}")
+    private String baseUrl;
     private ResponseMapper responseMapper = null;
 
     @GetMapping("login")

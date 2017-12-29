@@ -7,6 +7,7 @@ import eztravel.model.InitialHirePlaceAccept;
 import eztravel.model.customer.Locations;
 import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
@@ -27,7 +28,8 @@ import java.text.SimpleDateFormat;
 public class AjaxHandler {
     private JSONObject json;
     private RestTemplate template;
-    private String baseUrl = "http://localhost:50000/api/";
+    @Value("${baseUrl}")
+    private String baseUrl;
     private HireCostCalculateResponseMapper responseMapper = null;
 
 
