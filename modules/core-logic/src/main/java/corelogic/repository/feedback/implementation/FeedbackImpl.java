@@ -1,5 +1,6 @@
 package corelogic.repository.feedback.implementation;
 
+import corelogic.domain.feedback.FeedbackRecord;
 import corelogic.repository.feedback.Repository.FeedbackRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -8,6 +9,10 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by  on 12/18/17.
@@ -145,5 +150,50 @@ public class FeedbackImpl implements FeedbackRepository {
         }
 
         return false;
+    }
+
+    @Override
+    public List<FeedbackRecord> sendFeedbackRecords(String admin_email) {
+
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        List<FeedbackRecord> feedbackRecords = new ArrayList<>();
+
+        try {
+            String sqlForGetAdminId = "SELECT admin_id FROM admin WHERE email = ?";
+            Object[] args = new Object[]{admin_email};
+            Integer admin_id = jdbcTemplate.queryForObject(sqlForGetAdminId, args, Integer.class);
+
+            if (admin_id == 0) {
+                throw new Exception("No admin found in that email");
+            }
+
+            String sqlForCustomerHireRecords = "SELECT * FROM feedback WHERE feedback_status=0";
+
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlForCustomerHireRecords);
+
+            for (Map row : rows) {
+                FeedbackRecord record = new FeedbackRecord();
+
+                record.setFeedback_id((Integer) row.get("feedback_id"));
+                record.setDescription((String) row.get("description"));
+                record.setCustomer_id((Integer) row.get("customer_id"));
+                record.setDriver_id((Integer) row.get("driver_id"));
+                record.setHire_id((Integer) row.get("hire_id"));
+
+                feedbackRecords.add(record);
+            }
+
+            transactionManager.commit(status);
+
+            return feedbackRecords;
+
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
+        }
+
+        return feedbackRecords;
     }
 }
