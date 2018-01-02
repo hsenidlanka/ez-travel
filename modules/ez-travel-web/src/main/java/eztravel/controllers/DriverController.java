@@ -4,14 +4,11 @@ import eztravel.model.Hire;
 import eztravel.model.ResponseMapper;
 import eztravel.model.customer.DeleteCustomer;
 import eztravel.model.customer.PasswordUpdate;
-import eztravel.model.customer.SignUp;
-import eztravel.model.driver.DeleteAccount;
-import eztravel.model.driver.Driver;
-import eztravel.model.driver.PersonalInfo;
-import eztravel.model.driver.UpdatePassword;
+import eztravel.model.driver.*;
 import eztravel.util.EncryptPassword;
 import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +23,7 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Vidushka.
@@ -37,7 +35,8 @@ public class DriverController {
     private JSONObject json;
     private RestTemplate template;
     private EncryptPassword encryptedPassword = new EncryptPassword();
-    private String baseUrl = "http://localhost:50000/api/";
+    @Value("${baseUrl}")
+    private String baseUrl;
     private ResponseMapper responseMapper = null;
 
     @GetMapping("login")
@@ -202,12 +201,12 @@ public class DriverController {
 
 
     @GetMapping("signup")
-    public String viewSignUp(SignUp signUp, HttpSession session) {
+    public String viewSignUp(@ModelAttribute("driverSignUp") DriverSignup driverSignUp, HttpSession session) {
         return "driver/signup";
     }
 
     @PostMapping("signup")
-    public String createCustomer(@ModelAttribute("signUp") @Valid SignUp signUp, BindingResult result, HttpSession session, Model model) {
+    public String createCustomer(@ModelAttribute("driverSignUp") DriverSignup driverSignUp, BindingResult result, HttpSession session, Model model) {
         if (result.hasErrors()) {
             return "driver/signup";
         }
@@ -216,17 +215,17 @@ public class DriverController {
         template.setErrorHandler(new ServerResponseErrorHandler());
 
         String url = baseUrl + "driver/register";
-        String dob = (signUp.getYear() + "-" + signUp.getMonth() + "-" + signUp.getDay());
+        String dob = (driverSignUp.getYear() + "-" + driverSignUp.getMonth() + "-" + driverSignUp.getDay());
         try {
-            java.util.Date utilDate = new SimpleDateFormat("yyyy-MMM-dd").parse(dob);
+            Date utilDate = new SimpleDateFormat("yyyy-MMM-dd").parse(dob);
             java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
 
-            json.put("email", signUp.getEmail());
-            json.put("password", encryptedPassword.encryptPassword(signUp.getPassword()));
-            json.put("first_name", signUp.getFirstName());
-            json.put("last_name", signUp.getLastName());
-            json.put("contact_number", signUp.getMobileNumber());
-            json.put("nic", signUp.getNic());
+            json.put("email", driverSignUp.getEmail());
+            json.put("password", encryptedPassword.encryptPassword(driverSignUp.getPassword()));
+            json.put("first_name", driverSignUp.getFirstName());
+            json.put("last_name", driverSignUp.getLastName());
+            json.put("contact_number", driverSignUp.getMobileNumber());
+            json.put("nic", driverSignUp.getNic());
             json.put("gender", "Male");
             json.put("birthday", sqlDate);
         } catch (ParseException e) {
@@ -242,7 +241,7 @@ public class DriverController {
         model.addAttribute("name", responseMapper.getMessage());
         if (responseMapper.getRequestStatus().equals("true")) {
             model.addAttribute("signup_success", "You are signed up successfully!");
-            session.setAttribute("username", signUp.getEmail());
+            session.setAttribute("username", driverSignUp.getEmail());
             return "redirect:login";
         } else {
             model.addAttribute("signup_error", "User already exist.");

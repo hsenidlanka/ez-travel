@@ -19,16 +19,16 @@
                 <!--end user image section-->
             </li>
             <li>
-                <a href="login"><i class="fa fa-map-marker fa-fw"></i> New Hire</a>
+                <a href="login"><i class="fa fa-map-marker fa-fw"></i> Admin</a>
             </li>
             <li>
-                <a href="myTrips"><i class="fa fa-bar-chart-o fa-fw"></i> My Travels</a>
+                <a href="myTrips"><i class="fa fa-bar-chart-o fa-fw"></i> Driver</a>
             </li>
             <li>
-                <a href="defaultLocations"><i class="fa fa-location-arrow fa-fw"></i> Default Locations</a>
+                <a href="defaultLocations"><i class="fa fa-location-arrow fa-fw"></i> Customer</a>
             </li>
             <li class="selected">
-                <a href="settings"><i class="fa fa-cogs fa-fw"></i> Settings</a>
+                <a href="settings"><i class="fa fa-cogs fa-fw"></i> Payment</a>
             </li>
             <li>
                 <a href="logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>

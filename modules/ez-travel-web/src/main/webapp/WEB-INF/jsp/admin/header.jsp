@@ -9,7 +9,7 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="index.html">
-            <img src="images/logo.png" alt="" class="logo"/>
+            <img src="../images/logo.png" alt="" class="logo"/>
         </a>
     </div>
     <!-- end navbar-header -->

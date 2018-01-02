@@ -5,7 +5,6 @@
 <head>
     <title>ez-travel</title>
     <%@include file="../commonCss.jsp" %>
-    <script src="../js/util.js"></script>
     <script src="../js/validation/registration-validation.js"></script>
 </head>
 <body>
@@ -22,7 +21,7 @@
         <c:if test="${not empty signup_error}">
             <div id="loginError" class="alert-warning">${signup_error}</div>
         </c:if>
-        <form:form action="" method="post" modelAttribute="driverSignUp" onsubmit="return validateForm()">
+        <form:form action="" method="post" modelAttribute="signUp" onsubmit="return validateForm()">
             <div id="form-element" class="inline-input">
                 <form:label path="firstName"> First Name </form:label>
                 <form:input type="text" path="firstName" class="form-control input-sm chat-input"
@@ -37,25 +36,20 @@
                 <form:errors path="lastName" cssClass="error"/>
                 <span id="lName-error"></span>
             </div>
+            <div id="removeFloat"></div>
             <div id="form-element">
                 <form:label path="mobileNumber">Mobile Number</form:label>
                 <form:input type="text" path="mobileNumber" class="form-control input-sm chat-input"
                             placeholder="Mobile Number" id="mobileNumber" onchange="validateLicenceNumber()"/>
                 <span id="mobileNumber-error"></span>
             </div>
-            <div id="form-element" class="inline-input">
-                <form:label path="licenceNumber">Licence Number</form:label>
-                <form:input type="text" path="licenceNumber" class="form-control input-sm chat-input"
-                            placeholder="Licence Number" id="licenceNumber" onchange="validatePNumber()"/>
-                <span id="licenceNumber-error"></span>
-            </div>
-            <div id="form-element" class="inline-input">
+
+            <div id="form-element">
                 <form:label path="nic">NIC</form:label>
                 <form:input type="text" path="nic" class="form-control input-sm chat-input"
                             placeholder="NIC" id="nic" onchange="validateNIC()"/>
                 <span id="nic-error"></span>
             </div>
-            <div id="removeFloat"></div>
             <div id="form-element" class="inline-input-3">
                 <form:label path="year">Date of Birth</form:label>
                 <form:input type="text" path="year" class="form-control input-sm chat-input"
