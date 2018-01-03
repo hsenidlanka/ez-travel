@@ -165,10 +165,10 @@ public class CustomerImpl implements CustomerRepository {
      * @return
      */
     @Override
-    public boolean banCustomer(String email) {
-        String sqlForBanningCustomer = "UPDATE customer set user_status = 0 where email = ?";
-        ;
-        Object[] args = new Object[]{email};
+    public boolean banCustomer(int customer_id) {
+        String sqlForBanningCustomer = "UPDATE customer set user_status = 0 where customer_id = ?";
+
+        Object[] args = new Object[]{customer_id};
         boolean isBansucces = (jdbcTemplate.update(sqlForBanningCustomer, args) == 1);
 
         return isBansucces;

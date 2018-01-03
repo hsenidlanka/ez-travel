@@ -92,12 +92,12 @@ public class FeedbackController {
             List<FeedbackRecord> records = feedbackImpl.sendFeedbackRecords(model.getAdmin_email());
 
             if (records.isEmpty()) {
-                replyModel.setHttpStatusCode(HttpStatus.UNAUTHORIZED.value());
+                replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
                 replyModel.setRequestStatus("failed");
                 replyModel.setMessage("feedback records send failed");
                 replyModel.setFeedbackRecords(records);
 
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(replyModel);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
             }
 
             replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());

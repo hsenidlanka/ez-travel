@@ -28,7 +28,7 @@ public interface CustomerRepository {
 
     boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber);
 
-    boolean banCustomer(String email);
+    boolean banCustomer(int customer_id);
 
     boolean isCustomerDeleted(String email, String password);
 

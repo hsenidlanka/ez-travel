@@ -1,6 +1,7 @@
 package corelogic.repository.hire.implementation;
 
 import corelogic.domain.hire.CustomerHireRecord;
+import corelogic.domain.hire.DriverHireRecord;
 import corelogic.domain.hire.IntialHireModel;
 import corelogic.repository.hire.Repository.HireRepository;
 import corelogic.repository.user.driver.Implementation.DriverImpl;
@@ -179,7 +180,7 @@ public class HireImpl implements HireRepository {
                 record.setHire_id((Integer) row.get("hire_id"));
                 record.setVehicle_type((String) row.get("vehicle_type"));
                 record.setLength((Double) row.get("length"));
-                record.setLength((Double) row.get("cost"));
+                record.setCost((Double) row.get("cost"));
 
                 double startLatitude = (float) row.get("start_location_latitude");
                 double startLongitude = (float) row.get("start_location_longitude");
@@ -208,5 +209,58 @@ public class HireImpl implements HireRepository {
 
         return hireRecords;
 
+    }
+
+    @Override
+    public List<DriverHireRecord> getDriverHireDetails(String driver_email) {
+
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+        List<DriverHireRecord> hireRecords = new ArrayList<>();
+
+        try {
+            String sqlForGetDriverId = "SELECT driver_id FROM driver WHERE email = ?";
+            Object[] args = new Object[]{driver_email};
+            String driver_id = jdbcTemplate.queryForObject(sqlForGetDriverId, args, String.class);
+
+            Object[] argsForHireRecords = new Object[]{Integer.parseInt(driver_id)};
+            String sqlForDriverHireRecords = "SELECT * FROM hire WHERE driver_id=? AND hire_status=1";
+
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlForDriverHireRecords, argsForHireRecords);
+            for (Map row : rows) {
+                DriverHireRecord record = new DriverHireRecord();
+
+                record.setHire_id((Integer) row.get("hire_id"));
+                record.setVehicle_type((String) row.get("vehicle_type"));
+                record.setLength((Double) row.get("length"));
+                record.setCost((Double) row.get("cost"));
+
+                double startLatitude = (float) row.get("start_location_latitude");
+                double startLongitude = (float) row.get("start_location_longitude");
+                record.setFrom(locationImpl.giveAddressOfGivenCordinates(startLatitude, startLongitude));
+
+                double endLatitude = (float) row.get("end_location_latitude");
+                double endLongitude = (float) row.get("end_location_longitude");
+
+                record.setTo(locationImpl.giveAddressOfGivenCordinates(endLatitude, endLongitude));
+
+                int customer_id = (int) row.get("customer_id");
+
+                record.setCustomer_id(customer_id);
+
+                record.setDate((Date) row.get("date"));
+
+                hireRecords.add(record);
+            }
+
+            transactionManager.commit(status);
+            return hireRecords;
+
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
+        }
+
+        return hireRecords;
     }
 }

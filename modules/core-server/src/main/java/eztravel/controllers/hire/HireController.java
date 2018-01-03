@@ -1,13 +1,12 @@
 package eztravel.controllers.hire;
 
 import corelogic.domain.hire.CustomerHireRecord;
+import corelogic.domain.hire.DriverHireRecord;
 import corelogic.domain.hire.IntialHireModel;
 import corelogic.repository.hire.implementation.HireImpl;
-import eztravel.model.hire.ConfirmHireRequestModel;
-import eztravel.model.hire.CustomerHireRecordsRequestModel;
-import eztravel.model.hire.HireCostCalculateRequestModel;
-import eztravel.model.hire.InitialHirePlaceRequestModel;
+import eztravel.model.hire.*;
 import eztravel.model.reply.hire.ConfirmHireReplyModel;
+import eztravel.model.reply.hire.DriverHireRecordsReplyModel;
 import eztravel.model.reply.hire.HireCostCalculateReplyModel;
 import eztravel.model.reply.hire.InitialHirePlaceReplyModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,4 +139,39 @@ public class HireController {
 
         return hireImpl.getCustomerHireDetails(model.getCustomer_email());
     }
+
+    @PostMapping("/driverrecords")
+    public ResponseEntity<DriverHireRecordsReplyModel> sendDriverHireRecord(@RequestBody DriverHireRecordsRequestModel model) {
+
+        DriverHireRecordsReplyModel replyModel = new DriverHireRecordsReplyModel();
+
+        try {
+            List<DriverHireRecord> records = hireImpl.getDriverHireDetails(model.getDriver_email());
+
+            if (records.isEmpty()) {
+                replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+                replyModel.setRequestStatus("failed");
+                replyModel.setMessage("Driver hire records send failed");
+                replyModel.setFeedbackRecords(records);
+
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+            }
+
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Driver hire records send successful");
+            replyModel.setFeedbackRecords(records);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+        }
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("driver hire records send failed");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
+
 }

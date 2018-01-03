@@ -1,6 +1,7 @@
 package corelogic.repository.hire.Repository;
 
 import corelogic.domain.hire.CustomerHireRecord;
+import corelogic.domain.hire.DriverHireRecord;
 import corelogic.domain.hire.IntialHireModel;
 
 import java.sql.Date;
@@ -31,4 +32,6 @@ public interface HireRepository {
                                  double length);
 
     List<CustomerHireRecord> getCustomerHireDetails(String customer_email);
+
+    List<DriverHireRecord> getDriverHireDetails(String driver_email);
 }

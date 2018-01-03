@@ -209,7 +209,7 @@ public class CustomerController {
     public ResponseEntity<CustomerBanReplyModel> banCustomer(@RequestBody CustomerBanRequestModel model) {
         CustomerBanReplyModel banReplyModel = new CustomerBanReplyModel();
 
-        if (customerImpl.banCustomer(model.getEmail())) {
+        if (customerImpl.banCustomer(model.getCustomer_id())) {
 
             banReplyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
             banReplyModel.setRequestStatus("success");
