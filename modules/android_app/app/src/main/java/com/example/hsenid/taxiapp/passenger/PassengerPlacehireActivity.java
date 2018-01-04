@@ -1,11 +1,19 @@
 package com.example.hsenid.taxiapp.passenger;
 
 import android.app.Dialog;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hsenid.taxiapp.R;
+import com.example.hsenid.taxiapp.TripCostCalculate;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,13 +30,28 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class PassengerPlacehireActivity extends AppCompatActivity implements OnMapReadyCallback {
 
+    private static final String TAG = "PassengerPlacehire";
 
+    private TripCostCalculate tripCost = null;
 
     GoogleMap mGoogleMap;
     private GoogleApiClient mClient;
     private int PLACE_PICKER_REQUEST = 1;
+    private double latitude, logitude;
+    private double end_latitude, end_logitude;
+    private String travelDistance;
+    private String selectedItemText;
+    private String tripCostCal;
+
+
+    private Spinner vehicleTypeSpinner;
+    private TextView dateTime;
+    private Button customerPlaceHireButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +62,9 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             Toast.makeText(this, "Perfect !!!", Toast.LENGTH_LONG).show();
             setContentView(R.layout.activity_passenger_placehire);
             initMap();
+
+            dateTime =(TextView) findViewById(R.id.dateTime);
+
 
         }else {
             Toast.makeText(this, "Sorryyyyy !!!", Toast.LENGTH_LONG).show();
@@ -54,7 +80,11 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             @Override
             public void onPlaceSelected(Place place) {
 
-                Toast.makeText(getApplicationContext(),place.getName(),Toast.LENGTH_SHORT).show();
+                ////////////// get the lattitude and logitude///////////////
+                latitude = place.getLatLng().latitude;
+                logitude= place.getLatLng().longitude;
+                String toastMsg = String.format("Latitude: %s", place.getLatLng().latitude );
+                Toast.makeText(getApplicationContext(),toastMsg,Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -65,7 +95,9 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             }
         });
 
+
         AutocompleteFilter typeFilter = new AutocompleteFilter.Builder()
+                .setCountry("LK")
                 .setTypeFilter(AutocompleteFilter.TYPE_FILTER_CITIES)
                 .build();
 
@@ -79,8 +111,16 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
         destinationPlace.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-
+                end_latitude= place.getLatLng().latitude;
+                end_logitude=place.getLatLng().longitude;
                 Toast.makeText(getApplicationContext(),place.getName(),Toast.LENGTH_SHORT).show();
+
+                //gives the distance between the original plae and the destination
+                float results1[]= new float[10];
+                Location.distanceBetween(latitude,logitude,end_latitude,end_logitude,results1);
+                float distance=results1[0] / 1000;
+                travelDistance = Float.toString(distance);
+                //dateTime.setText(travelDistance);
             }
 
             @Override
@@ -91,62 +131,71 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             }
         });
 
+        destinationPlace.setFilter(typeFilter);
 
-        //to create an intent to launch the autocomplete widget as an intent:
-     /*   int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-        try {
-            Intent intent =
-                    new PlaceAutocomplete.IntentBuilder(PlaceAutocomplete.MODE_FULLSCREEN)
-                            .build(this);
-            startActivityForResult(intent, PLACE_AUTOCOMPLETE_REQUEST_CODE);
-        } catch (GooglePlayServicesRepairableException e) {
-            // TODO: Handle the error.
-        } catch (GooglePlayServicesNotAvailableException e) {
-            // TODO: Handle the error.
-        }
+        //to get the current date and time with the selected vehicle
+        vehicleTypeSpinner = (Spinner) findViewById(R.id.vehicleSelectionSpinner);
 
 
-        //launches the place picker:
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat df2 = new SimpleDateFormat("HH:mm");
 
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+       final String formattedDate1 = df1.format(c.getTime()); //current date
+        final String formattedDate2 = df2.format(c.getTime()); //current time
 
-        try {
-            startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
-            e.printStackTrace();
-        }*/
+        vehicleTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selectedItemText = (String) parent.getItemAtPosition(position);
+                // Notify the selected item text
+                Toast.makeText
+                        (getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT)
+                        .show();
+                //dateTime.setText(formattedDate1+ "\n" + formattedDate2+ selectedItemText);
+                //costCalculate();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+    }
+    protected void onStart()
+    {
+        super.onStart();
+
+        //on the click of the Place Hire button
+        customerPlaceHireButton = (Button) findViewById(R.id.button_select_driver);
+        customerPlaceHireButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                costCalculate();
+
+               /* Intent registrationIntent = new Intent(DriverActivity.this, RegistrationDriverActivity.class);
+                DriverActivity.this.startActivity(registrationIntent);*/
+            }
+        });
+
+
     }
 
+    private void costCalculate(){
+        tripCost= new TripCostCalculate(this,travelDistance,selectedItemText);
+        tripCost.execute();
+    }
 
-/*
-    private void displayPlacePicker() {
-        if( mGoogleApiClient == null || !mGoogleApiClient.isConnected() )
-            return;
-
-        PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
-
-        try {
-            startActivityForResult( builder.build( getApplicationContext() ), PLACE_PICKER_REQUEST );
-        } catch ( GooglePlayServicesRepairableException e ) {
-            Log.d( "PlacesAPI Demo", "GooglePlayServicesRepairableException thrown" );
-        } catch ( GooglePlayServicesNotAvailableException e ) {
-            Log.d( "PlacesAPI Demo", "GooglePlayServicesNotAvailableException thrown" );
-        }
-    }*/
-
-    //retrieves the place that the user has selected:
-  /*  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, this);
-                String toastMsg = String.format("Place: %s", place.getName());
-                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
-            }
-        }
-    }*/
-
+    public String ReturnThreadResult(String result)
+    {
+        // TO DO:
+        //dateTime.setText(result);
+        tripCostCal =result;
+        Log.e(TAG,"The cost :"+result);
+        return tripCostCal;
+       // dateTime.setText(result);
+    }
 
 
     private void initMap(){
@@ -168,7 +217,6 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             Toast.makeText(this,"Cannot connect to play services",Toast.LENGTH_LONG).show();
         }
         return false;
-
     }
 
     @Override
@@ -190,13 +238,4 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
         // Get the current location of the device and set the position of the map.
 
     }
-
-
-
-
-
-
-
-
-
 }
