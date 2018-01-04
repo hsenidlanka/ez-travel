@@ -392,6 +392,10 @@ table.dataTable thead .sorting:after {
     box-sizing: border-box;
 }
 
+.product-description {
+    color: #000000 !important;
+}
+
 body {
     /*
     background: #2F2556;

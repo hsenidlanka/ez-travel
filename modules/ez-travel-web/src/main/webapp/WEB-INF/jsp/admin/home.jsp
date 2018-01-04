@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link href="css/bootstrap.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="css/custom-style.css" rel="stylesheet">
@@ -9,6 +10,7 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/chart.js"></script>
+<script src="js/viewFeedback.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
 
 <body>
@@ -72,58 +74,26 @@
                 <!-- /.box-header -->
                 <div class="box-body" style="">
                     <ul class="products-list product-list-in-box">
-                        <li class="item">
-                            <div class="product-img">
-                                <img src="dist/img/default-50x50.gif" alt="Product Image">
-                            </div>
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">Samsung TV
-                                    <span class="label label-warning pull-right">$1800</span></a>
-                                <span class="product-description">
-                          Samsung 32" 1080p 60Hz LED Smart HDTV.
-                        </span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
-                        <li class="item">
-                            <div class="product-img">
-                                <img src="dist/img/default-50x50.gif" alt="Product Image">
-                            </div>
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">Bicycle
-                                    <span class="label label-info pull-right">$700</span></a>
-                                <span class="product-description">
-                          26" Mongoose Dolomite Men's 7-speed, Navy Blue.
-                        </span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
-                        <li class="item">
-                            <div class="product-img">
-                                <img src="dist/img/default-50x50.gif" alt="Product Image">
-                            </div>
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">Xbox One <span
-                                        class="label label-danger pull-right">$350</span></a>
-                                <span class="product-description">
-                          Xbox One Console Bundle with Halo Master Chief Collection.
-                        </span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
-                        <li class="item">
-                            <div class="product-img">
-                                <img src="dist/img/default-50x50.gif" alt="Product Image">
-                            </div>
-                            <div class="product-info">
-                                <a href="javascript:void(0)" class="product-title">PlayStation 4
-                                    <span class="label label-success pull-right">$399</span></a>
-                                <span class="product-description">
-                          PlayStation 4 500GB Console (PS4)
-                        </span>
-                            </div>
-                        </li>
-                        <!-- /.item -->
+                        <c:forEach items="${feedback_list}" var="feedback">
+                            <li class="item">
+                                <div class="product-info">
+                                    <span class="product-description"
+                                          id="feedback_description">${feedback.description}
+                                        <div style="float: right;">
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#feedback_popup" style="padding: 0px"><i
+                                                    class="fa fa-ban fa-fw"></i>
+                                            </button>
+                                        </div>
+                                    </span>
+                                    <input type="hidden" id="feedback_id" value="${feedback.feedback_id}">
+                                    <input type="hidden" id="driver_id" value="${feedback.driver_id}">
+                                    <input type="hidden" id="customer_id" value="${feedback.customer_id}">
+                                    <input type="hidden" id="hire_id" value="${feedback.hire_id}">
+                                </div>
+                            </li>
+                            <!-- /.item -->
+                        </c:forEach>
                     </ul>
                 </div>
                 <!-- /.box-body -->

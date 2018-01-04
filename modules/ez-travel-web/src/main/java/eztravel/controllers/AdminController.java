@@ -86,7 +86,7 @@ public class AdminController {
             model.addAttribute("signup_error", "Can not create the account right now. Please try again.");
             return "redirect:login";
         }
-
-
     }
+
+
 }

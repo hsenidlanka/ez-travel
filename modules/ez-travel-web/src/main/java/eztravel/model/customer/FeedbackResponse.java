@@ -1,29 +1,12 @@
 package eztravel.model.customer;
 
+import eztravel.model.ServerResponse;
+
 /**
  * Created by Vidushka.
  */
-public class FeedbackResponse {
-    private String httpStatusCode;
-    private String requestStatus;
+public class FeedbackResponse extends ServerResponse {
     private String isCustomerFeedbackSucceed;
-    private String message;
-
-    public String getHttpStatusCode() {
-        return httpStatusCode;
-    }
-
-    public void setHttpStatusCode(String httpStatusCode) {
-        this.httpStatusCode = httpStatusCode;
-    }
-
-    public String getRequestStatus() {
-        return requestStatus;
-    }
-
-    public void setRequestStatus(String requestStatus) {
-        this.requestStatus = requestStatus;
-    }
 
     public String getIsCustomerFeedbackSucceed() {
         return isCustomerFeedbackSucceed;
@@ -33,11 +16,4 @@ public class FeedbackResponse {
         this.isCustomerFeedbackSucceed = isCustomerFeedbackSucceed;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
 }
