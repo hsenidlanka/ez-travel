@@ -13,21 +13,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-/*    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-    }
-        public void gotoDriverPage(View view){
-        Intent driverPage= new Intent(MainActivity.this,DriverActivity.class);
-        startActivity(driverPage);
-    }
-
-    public void gotoPassengerPage(View view){
-        Intent passengerPage= new Intent(MainActivity.this, PassengerActivity.class);
-        startActivity(passengerPage);
-    }*/
-
 
     Button passengerBtn;
     Button driverBtn;

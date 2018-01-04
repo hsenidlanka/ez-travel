@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="3dip">
+
+    <ImageView
+        android:id="@+id/vehicleImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       />
+
+    <TextView
+        android:id="@+id/vehicle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="3dip"
+        android:layout_marginTop="2dip"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/vehicleImage"
+        android:layout_marginLeft="5dip"
+        />
+
+    <TextView
+        android:id="@+id/sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/vehicle"
+        android:layout_marginLeft="5dip"
+        android:layout_toRightOf="@+id/vehicleImage"
+        android:padding="2dip" />
+</RelativeLayout>

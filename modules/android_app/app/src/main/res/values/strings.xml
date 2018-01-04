@@ -43,9 +43,6 @@
     <string name="enter_license_number">License Number</string>
     <string name="action_sign_up1_driver">Register </string>
 
-
-
-
     <!-- Strings related to passenger placehire -->
     <string name="hire_origin">Hire Place</string>
     <string name="hire_destination">Destination Place</string>
@@ -64,6 +61,17 @@
     <string name="driver">Driver</string>
     <string name="customer">Customer</string>
     <string name="start_as_a">Start As a</string>
+
+    <string name="country_prompt">Choose a vehicle</string>
+
+
+    <string-array name="vehicle_arrays">
+        <item>car</item>
+        <item>budget</item>
+        <item>hybrid</item>
+        <item>van</item>
+
+    </string-array>
 
 
 </resources>

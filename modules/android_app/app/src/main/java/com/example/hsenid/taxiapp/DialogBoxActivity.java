@@ -25,7 +25,7 @@ public class DialogBoxActivity extends AppCompatDialogFragment {
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(getActivity());
 
         LayoutInflater inflater= getActivity().getLayoutInflater();
-        View view= inflater.inflate(R.layout.dialog_login, null);
+        View view= inflater.inflate(R.layout.dialog_login,null);
 
         mBuilder.setView(view)
                 .setTitle("Update Password")
