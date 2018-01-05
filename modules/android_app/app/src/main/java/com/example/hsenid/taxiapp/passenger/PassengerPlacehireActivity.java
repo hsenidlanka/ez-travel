@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hsenid.taxiapp.HirePlace;
 import com.example.hsenid.taxiapp.R;
 import com.example.hsenid.taxiapp.TripCostCalculate;
 import com.google.android.gms.common.ConnectionResult;
@@ -38,6 +39,7 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
     private static final String TAG = "PassengerPlacehire";
 
     private TripCostCalculate tripCost = null;
+    private HirePlace placeHireTask = null;
 
     GoogleMap mGoogleMap;
     private GoogleApiClient mClient;
@@ -47,6 +49,8 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
     private String travelDistance;
     private String selectedItemText;
     private String tripCostCal;
+    private String formattedDate;
+    private String formattedTime;
 
 
     private Spinner vehicleTypeSpinner;
@@ -63,7 +67,7 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             setContentView(R.layout.activity_passenger_placehire);
             initMap();
 
-            dateTime =(TextView) findViewById(R.id.dateTime);
+           // dateTime =(TextView) findViewById(R.id.dateTime);
 
 
         }else {
@@ -141,8 +145,8 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("HH:mm");
 
-       final String formattedDate1 = df1.format(c.getTime()); //current date
-        final String formattedDate2 = df2.format(c.getTime()); //current time
+        formattedDate = df1.format(c.getTime()); //current date
+        formattedTime = df2.format(c.getTime()); //current time
 
         vehicleTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -173,19 +177,29 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             @Override
             public void onClick(View view) {
                 costCalculate();
+                placeHire();
+
 
                /* Intent registrationIntent = new Intent(DriverActivity.this, RegistrationDriverActivity.class);
                 DriverActivity.this.startActivity(registrationIntent);*/
             }
         });
-
-
     }
 
     private void costCalculate(){
         tripCost= new TripCostCalculate(this,travelDistance,selectedItemText);
         tripCost.execute();
     }
+
+    private void placeHire(){
+        placeHireTask=new HirePlace(this,Double.toString(latitude),Double.toString(logitude)
+                ,selectedItemText,formattedDate,formattedTime);
+        placeHireTask.execute();
+    }
+
+
+
+
 
     public String ReturnThreadResult(String result)
     {
