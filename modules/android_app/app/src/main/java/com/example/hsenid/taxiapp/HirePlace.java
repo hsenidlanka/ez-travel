@@ -117,6 +117,5 @@ public class HirePlace extends AsyncTask<Void, Void, Boolean> {
             Toast.makeText(context, "Hire Place Failed", Toast.LENGTH_SHORT).show();
 
         }
-
     }
 }
