@@ -34,4 +34,6 @@ public interface HireRepository {
     List<CustomerHireRecord> getCustomerHireDetails(String customer_email);
 
     List<DriverHireRecord> getDriverHireDetails(String driver_email);
+
+    int getLatestHireId(String customer_email);
 }

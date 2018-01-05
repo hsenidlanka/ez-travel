@@ -9,7 +9,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 //
-@ComponentScan({"eztravel.controllers", "eztravel.model", "eztravel.core", "corelogic.domain", "corelogic.config", "corelogic.repository"})
+@ComponentScan({"eztravel.controllers", "eztravel.model", "eztravel.core", "corelogic.domain", "corelogic.config", "corelogic.repository", "corelogic.notifications"})
 public class CoreServerRunner {
 
     /**

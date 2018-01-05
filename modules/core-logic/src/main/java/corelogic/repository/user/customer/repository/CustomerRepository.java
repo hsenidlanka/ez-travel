@@ -28,12 +28,14 @@ public interface CustomerRepository {
 
     boolean updateContactDetails(String email, String firstName, String lastName, String contactNumber);
 
-    boolean banCustomer(int customer_id);
+    boolean banCustomer(String customer_email);
 
     boolean isCustomerDeleted(String email, String password);
 
     boolean isCustomerInDatabase(String email);
 
     int countOfUnbanCustomer();
+
+    String sendCustomerEmail(int customer_id);
 
 }

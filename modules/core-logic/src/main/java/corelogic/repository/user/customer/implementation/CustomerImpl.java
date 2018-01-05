@@ -165,10 +165,10 @@ public class CustomerImpl implements CustomerRepository {
      * @return
      */
     @Override
-    public boolean banCustomer(int customer_id) {
-        String sqlForBanningCustomer = "UPDATE customer set user_status = 0 where customer_id = ?";
+    public boolean banCustomer(String customer_email) {
+        String sqlForBanningCustomer = "UPDATE customer set user_status = 0 where email = ?";
 
-        Object[] args = new Object[]{customer_id};
+        Object[] args = new Object[]{customer_email};
         boolean isBansucces = (jdbcTemplate.update(sqlForBanningCustomer, args) == 1);
 
         return isBansucces;
@@ -215,6 +215,20 @@ public class CustomerImpl implements CustomerRepository {
         int count = jdbcTemplate.queryForObject(sqlForUnbanCustomers, Integer.class);
 
         return count;
+    }
+
+    @Override
+    public String sendCustomerEmail(int customer_id) {
+        String sqlForCustomerEmail = "SELECT email FROM customer WHERE customer_id=?";
+        Object[] args = new Object[]{customer_id};
+        String customer_email;
+        try {
+            customer_email = jdbcTemplate.queryForObject(sqlForCustomerEmail, args, String.class);
+            return customer_email;
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+        }
+        return "";
     }
 
 }

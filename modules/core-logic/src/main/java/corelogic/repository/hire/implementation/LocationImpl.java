@@ -54,7 +54,7 @@ public class LocationImpl implements LocationRepository {
             String sqlForGetDriverId = "SELECT driver_id FROM driver WHERE email = ?";
             Object[] args = new Object[]{email};
 
-            String driverId = jdbcTemplate.queryForObject(sqlForGetDriverId, new Object[]{email}, String.class);
+            String driverId = jdbcTemplate.queryForObject(sqlForGetDriverId, args, String.class);
 
             String sqlForUpdateDriverLocation = "UPDATE driver_current_location set longitude = ?,latitude = ?, update_time = NOW() WHERE driver_id = ?";
 

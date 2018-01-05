@@ -3,13 +3,17 @@ package eztravel.controllers.hire;
 import corelogic.domain.hire.CustomerHireRecord;
 import corelogic.domain.hire.DriverHireRecord;
 import corelogic.domain.hire.IntialHireModel;
+import corelogic.notifications.AndroidPushNotificationsService;
 import corelogic.repository.hire.implementation.HireImpl;
+import corelogic.repository.hire.implementation.LocationImpl;
 import eztravel.model.hire.*;
 import eztravel.model.reply.hire.ConfirmHireReplyModel;
 import eztravel.model.reply.hire.DriverHireRecordsReplyModel;
 import eztravel.model.reply.hire.HireCostCalculateReplyModel;
 import eztravel.model.reply.hire.InitialHirePlaceReplyModel;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * This Controller is responsible for Hire related calculations
@@ -39,7 +45,13 @@ public class HireController {
     @Autowired
     HireImpl hireImpl;
 
+    @Autowired
+    LocationImpl locationImpl;
 
+    @Autowired
+    AndroidPushNotificationsService androidPushNotificationsService;
+
+    private final String TOPIC = "EzTravelHirePush";
     /**
      * This controller method is responsible for cost of trip calculation.
      *
@@ -78,17 +90,48 @@ public class HireController {
                 Date.valueOf(model.getDate()),
                 model.getTime());
 
-
         InitialHirePlaceReplyModel replyModel = new InitialHirePlaceReplyModel();
 
-        if (replyOfInitialHirePlace.getIsHirePlaceSucces()){
-            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
-            replyModel.setRequestStatus("success");
-            replyModel.setMessage("Intial hire place success");
-            replyModel.setHireData(replyOfInitialHirePlace);
+        try {
 
-            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+            JSONObject body = new JSONObject();
+            body.put("to", "/topics/" + TOPIC);
+            body.put("priority", "high");
+
+            JSONObject notification = new JSONObject();
+            notification.put("title", "Ez-Travel - New Hire!!!");
+
+            notification.put("body", "Start - " + locationImpl.giveAddressOfGivenCordinates(Double.parseDouble(model.getStart_location_latitude())
+                    , Double.parseDouble(model.getStart_location_longitude())));
+
+            JSONObject data = new JSONObject();
+            data.put("Key-1", "JSA Data 1");
+            data.put("Key-2", "JSA Data 2");
+
+            body.put("notification", notification);
+            body.put("data", data);
+            HttpEntity<String> request = new HttpEntity<>(body.toString());
+
+            CompletableFuture<String> pushNotification = androidPushNotificationsService.send(request);
+            CompletableFuture.allOf(pushNotification).join();
+            String firebaseResponse = pushNotification.get();
+
+            if (replyOfInitialHirePlace.getIsHirePlaceSucces()) {
+                replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+                replyModel.setRequestStatus("success");
+                replyModel.setMessage("Intial hire place success");
+                replyModel.setHireData(replyOfInitialHirePlace);
+
+                return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+            }
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
         }
+
+
 
         replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
         replyModel.setRequestStatus("failed");

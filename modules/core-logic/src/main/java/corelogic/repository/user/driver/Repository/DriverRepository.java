@@ -33,4 +33,6 @@ public interface DriverRepository {
     String sendDriverName(int driver_id);
 
     int countOfVerifiedDrivers();
+
+    String sendDriverEmail(int driver_id);
 }

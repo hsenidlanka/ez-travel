@@ -252,4 +252,18 @@ public class DriverImpl implements DriverRepository {
 
         return count;
     }
+
+    @Override
+    public String sendDriverEmail(int driver_id) {
+        String sqlForDriverEmail = "SELECT email FROM driver WHERE driver_id=?";
+        Object[] args = new Object[]{driver_id};
+        String driver_email;
+        try {
+            driver_email = jdbcTemplate.queryForObject(sqlForDriverEmail, args, String.class);
+            return driver_email;
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+        }
+        return "";
+    }
 }
