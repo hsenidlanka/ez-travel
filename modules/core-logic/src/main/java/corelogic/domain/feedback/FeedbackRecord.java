@@ -8,7 +8,25 @@ public class FeedbackRecord {
     private String description;
     private int customer_id;
     private int driver_id;
+    private String driver_email;
+    private String customer_email;
     private int hire_id;
+
+    public String getCustomer_email() {
+        return customer_email;
+    }
+
+    public void setCustomer_email(String customer_email) {
+        this.customer_email = customer_email;
+    }
+
+    public String getDriver_email() {
+        return driver_email;
+    }
+
+    public void setDriver_email(String driver_email) {
+        this.driver_email = driver_email;
+    }
 
     public int getFeedback_id() {
         return feedback_id;

@@ -2,6 +2,8 @@ package corelogic.repository.feedback.implementation;
 
 import corelogic.domain.feedback.FeedbackRecord;
 import corelogic.repository.feedback.Repository.FeedbackRepository;
+import corelogic.repository.user.customer.implementation.CustomerImpl;
+import corelogic.repository.user.driver.Implementation.DriverImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -24,6 +26,12 @@ public class FeedbackImpl implements FeedbackRepository {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private DriverImpl driverImpl;
+
+    @Autowired
+    private CustomerImpl customerImpl;
 
     @Autowired
     private PlatformTransactionManager transactionManager;
@@ -176,12 +184,16 @@ public class FeedbackImpl implements FeedbackRepository {
             for (Map row : rows) {
                 FeedbackRecord record = new FeedbackRecord();
 
+                int driver_id = (Integer) row.get("driver_id");
+                int customer_id = (Integer) row.get("customer_id");
+
                 record.setFeedback_id((Integer) row.get("feedback_id"));
                 record.setDescription((String) row.get("description"));
-                record.setCustomer_id((Integer) row.get("customer_id"));
-                record.setDriver_id((Integer) row.get("driver_id"));
+                record.setCustomer_id(customer_id);
+                record.setDriver_id(driver_id);
                 record.setHire_id((Integer) row.get("hire_id"));
-
+                record.setDriver_email(driverImpl.sendDriverEmail(driver_id));
+                record.setCustomer_email(customerImpl.sendCustomerEmail(customer_id));
                 feedbackRecords.add(record);
             }
 

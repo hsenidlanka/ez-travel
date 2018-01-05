@@ -73,6 +73,22 @@ public class HireImpl implements HireRepository {
         return totalCost;
     }
 
+    @Override
+    public int getLatestHireId(String customer_email) {
+        String sqlForGetCustomerId = "SELECT customer_id FROM customer WHERE email = ?";
+        Object[] args = new Object[]{customer_email};
+
+        String customer_id = jdbcTemplate.queryForObject(sqlForGetCustomerId, args, String.class);
+
+        String sqlForGetHireId = "SELECT hire_id FROM hire WHERE customer_id = ? ORDER BY hire_id DESC LIMIT 1 ";
+        Object[] argsForHireIdGet = new Object[]{Integer.parseInt(customer_id)};
+        int hire_id = jdbcTemplate.queryForObject(sqlForGetHireId, argsForHireIdGet, Integer.class);
+
+        return hire_id;
+    }
+
+
+
     /**
      * This method is responsible for placing initial hire request
      *
@@ -110,7 +126,7 @@ public class HireImpl implements HireRepository {
             Object[] argsForPlaceHire = new Object[]{start_location_latitude, start_location_longitude, vehicle_type, date, time, Integer.parseInt(customer_id)};
             jdbcTemplate.update(sqlForIntialHirePlace, argsForPlaceHire);
 
-            String sqlForGetHireId = "SELECT hire_id FROM hire WHERE customer_id = ? AND date = ? LIMIT 1 ";
+            String sqlForGetHireId = "SELECT hire_id FROM hire WHERE customer_id = ? AND date = ? ORDER BY hire_id DESC LIMIT 1 ";
             Object[] argsForHireIdGet = new Object[]{Integer.parseInt(customer_id), date};
             String hire_id = jdbcTemplate.queryForObject(sqlForGetHireId, argsForHireIdGet, String.class);
 
@@ -263,4 +279,6 @@ public class HireImpl implements HireRepository {
 
         return hireRecords;
     }
+
+
 }
