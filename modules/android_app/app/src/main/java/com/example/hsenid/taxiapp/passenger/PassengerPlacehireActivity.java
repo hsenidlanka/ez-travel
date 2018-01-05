@@ -61,15 +61,12 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         if(googleServicesAvailable()){
             Toast.makeText(this, "Perfect !!!", Toast.LENGTH_LONG).show();
             setContentView(R.layout.activity_passenger_placehire);
             initMap();
 
            // dateTime =(TextView) findViewById(R.id.dateTime);
-
-
         }else {
             Toast.makeText(this, "Sorryyyyy !!!", Toast.LENGTH_LONG).show();
 
@@ -136,11 +133,9 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
         });
 
         destinationPlace.setFilter(typeFilter);
-
-        //to get the current date and time with the selected vehicle
         vehicleTypeSpinner = (Spinner) findViewById(R.id.vehicleSelectionSpinner);
 
-
+        //to get the current date and time with the selected vehicle
         Calendar c = Calendar.getInstance();
         SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat df2 = new SimpleDateFormat("HH:mm");
@@ -178,10 +173,6 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
             public void onClick(View view) {
                 costCalculate();
                 placeHire();
-
-
-               /* Intent registrationIntent = new Intent(DriverActivity.this, RegistrationDriverActivity.class);
-                DriverActivity.this.startActivity(registrationIntent);*/
             }
         });
     }
@@ -198,24 +189,16 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
     }
 
 
-
-
-
     public String ReturnThreadResult(String result)
     {
-        // TO DO:
-        //dateTime.setText(result);
         tripCostCal =result;
         Log.e(TAG,"The cost :"+result);
         return tripCostCal;
-       // dateTime.setText(result);
     }
-
 
     private void initMap(){
         MapFragment mapFragment =(MapFragment) getFragmentManager().findFragmentById(R.id.mapFragment);
         mapFragment.getMapAsync(this);
-
     }
 
     public boolean googleServicesAvailable(){
@@ -244,12 +227,5 @@ public class PassengerPlacehireActivity extends AppCompatActivity implements OnM
         mGoogleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Colombo"));
         CameraPosition Liberty = CameraPosition.builder().target(sydney).zoom(16).bearing(0).tilt(45).build();
         mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(Liberty));
-
-
-        // Turn on the My Location layer and the related control on the map.
-
-
-        // Get the current location of the device and set the position of the map.
-
     }
 }
