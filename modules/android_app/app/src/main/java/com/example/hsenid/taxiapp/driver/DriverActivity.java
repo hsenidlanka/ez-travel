@@ -408,8 +408,5 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
 
             }
       */
-
-
-
     }
 }
