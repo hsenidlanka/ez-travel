@@ -237,7 +237,7 @@ public class DriverController {
      *
      */
     @PostMapping("/bandriver")
-    public ResponseEntity<DriverBanReplyModel> driverBanReplyModel(@RequestBody DriverBanRequestModel model)
+    public ResponseEntity<DriverBanReplyModel> driverBan(@RequestBody DriverBanRequestModel model)
     {
         DriverBanReplyModel driverBanReplyModel=new DriverBanReplyModel();
         if(driverImpl.banDriver(model.getEmail()))

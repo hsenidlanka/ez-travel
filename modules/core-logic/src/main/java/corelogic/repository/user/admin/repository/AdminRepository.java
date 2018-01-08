@@ -20,5 +20,7 @@ public interface AdminRepository {
 
     boolean confirmDriver(String admin_email, String driver_id);
 
+    boolean isAdminAuthenticated(String admin_email, String admin_password);
+
 
 }

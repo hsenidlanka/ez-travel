@@ -113,4 +113,12 @@ public class AdminImpl implements AdminRepository {
 
         return false;
     }
+
+    @Override
+    public boolean isAdminAuthenticated(String admin_email, String admin_password) {
+        String sqlAdminLogin = "SELECT COUNT(*) FROM admin WHERE email = ? AND password = ? AND admin_status=1";
+        int count = jdbcTemplate.queryForObject(sqlAdminLogin, new Object[]{admin_email, admin_password}, Integer.class);
+        return count > 0;
+    }
+
 }

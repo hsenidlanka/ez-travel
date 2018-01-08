@@ -52,6 +52,28 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<AdminLoginReplyModel> adminLogin(@RequestBody AdminLoginRequestModel model) {
+        boolean isLoginSucced = adminImpl.isAdminAuthenticated(model.getAdmin_email(), model.getAdmin_password());
+        AdminLoginReplyModel replyModel = new AdminLoginReplyModel();
+
+        if (isLoginSucced) {
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Admin authentication success");
+            replyModel.setAnAdmin(true);
+            return ResponseEntity.ok(replyModel);
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.UNAUTHORIZED.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Admin Authentication failed");
+        replyModel.setAnAdmin(false);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+
+    }
+
     @PostMapping("/ban")
     public ResponseEntity<AdminBanReplyModel> banAdmin(@RequestBody AdminBanRequestModel model) {
         boolean isAdminBanned = adminImpl.banAdmin(model.getSuper_admin_email(), model.getAdmin_id());
