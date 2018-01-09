@@ -191,7 +191,8 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-            Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(mEmailView, R.string.permission_rationale,
+                    Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
                         @Override
                         @TargetApi(Build.VERSION_CODES.M)
@@ -435,11 +436,5 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         Boolean updateStatus= null;
 
             updatepwTask.execute();
-            //on successful update
-          /*  if(updateStatus){
-            }else{
-
-            }
-      */
     }
 }

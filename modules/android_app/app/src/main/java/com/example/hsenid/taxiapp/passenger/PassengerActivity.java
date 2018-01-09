@@ -394,7 +394,9 @@ public class PassengerActivity extends AppCompatActivity implements LoaderCallba
                     if (response.getStatusCode() == HttpStatus.OK ) {
                         result= true;
                     }
-                    else  {
+                    else  {/*  Bundle args = new Bundle();
+            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            fragment.setArguments(args);*/
                         result=false;
                     }
                     // result=response.toString();
