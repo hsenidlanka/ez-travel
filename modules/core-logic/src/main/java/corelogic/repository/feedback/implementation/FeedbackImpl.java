@@ -161,7 +161,7 @@ public class FeedbackImpl implements FeedbackRepository {
     }
 
     @Override
-    public List<FeedbackRecord> sendFeedbackRecords(String admin_email) {
+    public List<FeedbackRecord> sendCustomerFeedbackRecords(String admin_email) {
 
         TransactionDefinition def = new DefaultTransactionDefinition();
         TransactionStatus status = transactionManager.getTransaction(def);
@@ -178,6 +178,54 @@ public class FeedbackImpl implements FeedbackRepository {
             }
 
             String sqlForCustomerHireRecords = "SELECT * FROM feedback WHERE feedback_status=0";
+
+            List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlForCustomerHireRecords);
+
+            for (Map row : rows) {
+                FeedbackRecord record = new FeedbackRecord();
+
+                int driver_id = (Integer) row.get("driver_id");
+                int customer_id = (Integer) row.get("customer_id");
+
+                record.setFeedback_id((Integer) row.get("feedback_id"));
+                record.setDescription((String) row.get("description"));
+                record.setCustomer_id(customer_id);
+                record.setDriver_id(driver_id);
+                record.setHire_id((Integer) row.get("hire_id"));
+                record.setDriver_email(driverImpl.sendDriverEmail(driver_id));
+                record.setCustomer_email(customerImpl.sendCustomerEmail(customer_id));
+                feedbackRecords.add(record);
+            }
+
+            transactionManager.commit(status);
+
+            return feedbackRecords;
+
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+            transactionManager.rollback(status);
+        }
+
+        return feedbackRecords;
+    }
+
+    @Override
+    public List<FeedbackRecord> sendDriverFeedbackRecords(String admin_email) {
+        TransactionDefinition def = new DefaultTransactionDefinition();
+        TransactionStatus status = transactionManager.getTransaction(def);
+
+        List<FeedbackRecord> feedbackRecords = new ArrayList<>();
+
+        try {
+            String sqlForGetAdminId = "SELECT admin_id FROM admin WHERE email = ?";
+            Object[] args = new Object[]{admin_email};
+            Integer admin_id = jdbcTemplate.queryForObject(sqlForGetAdminId, args, Integer.class);
+
+            if (admin_id == 0) {
+                throw new Exception("No admin found in that email");
+            }
+
+            String sqlForCustomerHireRecords = "SELECT * FROM driver_feedback WHERE feedback_status=0";
 
             List<Map<String, Object>> rows = jdbcTemplate.queryForList(sqlForCustomerHireRecords);
 

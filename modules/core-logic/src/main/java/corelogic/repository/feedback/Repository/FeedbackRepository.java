@@ -17,5 +17,9 @@ public interface FeedbackRepository {
 
     boolean driverFeedbackReviewed(int feedback_id, String admin_email);
 
-    List<FeedbackRecord> sendFeedbackRecords(String admin_email);
+    List<FeedbackRecord> sendCustomerFeedbackRecords(String admin_email);
+
+    List<FeedbackRecord> sendDriverFeedbackRecords(String admin_email);
+
+
 }

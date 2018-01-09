@@ -84,6 +84,8 @@ public class LocationImpl implements LocationRepository {
                 .append(googleApiKey)
                 .toString();
 
+//        System.out.println(fullGoogleMapApiUrl);
+
         RestTemplate restTemplate = new RestTemplate();
 
 //        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();

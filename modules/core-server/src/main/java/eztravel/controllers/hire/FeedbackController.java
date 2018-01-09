@@ -84,17 +84,17 @@ public class FeedbackController {
 
     }
 
-    @PostMapping("/sendfeedbacks")
-    public ResponseEntity<FeedbackRecordsReplyModel> sendFeedbackRecords(@RequestBody FeedbackRecordsRequestModel model) {
+    @PostMapping("/sendcustomerfeedbacks")
+    public ResponseEntity<FeedbackRecordsReplyModel> sendCustomerFeedbackRecords(@RequestBody FeedbackRecordsRequestModel model) {
         FeedbackRecordsReplyModel replyModel = new FeedbackRecordsReplyModel();
 
         try {
-            List<FeedbackRecord> records = feedbackImpl.sendFeedbackRecords(model.getAdmin_email());
+            List<FeedbackRecord> records = feedbackImpl.sendCustomerFeedbackRecords(model.getAdmin_email());
 
             if (records.isEmpty()) {
                 replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
                 replyModel.setRequestStatus("failed");
-                replyModel.setMessage("feedback records send failed");
+                replyModel.setMessage("Customer feedback records send failed");
                 replyModel.setFeedbackRecords(records);
 
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
@@ -102,7 +102,7 @@ public class FeedbackController {
 
             replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
             replyModel.setRequestStatus("success");
-            replyModel.setMessage("feedback records send successful");
+            replyModel.setMessage("Customer feedback records send successful");
             replyModel.setFeedbackRecords(records);
 
             return ResponseEntity.status(HttpStatus.OK).body(replyModel);
@@ -114,7 +114,43 @@ public class FeedbackController {
 
         replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
         replyModel.setRequestStatus("failed");
-        replyModel.setMessage("feedback records send failed");
+        replyModel.setMessage("Customer feedback records send failed");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+    }
+
+
+    @PostMapping("/senddriverfeedbacks")
+    public ResponseEntity<FeedbackRecordsReplyModel> sendDriverFeedbackRecords(@RequestBody FeedbackRecordsRequestModel model) {
+        FeedbackRecordsReplyModel replyModel = new FeedbackRecordsReplyModel();
+
+        try {
+            List<FeedbackRecord> records = feedbackImpl.sendDriverFeedbackRecords(model.getAdmin_email());
+
+            if (records.isEmpty()) {
+                replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+                replyModel.setRequestStatus("failed");
+                replyModel.setMessage("Driver feedback records send failed");
+                replyModel.setFeedbackRecords(records);
+
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
+            }
+
+            replyModel.setHttpStatusCode(HttpStatus.NO_CONTENT.value());
+            replyModel.setRequestStatus("success");
+            replyModel.setMessage("Driver feedback records send successful");
+            replyModel.setFeedbackRecords(records);
+
+            return ResponseEntity.status(HttpStatus.OK).body(replyModel);
+
+        } catch (Exception e) {
+            System.out.println("Reason => " + e.getMessage());
+
+        }
+
+        replyModel.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+        replyModel.setRequestStatus("failed");
+        replyModel.setMessage("Driver feedback records send failed");
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(replyModel);
     }
