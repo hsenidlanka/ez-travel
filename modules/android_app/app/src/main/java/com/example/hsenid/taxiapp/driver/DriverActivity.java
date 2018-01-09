@@ -2,9 +2,11 @@ package com.example.hsenid.taxiapp.driver;
 
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,7 +30,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hsenid.taxiapp.DialogBoxActivity;
-import com.example.hsenid.taxiapp.MainActivity;
 import com.example.hsenid.taxiapp.PasswordUpdate;
 import com.example.hsenid.taxiapp.R;
 
@@ -84,6 +85,12 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
     private View mLoginFormView;
     Button driverRegisterAccessButton;
 
+    //shared preference references
+    SharedPreferences sharedpreferences;
+    public static final String mypreference = "loginpref";
+    public static final String Password = "pwKey";
+    public static final String Email = "emailKey";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +101,7 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password_driver);
+
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -105,12 +113,25 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             }
         });
 
+        //initialize shared preferences
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
+        if (sharedpreferences.contains(Password)) {
+            mPasswordView.setText(sharedpreferences.getString(Password, ""));
+        }
+        if (sharedpreferences.contains(Email)) {
+            mEmailView.setText(sharedpreferences.getString(Email, ""));
+        }
+
+        //save in the shared preference
+
         //on the click of the sign-in button
         Button mEmailSignInButton = (Button) findViewById(R.id.sign_in_button_driver);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+                Save(view);
             }
         });
 
@@ -136,6 +157,18 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
         mLoginFormView = findViewById(R.id.login_form_driver);
     }
 
+
+    public void Save(View view) {
+       String n = mPasswordView.getText().toString();
+        String e = mEmailView.getText().toString();
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+        editor.putString(Password, n);
+        editor.putString(Email, e);
+        editor.commit();
+
+        String s=sharedpreferences.getString(Password,null);
+        Log.e(TAG,"Password Shared Prefs"+s);
+    }
 
     public void openDialog(){
         DialogBoxActivity pwUpdateDialogDriver = new DialogBoxActivity();
@@ -373,7 +406,7 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
                     return pieces[1].equals(mPassword);
                 }
             }
-            return true;
+            return result;
         }
 
         @Override
@@ -381,7 +414,7 @@ public class DriverActivity extends AppCompatActivity implements LoaderCallbacks
             mAuthTask = null;
 
             if (success) {
-                Intent driverLoginIntent = new Intent(DriverActivity.this, MainActivity.class);
+                Intent driverLoginIntent = new Intent(DriverActivity.this, DriverHomePageActivity.class);
                 DriverActivity.this.startActivity(driverLoginIntent);
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
