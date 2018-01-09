@@ -2,7 +2,10 @@ package eztravel.controllers;
 
 import eztravel.model.admin.AdminSignUp;
 import eztravel.model.admin.AdminSignUpResponse;
+import eztravel.model.admin.BanDriverResponse;
+import eztravel.model.admin.FeedbackReviewResponse;
 import eztravel.model.customer.SignUp;
+import eztravel.model.feedback.FeedbackRecord;
 import eztravel.util.EncryptPassword;
 import eztravel.util.ServerResponseErrorHandler;
 import org.json.simple.JSONObject;
@@ -10,10 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -88,5 +88,48 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/banDriver")
+    @ResponseBody
+    public String banAdmin(FeedbackRecord request) {
+        json = new JSONObject();
+        template = new RestTemplate();
+        template.setErrorHandler(new ServerResponseErrorHandler());
+        String url = baseUrl + "driver/bandriver";
+        BanDriverResponse response;
+        json.put("email", "vidu@vidya.csom");
 
+        try {
+            response = template.postForObject(url, json, BanDriverResponse.class);
+            if (response.getRequestStatus().equals("Success")) {
+                return "Driver banded successfully";
+            }
+            return "unable to ban driver";
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return "Unable to ban driver";
+        }
+    }
+
+    @PostMapping("/reviewCustomerFeedback")
+    @ResponseBody
+    public String reviewCustomerFeedback(FeedbackRecord request, HttpSession session) {
+        json = new JSONObject();
+        template = new RestTemplate();
+        template.setErrorHandler(new ServerResponseErrorHandler());
+        String url = baseUrl + "admin/reviewcustomerfeedback";
+        FeedbackReviewResponse response;
+        json.put("feedback_id", request.getFeedback_id());
+        json.put("admin_email", "superadmin@mail.com");
+
+        try {
+            response = template.postForObject(url, json, FeedbackReviewResponse.class);
+            if (response.getRequestStatus().equals("success")) {
+                return "Customer feedback reviewed successfully";
+            }
+            return "unable to review feedback";
+        } catch (RestClientException e) {
+            e.printStackTrace();
+            return "Unable to review feedback";
+        }
+    }
 }

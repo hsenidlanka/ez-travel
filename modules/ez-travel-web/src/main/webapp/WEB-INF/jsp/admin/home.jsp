@@ -11,6 +11,7 @@
 <script src="js/bootstrap.min.js"></script>
 <script src="js/chart.js"></script>
 <script src="js/viewFeedback.js"></script>
+<script src="js/customerFeedback.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.bundle.js"></script>
 
 <body>
@@ -81,9 +82,39 @@
                                           id="feedback_description">${feedback.description}
                                         <div style="float: right;">
                                             <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                    data-target="#feedback_popup" style="padding: 0px"><i
+                                                    data-target="#ban_popup" style="padding: 0px"><i
                                                     class="fa fa-ban fa-fw"></i>
                                             </button>
+                                        </div>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="ban_popup" role="dialog">
+                                            <div class="modal-dialog">
+                                                            <!-- Modal content-->
+                                                <div class="modal-content">
+
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close"
+                                                                data-dismiss="modal">&times;</button>
+                                                        <h4 class="modal-title">Are you sure you want to do this?</h4>
+                                                        <div id="feedback_status"
+                                                             style="display: none; color: #f00;"></div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p>Please confirm that weather this driver ban or not? Chack his past records before ban.</p>
+                                                    </div>
+                                                    <div class="form-modal">
+                                                            <div class="modal-footer">
+                                                                <button class="btn btn-danger" value="Ban Now"
+                                                                        id="btnBanNow">Ban</button>
+                                                                <button class="btn btn-primary" value="Ban Now"
+                                                                        id="btnReview">Mark as reviewed</button>
+                                                                <button class="btn btn" value="Not Now" id="btnCancel"
+                                                                        data-dismiss="modal">Cancel</button>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </span>
                                     <input type="hidden" id="feedback_id" value="${feedback.feedback_id}">
